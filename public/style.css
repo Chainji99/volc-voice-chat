@@ -141,7 +141,7 @@ html, body {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(14, 19, 28, 0.85);
+  background: rgba(14, 19, 28, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -215,13 +215,36 @@ input[type="range"] {
   }
 }
 
-/* Responsive adjustments for Mobile & iPad */
-@media (max-width: 768px) {
+/* Mobile Portrait Layout Fix for Gate (%) Slider */
+@media screen and (max-width: 640px) {
   .floating-dock {
-    bottom: 12px;
-    width: calc(100% - 24px);
+    bottom: 10px;
+    width: calc(100% - 20px);
     border-radius: 24px;
     padding: 10px 14px;
+  }
+
+  .dock-section-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  #mic-visualizer-container {
+    width: 130px !important;
+    min-width: 110px;
+  }
+
+  .dock-section-bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   #chat-sidebar {

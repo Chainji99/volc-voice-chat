@@ -158,61 +158,35 @@
   </div>
 
   <!-- ==================== FLOATING PARALLEL CONTROL DOCK ==================== -->
-  <div class="floating-dock flex items-center justify-between gap-4 md:gap-8">
+  <div class="floating-dock flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 md:gap-8">
     
-    <!-- Left User Info Badge -->
-    <div class="flex items-center gap-3" id="dock-extended-info">
-      <div class="relative avatar-container">
-        <div id="self-avatar-ring" class="avatar-ring"></div>
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center font-bold text-white shadow-lg text-sm" id="self-avatar-text">
-          G
+    <!-- Top Row on Mobile Portrait: User Avatar + Gate Bar -->
+    <div class="dock-section-top flex items-center justify-between w-full sm:w-auto gap-3">
+      <!-- Left User Info Badge -->
+      <div class="flex items-center gap-2.5" id="dock-extended-info">
+        <div class="relative avatar-container">
+          <div id="self-avatar-ring" class="avatar-ring"></div>
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center font-bold text-white shadow-lg text-xs sm:text-sm" id="self-avatar-text">
+            G
+          </div>
+        </div>
+        <div>
+          <div class="text-xs font-bold text-white leading-tight flex items-center gap-1.5">
+            <span id="self-username-display">Gamer</span>
+            <span id="self-status-badge" class="text-[9px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-1.5 py-0.2 rounded-full">VAD</span>
+          </div>
+          <div class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5">
+            <i class="fa-solid fa-microphone text-[9px]" id="self-mic-icon-indicator"></i>
+            <span id="self-mic-status-text">พร้อมใช้งาน</span>
+          </div>
         </div>
       </div>
-      <div class="hidden sm:block">
-        <div class="text-xs font-bold text-white leading-tight flex items-center gap-2">
-          <span id="self-username-display">Gamer</span>
-          <span id="self-status-badge" class="text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-1.5 py-0.2 rounded-full">VAD</span>
-        </div>
-        <div class="text-[10px] text-gray-400 flex items-center gap-1.5 mt-0.5">
-          <i class="fa-solid fa-microphone text-[10px]" id="self-mic-icon-indicator"></i>
-          <span id="self-mic-status-text">พร้อมใช้งาน</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Central Audio Action Controls -->
-    <div class="flex items-center gap-3">
-      <!-- Mute Mic Toggle Button -->
-      <button id="toggle-mic-btn" data-tooltip="เปิด/ปิด ไมโครโฟน" 
-        class="w-12 h-12 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-lg transition-all shadow-[0_0_20px_rgba(0,242,254,0.2)]">
-        <i class="fa-solid fa-microphone"></i>
-      </button>
-
-      <!-- Deafen Headphones Toggle Button -->
-      <button id="toggle-deafen-btn" data-tooltip="ปิดเสียงหูฟังทั้งหมด" 
-        class="w-12 h-12 rounded-full bg-[#161d2a] hover:bg-[#20293a] border border-gray-700 text-gray-300 flex items-center justify-center text-lg transition-all">
-        <i class="fa-solid fa-headphones"></i>
-      </button>
-
-      <!-- PTT Trigger Button -->
-      <button id="ptt-trigger-btn" class="hidden px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all active:scale-95 shadow-[0_0_20px_rgba(0,242,254,0.3)]">
-        <i class="fa-solid fa-hand-pointer mr-1.5"></i> กดเพื่อพูด (<span id="ptt-key-display">SPACE</span>)
-      </button>
-    </div>
-
-    <!-- Right Mic Meter & Sensitivity -->
-    <div class="flex items-center gap-3 justify-end">
-      <!-- Voice Mode Selector -->
-      <select id="voice-mode-select" class="bg-[#141b27] border border-gray-700/80 rounded-full px-3 py-1.5 text-xs text-cyan-300 focus:outline-none">
-        <option value="vad">VAD Mode</option>
-        <option value="ptt">PTT Mode</option>
-      </select>
-
-      <!-- Live Mic Level Visualizer (Gate) -->
-      <div class="w-20 sm:w-28 flex flex-col gap-1" id="mic-visualizer-container">
+      <!-- Live Mic Level Visualizer (Gate %) -->
+      <div class="w-32 sm:w-28 flex flex-col gap-1" id="mic-visualizer-container">
         <div class="flex justify-between items-center text-[10px] text-gray-400">
-          <span>Gate</span>
-          <span id="sensitivity-value-display" class="font-mono text-cyan-300">25%</span>
+          <span class="font-bold text-cyan-400">Gate</span>
+          <span id="sensitivity-value-display" class="font-mono text-cyan-300 font-bold">25%</span>
         </div>
         <div class="mic-meter-bar">
           <div id="mic-meter-fill" class="mic-meter-fill"></div>
@@ -220,6 +194,35 @@
         </div>
         <input type="range" id="sensitivity-slider" min="0" max="100" value="25" class="w-full h-1 mt-0.5">
       </div>
+    </div>
+
+    <!-- Bottom Row on Mobile Portrait: Audio Control Buttons & Voice Mode Select -->
+    <div class="dock-section-bottom flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2.5">
+      <!-- Central Audio Action Controls -->
+      <div class="flex items-center gap-2.5">
+        <!-- Mute Mic Toggle Button -->
+        <button id="toggle-mic-btn" data-tooltip="เปิด/ปิด ไมโครโฟน" 
+          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-base sm:text-lg transition-all shadow-[0_0_20px_rgba(0,242,254,0.2)]">
+          <i class="fa-solid fa-microphone"></i>
+        </button>
+
+        <!-- Deafen Headphones Toggle Button -->
+        <button id="toggle-deafen-btn" data-tooltip="ปิดเสียงหูฟังทั้งหมด" 
+          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#161d2a] hover:bg-[#20293a] border border-gray-700 text-gray-300 flex items-center justify-center text-base sm:text-lg transition-all">
+          <i class="fa-solid fa-headphones"></i>
+        </button>
+
+        <!-- PTT Trigger Button -->
+        <button id="ptt-trigger-btn" class="hidden px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all active:scale-95 shadow-[0_0_20px_rgba(0,242,254,0.3)]">
+          <i class="fa-solid fa-hand-pointer mr-1"></i> กดเพื่อพูด (<span id="ptt-key-display">SPACE</span>)
+        </button>
+      </div>
+
+      <!-- Voice Mode Selector -->
+      <select id="voice-mode-select" class="bg-[#141b27] border border-gray-700/80 rounded-full px-3 py-1.5 text-xs text-cyan-300 focus:outline-none">
+        <option value="vad">VAD Mode</option>
+        <option value="ptt">PTT Mode</option>
+      </select>
     </div>
   </div>
 
