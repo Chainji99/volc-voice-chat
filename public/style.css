@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap');
+
+:root {
+  --bg-dark: #0b0e14;
+  --bg-card: #151a23;
+  --bg-card-hover: #1c2330;
+  --bg-panel: #11151c;
+  --accent-cyan: #00f2fe;
+  --accent-blue: #4facfe;
+  --accent-purple: #7928ca;
+  --accent-green: #00dfa2;
+  --accent-red: #ff4b5c;
+  --accent-warning: #ffb703;
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --glow-cyan: 0 0 15px rgba(0, 242, 254, 0.4);
+  --glow-green: 0 0 15px rgba(0, 223, 162, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Kanit', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Glassmorphic elements */
+.glass-panel {
+  background: rgba(21, 26, 35, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
+}
+
+/* Glowing text and borders */
+.glow-text {
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+}
+.glow-border {
+  box-shadow: var(--glow-cyan);
+}
+
+/* User Card Avatar Visualizer Ring */
+.avatar-container {
+  position: relative;
+}
+
+.avatar-ring {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.speaking .avatar-ring {
+  border-color: var(--accent-green);
+  box-shadow: var(--glow-green);
+  animation: pulse-ring 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Range input sliders */
+input[type="range"] {
+  accent-color: var(--accent-cyan);
+  background: #222938;
+  border-radius: 4px;
+  height: 6px;
+}
+
+/* Audio visualizer meter */
+.mic-meter-bar {
+  height: 8px;
+  background: #1c2330;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mic-meter-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4facfe 0%, #00dfa2 70%, #ff4b5c 100%);
+  transition: width 0.05s ease-out;
+}
+
+.mic-threshold-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--accent-warning);
+  box-shadow: 0 0 5px var(--accent-warning);
+  z-index: 2;
+  transform: translateX(-50%);
+}
+
+/* Tooltips */
+[data-tooltip] {
+  position: relative;
+}
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1c2330;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  border: 1px solid var(--border-color);
+  z-index: 50;
+}
+
+/* Mini mode overlay styling */
+body.mini-mode #top-nav,
+body.mini-mode #chat-sidebar,
+body.mini-mode #dock-extended-info {
+  display: none !important;
+}
+
+body.mini-mode #main-content {
+  padding: 8px !important;
+}
+
+body.mini-mode .grid-participants {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+  gap: 8px !important;
+}
