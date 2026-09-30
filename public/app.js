@@ -358,7 +358,13 @@ function setSpeakingState(isSpeaking) {
   }
 
   if (audioTrack) {
-    audioTrack.enabled = isSpeaking;
+    if (voiceMode === 'vad') {
+      // In VAD mode, mic track remains enabled so audio transmits continuously without truncation
+      audioTrack.enabled = true;
+    } else {
+      // In PTT mode, mic track enables only when holding key/button
+      audioTrack.enabled = isSpeaking;
+    }
   }
 
   if (isSpeaking) {
@@ -606,8 +612,32 @@ function createPeerConnection(targetSocketId, isInitiator) {
   return pc;
 }
 
+// Autoplay Unlock Handler
+const autoplayBanner = document.getElementById('autoplay-banner');
+
+function unlockAudio() {
+  if (audioContext && audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+  Object.values(peerAudioElements).forEach(audioEl => {
+    if (audioEl.srcObject) {
+      audioEl.play().then(() => {
+        if (autoplayBanner) autoplayBanner.classList.add('hidden');
+      }).catch(err => {
+        console.warn('Autoplay unlock attempt:', err);
+      });
+    }
+  });
+}
+
+window.addEventListener('click', unlockAudio);
+window.addEventListener('touchstart', unlockAudio);
+if (autoplayBanner) {
+  autoplayBanner.addEventListener('click', unlockAudio);
+}
+
 function setupRemoteAudioElement(socketId, stream) {
-  // Container for hidden audio tags
+  // Container for remote audio streams
   const container = document.getElementById('remote-audio-container');
   let audioEl = peerAudioElements[socketId];
 
@@ -615,12 +645,26 @@ function setupRemoteAudioElement(socketId, stream) {
     audioEl = document.createElement('audio');
     audioEl.id = `remote-audio-${socketId}`;
     audioEl.autoplay = true;
+    audioEl.playsInline = true;
+    audioEl.volume = (userStates[socketId] && userStates[socketId].volume !== undefined ? userStates[socketId].volume : 100) / 100;
     audioEl.muted = isDeafened;
     container.appendChild(audioEl);
     peerAudioElements[socketId] = audioEl;
   }
 
   audioEl.srcObject = stream;
+
+  // Explicitly trigger play and handle browser autoplay policy
+  const playPromise = audioEl.play();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      console.log(`[Audio Playing] Remote stream active for ${socketId}`);
+      if (autoplayBanner) autoplayBanner.classList.add('hidden');
+    }).catch(err => {
+      console.warn(`[Autoplay Blocked] Click to enable audio:`, err);
+      if (autoplayBanner) autoplayBanner.classList.remove('hidden');
+    });
+  }
 
   // Route audio to specific speaker device if supported (setSinkId)
   if (selectedSpeakerId && typeof audioEl.setSinkId === 'function') {

@@ -310,8 +310,13 @@
     </div>
   </div>
 
-  <!-- Hidden Remote Audio Streams -->
-  <div id="remote-audio-container" class="hidden"></div>
+  <!-- Autoplay Unlock Notification Banner -->
+  <div id="autoplay-banner" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-gradient-to-r from-amber-400 to-orange-500 text-black px-6 py-3 rounded-full shadow-2xl font-bold text-xs flex items-center gap-2 cursor-pointer hidden animate-bounce">
+    <i class="fa-solid fa-volume-high text-sm"></i> กดปุ่มนี้หรือกดตรงไหนก็ได้บนจอเพื่อเปิดเสียงในเว็บ! (Click to Enable Audio)
+  </div>
+
+  <!-- Remote Audio Streams Container (Off-screen, not hidden/display:none) -->
+  <div id="remote-audio-container" style="position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; overflow: hidden;"></div>
 
   <!-- Socket.io & App JS -->
   <script src="/socket.io/socket.io.js"></script>
