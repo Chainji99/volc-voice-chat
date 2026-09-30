@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#07090e" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Background Circle -->
+  <rect width="512" height="512" rx="128" fill="url(#bg)" />
+  <!-- Outer Glow Ring -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="url(#icon-grad)" stroke-width="12" filter="url(#glow)" opacity="0.6" />
+  <!-- Inner Waveforms -->
+  <g fill="url(#icon-grad)" filter="url(#glow)">
+    <rect x="146" y="206" width="24" height="100" rx="12" />
+    <rect x="196" y="146" width="24" height="220" rx="12" />
+    <rect x="246" y="106" width="24" height="300" rx="12" />
+    <rect x="296" y="166" width="24" height="180" rx="12" />
+    <rect x="346" y="226" width="24" height="60" rx="12" />
+  </g>
+</svg>

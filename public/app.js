@@ -91,6 +91,60 @@ const saveSettingsBtn = document.getElementById('save-settings-btn');
 
 const toggleMiniBtn = document.getElementById('toggle-mini-btn');
 
+// PWA & Android/iOS Screen Wake Lock State
+let deferredPrompt = null;
+let wakeLock = null;
+
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator) {
+      wakeLock = await navigator.wakeLock.request('screen');
+      console.log('[WakeLock] Active: Preventing Android/iOS CPU sleep while playing games');
+    }
+  } catch (err) {
+    console.warn('[WakeLock Error]:', err);
+  }
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (wakeLock !== null && document.visibilityState === 'visible') {
+    requestWakeLock();
+  }
+});
+
+// Service Worker Registration for PWA App
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then((reg) => {
+      console.log('[PWA ServiceWorker] Registered:', reg.scope);
+    }).catch((err) => {
+      console.warn('[PWA ServiceWorker] Registration failed:', err);
+    });
+  });
+}
+
+// Android PWA Install Event Handler
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const pwaInstallBtn = document.getElementById('pwa-install-btn');
+  if (pwaInstallBtn) {
+    pwaInstallBtn.classList.remove('hidden');
+    pwaInstallBtn.addEventListener('click', () => {
+      pwaInstallBtn.classList.add('hidden');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('[PWA] User accepted install prompt');
+          }
+          deferredPrompt = null;
+        });
+      }
+    });
+  }
+});
+
 // =========================================================
 // Initialization
 // =========================================================
@@ -136,6 +190,7 @@ function setupEventListeners() {
     selfAvatarText.textContent = currentUsername.charAt(0).toUpperCase();
 
     await initAudioStream();
+    await requestWakeLock();
     initSocketConnection();
   });
 

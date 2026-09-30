@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="VOLC Voice">
+  <meta name="theme-color" content="#07090e">
   <title>PARALLEL x VOLC - Next-Gen Voice Chat</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,6 +21,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-[#07090e] text-[#f8fafc] flex flex-col h-screen overflow-hidden select-none relative">
+
+  <!-- PWA Install Banner Button for Mobile & iPad -->
+  <button id="pwa-install-btn" class="hidden fixed top-20 right-4 z-40 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-400 via-emerald-400 to-cyan-300 text-black font-bold text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(0,242,254,0.4)] animate-bounce active:scale-95 transition-all">
+    <i class="fa-solid fa-mobile-screen-button"></i> <span>ติดตั้งแอปบนมือถือ/ไอแพด (Install App)</span>
+  </button>
 
   <!-- ==================== JOIN ROOM MODAL ==================== -->
   <div id="join-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-xl p-4">
