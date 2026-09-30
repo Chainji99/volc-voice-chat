@@ -241,8 +241,16 @@ function setupEventListeners() {
     selfUsernameDisplay.textContent = currentUsername;
     selfAvatarText.textContent = currentUsername.charAt(0).toUpperCase();
 
-    await initAudioStream();
-    await requestWakeLock();
+    try {
+      await initAudioStream();
+    } catch (err) {
+      console.warn('Audio stream init warning, joining room in listen mode:', err);
+    }
+
+    try {
+      await requestWakeLock();
+    } catch (err) {}
+
     playDiscordSFX('join');
     initSocketConnection();
   });
@@ -427,6 +435,12 @@ async function initAudioStream() {
       localStream.getTracks().forEach(track => track.stop());
     }
 
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      console.warn('getUserMedia not supported or blocked by non-HTTPS origin');
+      alert('⚠️ หมายเหตุ: บราวเซอร์บล็อกไมค์เนื่องจากไม่ได้รันบน HTTPS แต่คุณยังสามารถเข้าร่วมห้องเพื่อฟังเสียงเพื่อนๆ ได้แบบ Listen-Only!');
+      return false;
+    }
+
     const constraints = {
       audio: {
         deviceId: selectedMicId ? { exact: selectedMicId } : undefined,
@@ -467,9 +481,11 @@ async function initAudioStream() {
     });
 
     updateMicStateDisplay();
+    return true;
   } catch (err) {
     console.error('Failed to get local microphone:', err);
-    alert('ไม่สามารถเข้าถึงไมโครโฟนได้ กรุณาอนุญาตการใช้งานไมค์ในบราวเซอร์');
+    alert('ไม่สามารถเปิดไมค์ได้ (คุณสามารถเข้าร่วมห้องเพื่อฟังเสียงเพื่อนๆ ได้ปกติ)');
+    return false;
   }
 }
 
