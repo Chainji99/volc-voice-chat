@@ -150,6 +150,31 @@ function setupEventListeners() {
   toggleMicBtn.addEventListener('click', toggleMicMute);
   toggleDeafenBtn.addEventListener('click', toggleDeafen);
 
+  // On-screen PTT Touch & Mouse press events for mobile/tablet
+  const startPttPress = (e) => {
+    e.preventDefault();
+    if (voiceMode === 'ptt' && !isPttActive) {
+      isPttActive = true;
+      pttTriggerBtn.classList.add('scale-95', 'brightness-125');
+      setSpeakingState(true);
+    }
+  };
+
+  const endPttPress = (e) => {
+    e.preventDefault();
+    if (voiceMode === 'ptt' && isPttActive) {
+      isPttActive = false;
+      pttTriggerBtn.classList.remove('scale-95', 'brightness-125');
+      setSpeakingState(false);
+    }
+  };
+
+  pttTriggerBtn.addEventListener('mousedown', startPttPress);
+  pttTriggerBtn.addEventListener('mouseup', endPttPress);
+  pttTriggerBtn.addEventListener('mouseleave', endPttPress);
+  pttTriggerBtn.addEventListener('touchstart', startPttPress, { passive: false });
+  pttTriggerBtn.addEventListener('touchend', endPttPress, { passive: false });
+
   voiceModeSelect.addEventListener('change', (e) => {
     voiceMode = e.target.value;
     selfStatusBadge.textContent = voiceMode === 'vad' ? 'VAD' : 'PTT';

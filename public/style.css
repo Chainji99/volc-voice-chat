@@ -22,13 +22,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-body {
+html, body {
   font-family: 'Kanit', sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-primary);
   height: 100vh;
+  height: 100dvh; /* Mobile dynamic viewport fix */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -42,6 +44,7 @@ body {
 .glass-panel {
   background: rgba(21, 26, 35, 0.85);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-color);
 }
 
@@ -106,12 +109,20 @@ body {
   }
 }
 
-/* Range input sliders */
+/* Range input sliders with touch support */
 input[type="range"] {
   accent-color: var(--accent-cyan);
   background: #222938;
   border-radius: 4px;
-  height: 6px;
+  height: 8px;
+  touch-action: manipulation;
+}
+
+/* Prevent iOS input auto-zoom */
+@media screen and (max-width: 768px) {
+  input[type="text"], select {
+    font-size: 16px !important;
+  }
 }
 
 /* Audio visualizer meter */
@@ -141,25 +152,63 @@ input[type="range"] {
   transform: translateX(-50%);
 }
 
-/* Tooltips */
-[data-tooltip] {
-  position: relative;
+/* Tooltips (Desktop only) */
+@media (hover: hover) {
+  [data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1c2330;
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    border: 1px solid var(--border-color);
+    z-index: 50;
+  }
 }
-[data-tooltip]:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1c2330;
-  color: #fff;
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 4px;
-  white-space: nowrap;
-  pointer-events: none;
-  border: 1px solid var(--border-color);
-  z-index: 50;
+
+/* Mobile & Tablet Drawer for Chat */
+@media (max-width: 768px) {
+  #chat-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 85vw !important;
+    max-width: 340px;
+    z-index: 40;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Responsive bottom dock for Mobile */
+  footer {
+    padding: 8px 12px !important;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #dock-extended-info {
+    min-width: auto !important;
+  }
+
+  .mic-controls-group {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* iPad / Tablet Layout Tuning */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .grid-participants {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
 }
 
 /* Mini mode overlay styling */
