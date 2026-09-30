@@ -645,40 +645,40 @@ function addUserCardToGrid(socketId, username) {
   const initial = username.charAt(0).toUpperCase();
   const card = document.createElement('div');
   card.id = `user-card-${socketId}`;
-  card.className = 'glass-panel p-4 rounded-2xl flex flex-col justify-between border border-gray-800 hover:border-cyan-500/30 transition-all duration-200 relative overflow-hidden group';
+  card.className = 'parallel-card p-5 rounded-3xl flex flex-col items-center text-center justify-between relative overflow-hidden group min-h-[200px]';
 
   card.innerHTML = `
-    <div class="flex items-center justify-between mb-3">
-      <div class="flex items-center gap-3">
-        <div class="relative avatar-container">
-          <div id="avatar-ring-${socketId}" class="avatar-ring"></div>
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-indigo-800 flex items-center justify-center font-bold text-white shadow-md">
-            ${initial}
-          </div>
-        </div>
-        <div>
-          <div class="text-sm font-semibold text-white leading-tight">${username}</div>
-          <div class="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <span>ออนไลน์</span>
-          </div>
+    <!-- Top Mute Badge -->
+    <div class="absolute top-3 right-3 flex items-center gap-1.5" id="user-badges-${socketId}">
+      <span id="badge-mute-${socketId}" class="hidden text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">
+        <i class="fa-solid fa-microphone-slash mr-1"></i> MUTED
+      </span>
+    </div>
+
+    <!-- Center Avatar Tile with Parallel Outer Rings -->
+    <div class="my-3 flex flex-col items-center">
+      <div class="relative avatar-container my-2">
+        <div id="avatar-ring-outer-${socketId}" class="avatar-ring-outer"></div>
+        <div id="avatar-ring-${socketId}" class="avatar-ring"></div>
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center font-bold text-white text-xl shadow-[0_0_20px_rgba(0,242,254,0.3)]">
+          ${initial}
         </div>
       </div>
-      <div class="flex items-center gap-1.5" id="user-badges-${socketId}">
-        <span id="badge-mute-${socketId}" class="hidden text-xs text-red-400 bg-red-500/10 px-2 py-1 rounded-md border border-red-500/20">
-          <i class="fa-solid fa-microphone-slash"></i>
-        </span>
+      <div class="text-sm font-bold text-white tracking-wide mt-2">${username}</div>
+      <div class="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>CONNECTED</span>
       </div>
     </div>
 
-    <!-- Volume Control Slider for this peer -->
-    <div class="mt-2 pt-2 border-t border-gray-800/80">
-      <div class="flex justify-between items-center text-[11px] text-gray-400 mb-1">
-        <span>ระดับเสียง (Volume)</span>
-        <span id="volume-val-${socketId}" class="text-cyan-300 font-mono">100%</span>
+    <!-- Bottom Volume Slider -->
+    <div class="w-full mt-2 pt-3 border-t border-gray-800/80">
+      <div class="flex justify-between items-center text-[10px] text-gray-400 mb-1">
+        <span>VOL</span>
+        <span id="volume-val-${socketId}" class="text-cyan-300 font-mono font-bold">100%</span>
       </div>
       <div class="flex items-center gap-2">
-        <i class="fa-solid fa-volume-high text-xs text-gray-500"></i>
+        <i class="fa-solid fa-volume-high text-[10px] text-gray-500"></i>
         <input type="range" id="volume-slider-${socketId}" min="0" max="200" value="100" class="w-full">
       </div>
     </div>
