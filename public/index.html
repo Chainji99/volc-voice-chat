@@ -23,18 +23,18 @@
 <body class="bg-[#1e1f22] text-[#dbdee1] flex h-screen overflow-hidden select-none relative">
 
   <!-- PWA Install Banner Button for Mobile & iPad -->
-  <button id="pwa-install-btn" class="hidden fixed top-16 right-4 z-50 px-4 py-2 rounded-full bg-[#5865f2] text-white font-bold text-xs flex items-center gap-2 shadow-2xl animate-bounce active:scale-95 transition-all">
-    <i class="fa-solid fa-download"></i> <span>ติดตั้งแอป (Install Discord App)</span>
+  <button id="pwa-install-btn" class="hidden fixed top-16 right-4 z-50 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-black font-bold text-xs flex items-center gap-2 shadow-2xl animate-bounce active:scale-95 transition-all">
+    <i class="fa-solid fa-mobile-screen-button"></i> <span>ติดตั้งแอป (Install App)</span>
   </button>
 
   <!-- ==================== JOIN ROOM MODAL ==================== -->
   <div id="join-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-    <div class="bg-[#313338] p-8 rounded-2xl w-full max-w-md border border-white/5 shadow-2xl relative">
+    <div class="bg-[#313338] p-8 rounded-2xl w-full max-w-md border border-cyan-500/20 shadow-2xl relative">
       <div class="text-center mb-6">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#5865f2] mb-4 shadow-xl">
-          <i class="fa-brands fa-discord text-3xl text-white"></i>
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-emerald-500 mb-4 shadow-[0_0_25px_rgba(0,242,254,0.4)]">
+          <i class="fa-solid fa-waveform text-3xl text-white"></i>
         </div>
-        <h1 class="text-2xl font-bold text-white tracking-wide">ยินดีต้อนรับสู่ VOLC DISCORD</h1>
+        <h1 class="text-2xl font-bold text-white tracking-wide">ยินดีต้อนรับสู่ VOLC VOICE</h1>
         <p class="text-xs text-gray-400 mt-1">ระบบพูดคุยเสียงความหน่วงต่ำ ไม่ดรอป FPS ไม่เบาเสียงเกม</p>
       </div>
 
@@ -44,7 +44,7 @@
           <div class="relative">
             <i class="fa-solid fa-user absolute left-4 top-3.5 text-gray-400 text-sm"></i>
             <input type="text" id="username-input" required placeholder="เช่น GamerPro#1337" 
-              class="w-full bg-[#1e1f22] border border-black/40 rounded-xl px-4 py-3 pl-11 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5865f2] transition-all">
+              class="w-full bg-[#1e1f22] border border-black/40 rounded-xl px-4 py-3 pl-11 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all">
           </div>
         </div>
 
@@ -53,8 +53,8 @@
           <div class="relative flex gap-2">
             <div class="relative flex-1">
               <i class="fa-solid fa-gamepad absolute left-4 top-3.5 text-gray-400 text-sm"></i>
-              <input type="text" id="room-input" required placeholder="เช่น discord-squad" 
-                class="w-full bg-[#1e1f22] border border-black/40 rounded-xl px-4 py-3 pl-11 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5865f2] transition-all">
+              <input type="text" id="room-input" required placeholder="เช่น volc-squad" 
+                class="w-full bg-[#1e1f22] border border-black/40 rounded-xl px-4 py-3 pl-11 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all">
             </div>
             <button type="button" id="random-room-btn" data-tooltip="สุ่มรหัสเซิร์ฟเวอร์" 
               class="px-4 bg-[#2b2d31] hover:bg-[#35373c] border border-black/40 rounded-xl text-gray-300 transition-all">
@@ -64,8 +64,8 @@
         </div>
 
         <button type="submit" 
-          class="w-full py-3.5 px-6 rounded-xl font-bold text-sm tracking-wider text-white bg-[#5865f2] hover:bg-[#4752c4] shadow-lg transform active:scale-95 transition-all mt-6 flex items-center justify-center gap-2">
-          <i class="fa-brands fa-discord"></i> เข้าใช้งาน Discord Voice Chat
+          class="w-full py-3.5 px-6 rounded-xl font-bold text-sm tracking-wider text-black bg-gradient-to-r from-cyan-400 via-emerald-400 to-cyan-300 hover:opacity-90 shadow-lg transform active:scale-95 transition-all mt-6 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> เข้าใช้งาน VOLC Voice Chat
         </button>
       </form>
     </div>
@@ -73,9 +73,9 @@
 
   <!-- ==================== DISCORD COLUMN 1: SERVER RAIL ==================== -->
   <aside id="server-rail" class="w-[72px] bg-[#1e1f22] flex flex-col items-center py-3 gap-2 border-r border-black/20 flex-shrink-0">
-    <!-- Discord Home Button -->
-    <div class="server-icon active" data-tooltip="หน้าแรก (Home)">
-      <i class="fa-brands fa-discord text-2xl"></i>
+    <!-- VOLC Voice Home Icon -->
+    <div class="server-icon active bg-gradient-to-tr from-cyan-500 to-emerald-500 shadow-md" data-tooltip="หน้าแรก (Home)">
+      <i class="fa-solid fa-waveform text-xl text-white"></i>
     </div>
 
     <div class="w-8 h-0.5 bg-gray-700/50 rounded my-1"></div>
