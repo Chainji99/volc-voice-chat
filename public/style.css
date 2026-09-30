@@ -1,22 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=gg+sans:wght@400;500;600;700&family=Kanit:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-dark: #07090e;
-  --bg-card: rgba(18, 22, 31, 0.7);
-  --bg-card-hover: rgba(26, 32, 46, 0.9);
-  --bg-panel: rgba(14, 18, 26, 0.85);
-  --accent-cyan: #00f2fe;
-  --accent-emerald: #10b981;
-  --accent-purple: #8b5cf6;
-  --accent-pink: #ec4899;
-  --accent-red: #ef4444;
-  --accent-warning: #f59e0b;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --border-color: rgba(255, 255, 255, 0.07);
-  --glow-cyan: 0 0 20px rgba(0, 242, 254, 0.35);
-  --glow-emerald: 0 0 22px rgba(16, 185, 129, 0.5);
-  --glow-purple: 0 0 22px rgba(139, 92, 246, 0.4);
+  --discord-blurple: #5865f2;
+  --discord-blurple-hover: #4752c4;
+  --discord-green: #23a55a;
+  --discord-red: #f23f43;
+  --discord-yellow: #f0b232;
+  --discord-grey: #80848e;
+  
+  --bg-dark-primary: #313338;
+  --bg-dark-secondary: #2b2d31;
+  --bg-dark-tertiary: #1e1f22;
+  --bg-dark-accent: #232428;
+  --bg-card: #2b2d31;
+  --bg-card-hover: #35373c;
+  
+  --text-normal: #dbdee1;
+  --text-muted: #949ba4;
+  --text-header: #f2f3f5;
+  --border-color: rgba(255, 255, 255, 0.06);
 }
 
 * {
@@ -27,154 +29,114 @@
 }
 
 html, body {
-  font-family: 'Inter', 'Kanit', sans-serif;
-  background: radial-gradient(circle at 50% 0%, #111726 0%, #07090e 70%);
-  color: var(--text-primary);
+  font-family: 'gg sans', 'Kanit', 'Inter', sans-serif;
+  background-color: var(--bg-dark-tertiary);
+  color: var(--text-normal);
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
 
-.font-orbitron {
-  font-family: 'Orbitron', sans-serif;
-}
-
-/* Glassmorphism Panel - Parallel Style */
-.glass-panel {
-  background: rgba(15, 20, 29, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.parallel-card {
-  background: linear-gradient(145deg, rgba(20, 26, 38, 0.7) 0%, rgba(12, 16, 24, 0.8) 100%);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.parallel-card:hover {
-  border-color: rgba(0, 242, 254, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 15px 35px rgba(0, 242, 254, 0.1);
-}
-
-/* Custom scrollbars */
+/* Custom Discord Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
+  background: #2b2d31;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
+  background: #1a1b1e;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-cyan);
+  background: #111214;
 }
 
-/* Parallel Avatar Glowing Waves */
+/* Server Rail Icon Pill Hover Animation */
+.server-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--bg-dark-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-normal);
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  position: relative;
+}
+
+.server-icon:hover, .server-icon.active {
+  border-radius: 16px;
+  background-color: var(--discord-blurple);
+  color: #ffffff;
+}
+
+/* Discord Channel List Item */
+.channel-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.channel-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-normal);
+}
+
+.channel-item.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-header);
+}
+
+/* Discord Speaking Avatar Animation */
 .avatar-container {
   position: relative;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.avatar-ring {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  transition: all 0.2s ease;
 }
 
 .speaking .avatar-ring {
-  border-color: var(--accent-emerald);
-  box-shadow: var(--glow-emerald);
-  animation: parallel-pulse 1.4s infinite ease-in-out;
+  border: 3px solid var(--discord-green);
+  box-shadow: 0 0 15px rgba(35, 165, 90, 0.6);
+  animation: discord-speaking-pulse 1.2s infinite ease-in-out;
 }
 
-.speaking .avatar-ring-outer {
-  position: absolute;
-  inset: -12px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(16, 185, 129, 0.4);
-  animation: parallel-ripple 1.4s infinite ease-in-out;
+@keyframes discord-speaking-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.85; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes parallel-pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.06);
-    opacity: 0.85;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes parallel-ripple {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1.2);
-    opacity: 0;
-  }
-}
-
-/* Floating Dock Pill */
-.floating-dock {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(14, 19, 28, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
-  padding: 8px 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 242, 254, 0.08);
-  z-index: 40;
-}
-
-/* Range input sliders */
+/* Range input sliders - Discord Style */
 input[type="range"] {
-  accent-color: var(--accent-cyan);
-  background: #1c2333;
+  accent-color: var(--discord-blurple);
+  background: #1e1f22;
   border-radius: 9999px;
   height: 6px;
   touch-action: manipulation;
 }
 
-/* Prevent iOS input auto-zoom */
-@media screen and (max-width: 768px) {
-  input[type="text"], select {
-    font-size: 16px !important;
-  }
-}
-
 /* Audio visualizer meter */
 .mic-meter-bar {
   height: 6px;
-  background: #1a2232;
+  background: #1e1f22;
   border-radius: 9999px;
   overflow: hidden;
   position: relative;
@@ -183,7 +145,7 @@ input[type="range"] {
 .mic-meter-fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #3b82f6 0%, #10b981 70%, #ef4444 100%);
+  background: linear-gradient(90deg, #5865f2 0%, #23a55a 70%, #f23f43 100%);
   transition: width 0.05s ease-out;
 }
 
@@ -192,63 +154,27 @@ input[type="range"] {
   top: 0;
   bottom: 0;
   width: 3px;
-  background-color: var(--accent-warning);
-  box-shadow: 0 0 6px var(--accent-warning);
+  background-color: var(--discord-yellow);
+  box-shadow: 0 0 6px var(--discord-yellow);
   z-index: 2;
   transform: translateX(-50%);
 }
 
-/* Tooltips (Desktop) */
-@media (hover: hover) {
-  [data-tooltip]:hover::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #151c28;
-    color: #f8fafc;
-    padding: 4px 10px;
-    font-size: 11px;
-    border-radius: 6px;
-    white-space: nowrap;
-    pointer-events: none;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    z-index: 50;
+/* Responsive adjustments for Mobile & iPad */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
   }
-}
-
-/* Mobile Portrait Layout Fix for Gate (%) Slider */
-@media screen and (max-width: 640px) {
-  .floating-dock {
-    bottom: 10px;
-    width: calc(100% - 20px);
-    border-radius: 24px;
-    padding: 10px 14px;
+  
+  #server-rail {
+    display: none !important;
   }
-
-  .dock-section-top {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  #mic-visualizer-container {
-    width: 130px !important;
-    min-width: 110px;
-  }
-
-  .dock-section-bottom {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding-top: 6px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  
+  #channel-sidebar {
+    width: 100% !important;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
   }
 
   #chat-sidebar {
@@ -261,29 +187,4 @@ input[type="range"] {
     z-index: 50;
     box-shadow: -15px 0 35px rgba(0, 0, 0, 0.8);
   }
-}
-
-/* iPad / Tablet Grid */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .grid-participants {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-
-/* Mini mode overlay */
-body.mini-mode #top-nav,
-body.mini-mode #chat-sidebar,
-body.mini-mode #dock-extended-info {
-  display: none !important;
-}
-
-body.mini-mode .floating-dock {
-  position: static;
-  transform: none;
-  width: 100%;
-  border-radius: 16px;
-}
-
-body.mini-mode #main-content {
-  padding: 8px !important;
 }

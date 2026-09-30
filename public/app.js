@@ -173,6 +173,58 @@ function generateRandomRoomId() {
   return `${adjectives[Math.floor(Math.random() * adjectives.length)]}-${nouns[Math.floor(Math.random() * nouns.length)]}-${num}`.toLowerCase();
 }
 
+// Discord Synthesized Web Audio SFX
+function playDiscordSFX(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    const now = ctx.currentTime;
+
+    if (type === 'join') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, now);
+      osc.frequency.setValueAtTime(739.99, now + 0.08);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } else if (type === 'leave') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(739.99, now);
+      osc.frequency.setValueAtTime(587.33, now + 0.08);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } else if (type === 'mute') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(400, now);
+      osc.frequency.setValueAtTime(300, now + 0.06);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+      osc.start(now);
+      osc.stop(now + 0.18);
+    } else if (type === 'unmute') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(300, now);
+      osc.frequency.setValueAtTime(450, now + 0.06);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+      osc.start(now);
+      osc.stop(now + 0.18);
+    }
+  } catch (err) {
+    console.warn('SFX Error:', err);
+  }
+}
+
+// Discord Screen Sharing State
+let screenStream = null;
+
 function setupEventListeners() {
   randomRoomBtn.addEventListener('click', () => {
     roomInput.value = generateRandomRoomId();
@@ -191,18 +243,79 @@ function setupEventListeners() {
 
     await initAudioStream();
     await requestWakeLock();
+    playDiscordSFX('join');
     initSocketConnection();
   });
 
   copyLinkBtn.addEventListener('click', () => {
     const inviteUrl = `${window.location.origin}?room=${encodeURIComponent(currentRoom)}`;
     navigator.clipboard.writeText(inviteUrl).then(() => {
-      alert(`คัดลอกลิงก์ห้องเรียบร้อย: ${inviteUrl}\nส่งให้เพื่อนเข้าคุยเสียงได้ทันที!`);
+      alert(`คัดลอกลิงก์เชิญเพื่อนเข้าร่วม Discord เรียบร้อย:\n${inviteUrl}`);
+    });
+  });
+
+  // Discord Screen Share Button Handler
+  const shareScreenBtn = document.getElementById('share-screen-btn');
+  const screenShareContainer = document.getElementById('screen-share-container');
+  const screenShareVideo = document.getElementById('screen-share-video');
+  const screenShareUserName = document.getElementById('screen-share-user-name');
+
+  if (shareScreenBtn) {
+    shareScreenBtn.addEventListener('click', async () => {
+      if (screenStream) {
+        screenStream.getTracks().forEach(t => t.stop());
+        screenStream = null;
+        screenShareContainer.classList.add('hidden');
+        shareScreenBtn.classList.remove('bg-red-500/20', 'text-red-400');
+        shareScreenBtn.innerHTML = '<i class="fa-solid fa-desktop text-cyan-400"></i><span class="hidden sm:inline">แชร์หน้าจอเกม (Share Screen)</span>';
+        return;
+      }
+
+      try {
+        screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+        screenShareVideo.srcObject = screenStream;
+        screenShareContainer.classList.remove('hidden');
+        screenShareUserName.textContent = `${currentUsername} กำลังแชร์หน้าจอเกม...`;
+
+        shareScreenBtn.classList.add('bg-red-500/20', 'text-red-400');
+        shareScreenBtn.innerHTML = '<i class="fa-solid fa-xmark mr-1"></i> เลิกแชร์หน้าจอ';
+
+        screenStream.getVideoTracks()[0].onended = () => {
+          screenStream = null;
+          screenShareContainer.classList.add('hidden');
+          shareScreenBtn.classList.remove('bg-red-500/20', 'text-red-400');
+          shareScreenBtn.innerHTML = '<i class="fa-solid fa-desktop text-cyan-400"></i><span class="hidden sm:inline">แชร์หน้าจอเกม (Share Screen)</span>';
+        };
+      } catch (err) {
+        console.warn('Screen share canceled or failed:', err);
+      }
+    });
+  }
+
+  // Discord Voice Channel Switchers
+  document.querySelectorAll('.voice-channel-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const channel = btn.getAttribute('data-channel');
+      document.querySelectorAll('.voice-channel-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const channelName = btn.querySelector('span').textContent;
+      const channelDisplay = document.getElementById('channel-name-display');
+      if (channelDisplay) channelDisplay.textContent = channelName;
+
+      playDiscordSFX('join');
+
+      if (socket && currentRoom) {
+        socket.emit('join-room', { roomId: `${currentRoom}-${channel}`, username: currentUsername });
+      }
     });
   });
 
   // Controls
-  toggleMicBtn.addEventListener('click', toggleMicMute);
+  toggleMicBtn.addEventListener('click', () => {
+    toggleMicMute();
+    playDiscordSFX(isMuted ? 'mute' : 'unmute');
+  });
   toggleDeafenBtn.addEventListener('click', toggleDeafen);
 
   // On-screen PTT Touch & Mouse press events for mobile/tablet
@@ -738,43 +851,40 @@ function updateUserCount(count) {
 }
 
 function addUserCardToGrid(socketId, username) {
-  // Check if card already exists
   if (document.getElementById(`user-card-${socketId}`)) return;
 
   const initial = username.charAt(0).toUpperCase();
   const card = document.createElement('div');
   card.id = `user-card-${socketId}`;
-  card.className = 'parallel-card p-5 rounded-3xl flex flex-col items-center text-center justify-between relative overflow-hidden group min-h-[200px]';
+  card.className = 'bg-[#2b2d31] p-5 rounded-2xl flex flex-col items-center text-center justify-between relative overflow-hidden group min-h-[190px] border border-black/20 shadow-md hover:border-[#5865f2]/40 transition-all';
 
   card.innerHTML = `
     <!-- Top Mute Badge -->
     <div class="absolute top-3 right-3 flex items-center gap-1.5" id="user-badges-${socketId}">
-      <span id="badge-mute-${socketId}" class="hidden text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">
+      <span id="badge-mute-${socketId}" class="hidden text-[10px] font-bold text-red-400 bg-red-500/20 px-2 py-0.5 rounded-full border border-red-500/30">
         <i class="fa-solid fa-microphone-slash mr-1"></i> MUTED
       </span>
     </div>
 
-    <!-- Center Avatar Tile with Parallel Outer Rings -->
-    <div class="my-3 flex flex-col items-center">
-      <div class="relative avatar-container my-2">
-        <div id="avatar-ring-outer-${socketId}" class="avatar-ring-outer"></div>
-        <div id="avatar-ring-${socketId}" class="avatar-ring"></div>
-        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center font-bold text-white text-xl shadow-[0_0_20px_rgba(0,242,254,0.3)]">
-          ${initial}
+    <!-- Discord Avatar with Speaking Ring -->
+    <div class="my-2 flex flex-col items-center">
+      <div class="relative avatar-container my-1">
+        <div id="avatar-ring-${socketId}" class="avatar-ring w-16 h-16 rounded-full flex items-center justify-center transition-all">
+          <div class="w-14 h-14 rounded-full bg-[#5865f2] flex items-center justify-center font-bold text-white text-xl shadow-lg">
+            ${initial}
+          </div>
         </div>
+        <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#2b2d31] absolute bottom-0 right-0"></span>
       </div>
       <div class="text-sm font-bold text-white tracking-wide mt-2">${username}</div>
-      <div class="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>CONNECTED</span>
-      </div>
+      <div class="text-[10px] text-gray-400 font-mono">ONLINE</div>
     </div>
 
-    <!-- Bottom Volume Slider -->
-    <div class="w-full mt-2 pt-3 border-t border-gray-800/80">
-      <div class="flex justify-between items-center text-[10px] text-gray-400 mb-1">
-        <span>VOL</span>
-        <span id="volume-val-${socketId}" class="text-cyan-300 font-mono font-bold">100%</span>
+    <!-- Volume Control Slider -->
+    <div class="w-full mt-2 pt-2.5 border-t border-black/20">
+      <div class="flex justify-between items-center text-[10px] text-gray-400 mb-1 font-bold">
+        <span>ระดับเสียงเพื่อน</span>
+        <span id="volume-val-${socketId}" class="text-[#5865f2] font-mono">100%</span>
       </div>
       <div class="flex items-center gap-2">
         <i class="fa-solid fa-volume-high text-[10px] text-gray-500"></i>
@@ -784,6 +894,21 @@ function addUserCardToGrid(socketId, username) {
   `;
 
   participantsGrid.appendChild(card);
+
+  const slider = document.getElementById(`volume-slider-${socketId}`);
+  const valDisplay = document.getElementById(`volume-val-${socketId}`);
+
+  slider.addEventListener('input', (e) => {
+    const vol = parseInt(e.target.value, 10);
+    valDisplay.textContent = `${vol}%`;
+    if (userStates[socketId]) userStates[socketId].volume = vol;
+
+    const audioEl = peerAudioElements[socketId];
+    if (audioEl) {
+      audioEl.volume = vol / 100;
+    }
+  });
+}
 
   // Volume slider event listener
   const slider = document.getElementById(`volume-slider-${socketId}`);
