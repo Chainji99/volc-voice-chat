@@ -462,6 +462,17 @@ body::before {
   user-select: none;
 }
 
+.pixel-btn i,
+.persona-btn i {
+  color: #000000 !important;
+  font-size: 1.1rem;
+}
+
+.pixel-btn-magenta i,
+.persona-btn-magenta i {
+  color: #ffffff !important;
+}
+
 .pixel-btn:hover,
 .persona-btn:hover {
   background: var(--theme-secondary);
