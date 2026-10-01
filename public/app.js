@@ -436,8 +436,12 @@ function setupEventListeners() {
 }
 
 // =========================================================
-// Audio Stream & Web Audio API
+// Audio Stream & Web Audio API (DSP & Auto Noise Suppression)
 // =========================================================
+
+let highpassFilterNode = null;
+let compressorNode = null;
+let ambientNoiseFloor = 8; // Dynamic ambient noise baseline
 
 async function initAudioStream() {
   try {
@@ -454,30 +458,53 @@ async function initAudioStream() {
     const constraints = {
       audio: {
         deviceId: selectedMicId ? { exact: selectedMicId } : undefined,
-        echoCancellation: echoCancellation,
-        noiseSuppression: noiseSuppression,
-        autoGainControl: true,
-        // High quality audio latency optimization for games
-        channelCount: 1,
-        sampleRate: 48000
+        echoCancellation: { ideal: true },
+        noiseSuppression: { ideal: true },
+        autoGainControl: { ideal: true },
+        googEchoCancellation: { ideal: true },
+        googAutoGainControl: { ideal: true },
+        googNoiseSuppression: { ideal: true },
+        googHighpassFilter: { ideal: true },
+        channelCount: { ideal: 1 },
+        sampleRate: { ideal: 48000 },
+        latency: { ideal: 0.005 }
       },
       video: false
     };
 
     localStream = await navigator.mediaDevices.getUserMedia(constraints);
 
-    // Setup Web Audio API for level meter & VAD
+    // Setup Web Audio API with low latency interactive mode
     if (!audioContext) {
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      audioContext = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 'interactive' });
     }
     if (audioContext.state === 'suspended') {
       await audioContext.resume();
     }
 
     micSourceNode = audioContext.createMediaStreamSource(localStream);
+
+    // 1. High-Pass Filter (85Hz) -> Cut low frequency hum, AC fan, desktop vibrations
+    highpassFilterNode = audioContext.createBiquadFilter();
+    highpassFilterNode.type = 'highpass';
+    highpassFilterNode.frequency.setValueAtTime(85, audioContext.currentTime);
+
+    // 2. Dynamics Compressor -> Auto Gain Control (AGC) & Peak Vocal Limiter to eliminate clipping & feedback echoes
+    compressorNode = audioContext.createDynamicsCompressor();
+    compressorNode.threshold.setValueAtTime(-24, audioContext.currentTime);
+    compressorNode.knee.setValueAtTime(12, audioContext.currentTime);
+    compressorNode.ratio.setValueAtTime(4, audioContext.currentTime);
+    compressorNode.attack.setValueAtTime(0.003, audioContext.currentTime);
+    compressorNode.release.setValueAtTime(0.25, audioContext.currentTime);
+
+    // 3. Analyser Node
     micAnalyser = audioContext.createAnalyser();
     micAnalyser.fftSize = 256;
-    micSourceNode.connect(micAnalyser);
+
+    // Connect DSP pipeline: micSourceNode -> highpassFilterNode -> compressorNode -> micAnalyser
+    micSourceNode.connect(highpassFilterNode);
+    highpassFilterNode.connect(compressorNode);
+    compressorNode.connect(micAnalyser);
 
     startMicLevelMonitoring();
 
@@ -512,24 +539,34 @@ function startMicLevelMonitoring() {
     const volumePercentage = Math.min(100, Math.round((average / 128) * 100));
 
     // Update mic meter fill in UI
-    micMeterFill.style.width = `${volumePercentage}%`;
+    if (micMeterFill) micMeterFill.style.width = `${volumePercentage}%`;
+
+    // Smart Noise Floor Tracking (Auto adapts threshold so user NEVER has to adjust manually)
+    if (volumePercentage < ambientNoiseFloor) {
+      ambientNoiseFloor = Math.max(4, ambientNoiseFloor * 0.9 + volumePercentage * 0.1);
+    } else {
+      ambientNoiseFloor = ambientNoiseFloor * 0.998 + volumePercentage * 0.002;
+    }
+
+    // Calculated dynamic auto threshold (+10dB above noise floor)
+    const autoAdaptiveThreshold = Math.max(12, Math.min(50, Math.round(ambientNoiseFloor + 10)));
+
+    // Active threshold: use user manual slider if adjusted away from default 25%, otherwise auto-adaptive threshold
+    const activeThreshold = (sensitivityThreshold === 25) ? autoAdaptiveThreshold : sensitivityThreshold;
+    if (micThresholdLine) micThresholdLine.style.left = `${activeThreshold}%`;
 
     // Handle Voice Activity Detection (VAD) / Push to Talk
     if (!isMuted && !isDeafened) {
       if (voiceMode === 'vad') {
-        if (volumePercentage >= sensitivityThreshold) {
+        if (volumePercentage >= activeThreshold) {
           setSpeakingState(true);
           if (vadReleaseTimeout) clearTimeout(vadReleaseTimeout);
           vadReleaseTimeout = setTimeout(() => {
             setSpeakingState(false);
-          }, 300);
+          }, 350);
         }
       } else if (voiceMode === 'ptt') {
-        if (isPttActive) {
-          setSpeakingState(true);
-        } else {
-          setSpeakingState(false);
-        }
+        setSpeakingState(isPttActive);
       }
     } else {
       setSpeakingState(false);
@@ -675,8 +712,31 @@ async function populateAudioDevices() {
 }
 
 // =========================================================
-// Socket.io & WebRTC Peer Mesh Network
+// Socket.io & WebRTC Peer Mesh Network (Low-Latency SDP Optimization)
 // =========================================================
+
+function optimizeAudioSdp(sdp) {
+  if (!sdp) return sdp;
+  let lines = sdp.split('\r\n');
+  let opusPt = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].includes('a=rtpmap:') && lines[i].toLowerCase().includes('opus/48000')) {
+      const match = lines[i].match(/a=rtpmap:(\d+)/);
+      if (match) opusPt = match[1];
+    }
+  }
+
+  if (opusPt) {
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].startsWith(`a=fmtp:${opusPt}`)) {
+        lines[i] = `${lines[i]};minptime=10;useinbandfec=1;stereo=0;sprop-maxcapturerate=48000;maxaveragebitrate=128000;cbr=1`;
+      }
+    }
+  }
+
+  return lines.join('\r\n');
+}
 
 function initSocketConnection() {
   socket = io();
@@ -689,6 +749,7 @@ function initSocketConnection() {
   socket.on('room-joined', ({ roomId, yourSocketId, existingUsers }) => {
     console.log(`[Joined Room] ${roomId} as ID: ${yourSocketId}`);
     updateUserCount(existingUsers.length + 1);
+    appendSystemMessage(`เข้าร่วมห้อง [${roomId}] เรียบร้อยแล้ว!`);
 
     // Create RTCPeerConnection for each existing user
     existingUsers.forEach(user => {
@@ -715,6 +776,8 @@ function initSocketConnection() {
     };
     addUserCardToGrid(socketId, username);
     updateUserCount(Object.keys(userStates).length + 1);
+    appendSystemMessage(`ผู้เล่น ${username} เข้าร่วมห้องแล้ว`);
+    playDiscordSFX('join');
   });
 
   socket.on('signal', async ({ senderSocketId, signal }) => {
@@ -728,7 +791,11 @@ function initSocketConnection() {
         await pc.setRemoteDescription(new RTCSessionDescription(signal.sdp));
         if (signal.sdp.type === 'offer') {
           const answer = await pc.createAnswer();
-          await pc.setLocalDescription(answer);
+          const optimizedAnswer = new RTCSessionDescription({
+            type: answer.type,
+            sdp: optimizeAudioSdp(answer.sdp)
+          });
+          await pc.setLocalDescription(optimizedAnswer);
           socket.emit('signal', {
             targetSocketId: senderSocketId,
             signal: { sdp: pc.localDescription }
@@ -757,6 +824,8 @@ function initSocketConnection() {
 
   socket.on('user-disconnected', ({ socketId, username }) => {
     console.log(`[User Disconnected] ${username} (${socketId})`);
+    appendSystemMessage(`ผู้เล่น ${username || 'Gamer'} ออกจากห้องแล้ว`);
+    playDiscordSFX('leave');
     removeUserFromRoom(socketId);
   });
 }
@@ -787,12 +856,16 @@ function createPeerConnection(targetSocketId, isInitiator) {
     setupRemoteAudioElement(targetSocketId, remoteStream);
   };
 
-  // If initiator, create Offer
+  // If initiator, create Offer with SDP optimization
   if (isInitiator) {
     pc.onnegotiationneeded = async () => {
       try {
         const offer = await pc.createOffer();
-        await pc.setLocalDescription(offer);
+        const optimizedOffer = new RTCSessionDescription({
+          type: offer.type,
+          sdp: optimizeAudioSdp(offer.sdp)
+        });
+        await pc.setLocalDescription(optimizedOffer);
         socket.emit('signal', {
           targetSocketId: targetSocketId,
           signal: { sdp: pc.localDescription }
@@ -986,22 +1059,44 @@ function removeUserFromRoom(socketId) {
   updateUserCount(Object.keys(userStates).length + 1);
 }
 
-function appendChatMessage(username, message, timestamp, isSelf) {
+function appendSystemMessage(text) {
+  if (!chatMessages) return;
   const msgDiv = document.createElement('div');
-  msgDiv.className = `p-2.5 rounded-xl border ${isSelf ? 'bg-cyan-500/10 border-cyan-500/30 ml-4' : 'bg-[#161b24] border-gray-800 mr-4'}`;
+  msgDiv.className = 'p-2 border border-[#00f2fe]/30 bg-[#161628] text-[10px] text-[#00ff9d] font-pixel my-1.5 text-center shadow-[2px_2px_0px_#000000]';
+  msgDiv.innerHTML = `> [SYSTEM] ${escapeHtml(text)}`;
+  chatMessages.appendChild(msgDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  if (chatSidebar && chatSidebar.classList.contains('hidden') && chatBadge) {
+    chatBadge.classList.remove('hidden');
+  }
+}
+
+function appendChatMessage(username, message, timestamp, isSelf) {
+  if (!chatMessages) return;
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `p-2.5 border font-pixel text-xs ${
+    isSelf 
+      ? 'bg-[#00f2fe]/10 border-[#00f2fe] text-[#00f2fe] ml-3' 
+      : 'bg-[#161628] border-[#333355] text-gray-200 mr-3'
+  } shadow-[2px_2px_0px_#000000] my-1.5`;
 
   msgDiv.innerHTML = `
     <div class="flex items-center justify-between mb-1">
-      <span class="font-semibold ${isSelf ? 'text-cyan-300' : 'text-purple-300'}">${username}</span>
-      <span class="text-[10px] text-gray-500">${timestamp}</span>
+      <span class="font-bold text-xs ${isSelf ? 'text-[#00ff9d]' : 'text-[#ff007f]'}">${escapeHtml(username)}</span>
+      <span class="text-[9px] text-[#8a8ab0] font-mono">${timestamp}</span>
     </div>
-    <div class="text-gray-200 break-words leading-relaxed">${escapeHtml(message)}</div>
+    <div class="break-words leading-relaxed text-xs font-mono text-gray-200">${escapeHtml(message)}</div>
   `;
 
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
-  if (chatSidebar.classList.contains('hidden')) {
+  if (!isSelf) {
+    playDiscordSFX('unmute');
+  }
+
+  if (chatSidebar && chatSidebar.classList.contains('hidden') && chatBadge) {
     chatBadge.classList.remove('hidden');
   }
 }
