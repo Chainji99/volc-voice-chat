@@ -220,9 +220,46 @@ input[type="range"] {
   }
 }
 
+/* Tooltip hover effect */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #121220;
+  color: #00ff9d;
+  border: 1px solid #00f2fe;
+  padding: 3px 6px;
+  font-size: 10px;
+  font-family: 'Silkscreen', monospace;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 2px 2px 0px #000000;
+}
+
 /* Mini Mode / Overlay Mode */
-body.mini-mode header,
-body.mini-mode #chat-sidebar,
+body.mini-mode header {
+  height: 44px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  border-bottom-width: 2px !important;
+}
+
+body.mini-mode header .logo-title-sub,
+body.mini-mode header #connection-status-text {
+  display: none !important;
+}
+
+body.mini-mode #chat-sidebar {
+  display: none !important;
+}
+
 body.mini-mode #dock-extended-info {
   display: none !important;
 }

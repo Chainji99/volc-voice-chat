@@ -72,56 +72,56 @@
   </div>
 
   <!-- ==================== TOP CYBER PIXEL NAV BAR ==================== -->
-  <header id="top-nav" class="h-16 px-4 sm:px-6 flex items-center justify-between border-b-4 border-[#00f2fe] bg-[#121220] z-20">
+  <header id="top-nav" class="h-14 sm:h-16 px-3 sm:px-6 flex items-center justify-between border-b-4 border-[#00f2fe] bg-[#121220] z-20 transition-all">
     <!-- Left Logo & Room Code -->
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 bg-[#161628] border-2 border-[#00f2fe] flex items-center justify-center shadow-[3px_3px_0px_#00ff9d]">
-        <i class="fa-solid fa-waveform text-[#00f2fe] text-base"></i>
+    <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+      <div class="w-8 h-8 sm:w-10 sm:h-10 bg-[#161628] border-2 border-[#00f2fe] flex-shrink-0 flex items-center justify-center shadow-[2px_2px_0px_#00ff9d] sm:shadow-[3px_3px_0px_#00ff9d]">
+        <i class="fa-solid fa-waveform text-[#00f2fe] text-xs sm:text-base"></i>
       </div>
-      <div class="hidden sm:flex flex-col">
+      <div class="hidden sm:flex flex-col logo-title-sub flex-shrink-0">
         <span class="font-pixel-title font-bold text-xs tracking-wider text-[#00f2fe]">VOLC_PIXEL</span>
         <span class="text-[10px] text-[#00ff9d] font-pixel tracking-widest">> VOICE_CHAT v2.0</span>
       </div>
 
-      <div class="h-6 w-0.5 bg-[#333355] mx-1 hidden sm:block"></div>
+      <div class="h-5 w-0.5 bg-[#333355] mx-1 hidden sm:block"></div>
 
       <!-- Room Code Box -->
-      <div class="flex items-center gap-2 bg-[#0a0a12] border-2 border-[#00f2fe] px-3 py-1 text-xs">
+      <div class="flex items-center gap-1.5 bg-[#0a0a12] border-2 border-[#00f2fe] px-2 sm:px-3 py-1 text-xs max-w-[150px] sm:max-w-none truncate">
         <span class="text-[#8a8ab0] hidden md:inline">ROOM:</span>
-        <span id="current-room-display" class="font-mono font-bold text-[#00ff9d] truncate max-w-[100px] sm:max-w-none">-</span>
-        <button id="copy-link-btn" data-tooltip="คัดลอกลิงก์เชิญเพื่อน" class="text-[#00f2fe] hover:text-[#00ff9d] ml-1">
+        <span id="current-room-display" class="font-mono font-bold text-[#00ff9d] truncate max-w-[90px] sm:max-w-none">-</span>
+        <button id="copy-link-btn" data-tooltip="คัดลอกลิงก์เชิญเพื่อน" class="text-[#00f2fe] hover:text-[#00ff9d] ml-1 flex-shrink-0">
           <i class="fa-regular fa-copy"></i>
         </button>
       </div>
     </div>
 
     <!-- Right Controls -->
-    <div class="flex items-center gap-2 sm:gap-3">
+    <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
       <!-- Latency Status -->
-      <div class="flex items-center gap-2 text-xs bg-[#0a0a12] border-2 border-[#333355] px-3 py-1 font-mono">
-        <span id="latency-dot" class="w-2.5 h-2.5 bg-[#00ff9d] animate-ping"></span>
+      <div class="flex items-center gap-2 text-xs bg-[#0a0a12] border-2 border-[#333355] px-2 sm:px-3 py-1 font-mono">
+        <span id="latency-dot" class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#00ff9d] animate-ping"></span>
         <span id="connection-status-text" class="text-[#00ff9d] hidden lg:inline">ONLINE [12ms]</span>
       </div>
 
       <!-- Screen Share Button -->
-      <button id="share-screen-btn" class="px-3 py-1.5 pixel-btn text-xs font-bold flex items-center gap-2">
+      <button id="share-screen-btn" class="px-2.5 py-1.5 pixel-btn text-xs font-bold flex items-center gap-1.5">
         <i class="fa-solid fa-desktop text-[#00f2fe]"></i>
         <span class="hidden md:inline">[STREAM GAME]</span>
       </button>
 
       <!-- Mini Overlay Toggle -->
-      <button id="toggle-mini-btn" data-tooltip="ย่อหน้าจอโหมด Overlay" class="p-2 pixel-btn">
+      <button id="toggle-mini-btn" data-tooltip="ย่อหน้าจอโหมด Overlay" class="p-1.5 sm:p-2 pixel-btn">
         <i class="fa-solid fa-compress text-xs"></i>
       </button>
 
       <!-- Text Chat Toggle -->
-      <button id="toggle-chat-btn" data-tooltip="เปิด/ปิด แชทข้อความ" class="p-2 pixel-btn relative">
+      <button id="toggle-chat-btn" data-tooltip="เปิด/ปิด แชทข้อความ" class="p-1.5 sm:p-2 pixel-btn relative">
         <i class="fa-solid fa-comment-code text-xs"></i>
         <span id="chat-badge" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#ff007f]"></span>
       </button>
 
       <!-- Settings Button -->
-      <button id="open-settings-btn" data-tooltip="ตั้งค่าอุปกรณ์เสียง" class="p-2 pixel-btn">
+      <button id="open-settings-btn" data-tooltip="ตั้งค่าอุปกรณ์เสียง" class="p-1.5 sm:p-2 pixel-btn">
         <i class="fa-solid fa-sliders text-xs"></i>
       </button>
     </div>

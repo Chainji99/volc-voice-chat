@@ -421,7 +421,17 @@ function setupEventListeners() {
 
   // Compact Mode Toggle
   toggleMiniBtn.addEventListener('click', () => {
-    document.body.classList.toggle('mini-mode');
+    const isMini = document.body.classList.toggle('mini-mode');
+    const icon = toggleMiniBtn.querySelector('i');
+    if (icon) {
+      if (isMini) {
+        icon.className = 'fa-solid fa-expand text-xs text-[#00ff9d]';
+        toggleMiniBtn.setAttribute('data-tooltip', 'ขยายหน้าจอปกติ');
+      } else {
+        icon.className = 'fa-solid fa-compress text-xs';
+        toggleMiniBtn.setAttribute('data-tooltip', 'ย่อหน้าจอโหมด Overlay');
+      }
+    }
   });
 }
 
