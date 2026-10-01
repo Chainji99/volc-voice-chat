@@ -278,13 +278,22 @@ input[type="range"] {
   border: 2px solid #000000;
 }
 
-/* Responsive Rules for Mobile & Tablet */
+/* Pixel Text Chat Drawer Panel */
+#chat-sidebar {
+  position: fixed;
+  top: 56px;
+  right: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 90vw;
+  z-index: 50;
+  box-shadow: -6px 0 25px rgba(0, 0, 0, 0.8);
+  border-left: 4px solid #00f2fe;
+}
+
 @media (max-width: 768px) {
   #chat-sidebar {
-    position: fixed;
     top: 0;
-    right: 0;
-    bottom: 0;
     width: 90vw !important;
     max-width: 350px;
     z-index: 60;

@@ -383,12 +383,16 @@ function setupEventListeners() {
     const msg = chatInput.value.trim();
     if (!msg) return;
 
+    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // Render message immediately on sender's screen for 100% instant feedback
+    appendChatMessage(currentUsername || 'Gamer', msg, timestamp, true);
+
+    // Send payload to signaling server for room distribution
     if (socket && socket.connected) {
       socket.emit('send-message', { message: msg });
-    } else {
-      const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      appendChatMessage(currentUsername || 'Gamer', msg, timestamp, true);
     }
+
     chatInput.value = '';
     chatInput.focus();
   }
@@ -847,7 +851,9 @@ function initSocketConnection() {
   });
 
   socket.on('new-message', ({ senderId, username, message, timestamp }) => {
-    appendChatMessage(username, message, timestamp, senderId === socket.id);
+    if (senderId !== socket.id) {
+      appendChatMessage(username, message, timestamp, false);
+    }
   });
 
   socket.on('user-disconnected', ({ socketId, username }) => {
