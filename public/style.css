@@ -39,6 +39,9 @@ body.theme-synthwave {
   --theme-primary: #ff007f;
   --theme-secondary: #9d4edd;
   --theme-accent: #00f2fe;
+  --pixel-bg: #100416;
+  --pixel-card: #1d0728;
+  --pixel-panel: #270b36;
 }
 
 /* Theme: Matrix Hacker Green */
@@ -46,6 +49,9 @@ body.theme-matrix {
   --theme-primary: #00ff9d;
   --theme-secondary: #76ff03;
   --theme-accent: #00f2fe;
+  --pixel-bg: #031207;
+  --pixel-card: #07220e;
+  --pixel-panel: #0c3015;
 }
 
 /* Theme: Apex Crimson & Gold */
@@ -53,6 +59,9 @@ body.theme-crimson {
   --theme-primary: #ff2a5f;
   --theme-secondary: #ffaa00;
   --theme-accent: #00f2fe;
+  --pixel-bg: #140409;
+  --pixel-card: #260710;
+  --pixel-panel: #360a17;
 }
 
 /* Theme: Cyberpunk 2077 Electric Yellow */
@@ -60,9 +69,37 @@ body.theme-cyber-yellow {
   --theme-primary: #ffea00;
   --theme-secondary: #00e5ff;
   --theme-accent: #ff007f;
+  --pixel-bg: #141202;
+  --pixel-card: #252204;
+  --pixel-panel: #353006;
 }
 
 /* ==================== DYNAMIC THEME OVERRIDES FOR ENTIRE WEB APP ==================== */
+
+/* Background Color Dynamic Overrides */
+html, body,
+.bg-\[\#0a0a12\],
+.bg-\[\#070710\],
+.bg-\[\#05050b\] {
+  background-color: var(--pixel-bg) !important;
+  color: var(--pixel-text) !important;
+}
+
+.bg-\[\#121220\],
+#top-nav,
+#chat-sidebar,
+.floating-dock,
+#join-modal > div,
+#settings-modal > div,
+#rgb-modal > div {
+  background-color: var(--pixel-card) !important;
+}
+
+.bg-\[\#161628\],
+#join-modal .bg-\[\#161628\],
+#top-nav .bg-\[\#161628\] {
+  background-color: var(--pixel-panel) !important;
+}
 
 /* Text Dynamic Color Utilities */
 .text-\[\#00f2fe\],
@@ -80,7 +117,10 @@ body.theme-cyber-yellow {
 }
 
 /* Border Dynamic Color Utilities */
-.border-\[\#00f2fe\] {
+.border-\[\#00f2fe\],
+#top-nav,
+#chat-sidebar,
+.floating-dock {
   border-color: var(--theme-primary) !important;
 }
 
@@ -92,11 +132,28 @@ body.theme-cyber-yellow {
   border-color: var(--theme-accent) !important;
 }
 
+.border-\[\#333355\] {
+  border-color: var(--theme-primary) !important;
+  opacity: 0.5;
+}
+
 /* Dynamic Box Shadows */
 .shadow-\[2px_2px_0px_\#00ff9d\],
 .shadow-\[3px_3px_0px_\#00ff9d\],
 .shadow-\[4px_4px_0px_\#00ff9d\] {
   box-shadow: 3px 3px 0px var(--theme-secondary) !important;
+}
+
+/* Form Inputs & Selects */
+input[type="text"], select {
+  background-color: var(--pixel-bg) !important;
+  border-color: var(--theme-primary) !important;
+  color: #ffffff !important;
+}
+
+input[type="text"]:focus, select:focus {
+  border-color: var(--theme-secondary) !important;
+  box-shadow: 0 0 10px var(--theme-secondary) !important;
 }
 
 /* Focus States */

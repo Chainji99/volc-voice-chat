@@ -239,15 +239,87 @@ function runCyberIntroAnimation() {
   }, 220);
 }
 
+const themePalettes = {
+  cyan: {
+    primary: '#00f2fe',
+    secondary: '#00ff9d',
+    accent: '#ff007f',
+    bg: '#070710',
+    card: '#121220',
+    panel: '#161628'
+  },
+  synthwave: {
+    primary: '#ff007f',
+    secondary: '#9d4edd',
+    accent: '#00f2fe',
+    bg: '#100416',
+    card: '#1d0728',
+    panel: '#270b36'
+  },
+  matrix: {
+    primary: '#00ff9d',
+    secondary: '#76ff03',
+    accent: '#00f2fe',
+    bg: '#031207',
+    card: '#07220e',
+    panel: '#0c3015'
+  },
+  crimson: {
+    primary: '#ff2a5f',
+    secondary: '#ffaa00',
+    accent: '#00f2fe',
+    bg: '#140409',
+    card: '#260710',
+    panel: '#360a17'
+  },
+  'cyber-yellow': {
+    primary: '#ffea00',
+    secondary: '#00e5ff',
+    accent: '#ff007f',
+    bg: '#141202',
+    card: '#252204',
+    panel: '#353006'
+  },
+  'rgb-rainbow': {
+    primary: '#00f2fe',
+    secondary: '#00ff9d',
+    accent: '#ff007f',
+    bg: '#070710',
+    card: '#121220',
+    panel: '#161628'
+  }
+};
+
 function applyTheme(themeName) {
+  const activeTheme = themeName || 'cyan';
+  const palette = themePalettes[activeTheme] || themePalettes.cyan;
+  const root = document.documentElement;
+
+  root.style.setProperty('--theme-primary', palette.primary);
+  root.style.setProperty('--theme-secondary', palette.secondary);
+  root.style.setProperty('--theme-accent', palette.accent);
+  root.style.setProperty('--pixel-bg', palette.bg);
+  root.style.setProperty('--pixel-card', palette.card);
+  root.style.setProperty('--pixel-panel', palette.panel);
+
   document.body.classList.remove(
     'theme-cyan', 'theme-rgb-rainbow', 'theme-synthwave',
     'theme-matrix', 'theme-crimson', 'theme-cyber-yellow'
   );
-  if (themeName && themeName !== 'cyan') {
-    document.body.classList.add(`theme-${themeName}`);
+  if (activeTheme !== 'cyan') {
+    document.body.classList.add(`theme-${activeTheme}`);
   }
-  localStorage.setItem('volc_rgb_theme', themeName);
+
+  // Update active highlight on RGB modal buttons
+  document.querySelectorAll('.theme-tile').forEach(tile => {
+    if (tile.getAttribute('data-theme') === activeTheme) {
+      tile.classList.add('ring-4', 'ring-white');
+    } else {
+      tile.classList.remove('ring-4', 'ring-white');
+    }
+  });
+
+  localStorage.setItem('volc_rgb_theme', activeTheme);
 }
 
 function generateRandomRoomId() {
