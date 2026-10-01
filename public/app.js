@@ -872,35 +872,37 @@ function addUserCardToGrid(socketId, username) {
   const initial = username.charAt(0).toUpperCase();
   const card = document.createElement('div');
   card.id = `user-card-${socketId}`;
-  card.className = 'bg-[#2b2d31] p-5 rounded-2xl flex flex-col items-center text-center justify-between relative overflow-hidden group min-h-[190px] border border-black/20 shadow-md hover:border-[#5865f2]/40 transition-all';
+  card.className = 'volc-card p-5 rounded-3xl flex flex-col items-center text-center justify-between relative overflow-hidden group min-h-[200px] border border-gray-800/80 shadow-xl';
 
   card.innerHTML = `
     <!-- Top Mute Badge -->
     <div class="absolute top-3 right-3 flex items-center gap-1.5" id="user-badges-${socketId}">
-      <span id="badge-mute-${socketId}" class="hidden text-[10px] font-bold text-red-400 bg-red-500/20 px-2 py-0.5 rounded-full border border-red-500/30">
+      <span id="badge-mute-${socketId}" class="hidden text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">
         <i class="fa-solid fa-microphone-slash mr-1"></i> MUTED
       </span>
     </div>
 
-    <!-- Discord Avatar with Speaking Ring -->
-    <div class="my-2 flex flex-col items-center">
-      <div class="relative avatar-container my-1">
-        <div id="avatar-ring-${socketId}" class="avatar-ring w-16 h-16 rounded-full flex items-center justify-center transition-all">
-          <div class="w-14 h-14 rounded-full bg-[#5865f2] flex items-center justify-center font-bold text-white text-xl shadow-lg">
-            ${initial}
-          </div>
+    <!-- Center Avatar Tile with Outer Waves -->
+    <div class="my-3 flex flex-col items-center">
+      <div class="relative avatar-container my-2">
+        <div id="avatar-ring-outer-${socketId}" class="avatar-ring-outer"></div>
+        <div id="avatar-ring-${socketId}" class="avatar-ring"></div>
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 via-blue-600 to-emerald-400 flex items-center justify-center font-bold text-white text-xl shadow-[0_0_20px_rgba(0,242,254,0.3)]">
+          ${initial}
         </div>
-        <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#2b2d31] absolute bottom-0 right-0"></span>
       </div>
       <div class="text-sm font-bold text-white tracking-wide mt-2">${username}</div>
-      <div class="text-[10px] text-gray-400 font-mono">ONLINE</div>
+      <div class="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5 font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>CONNECTED</span>
+      </div>
     </div>
 
     <!-- Volume Control Slider -->
-    <div class="w-full mt-2 pt-2.5 border-t border-black/20">
+    <div class="w-full mt-2 pt-3 border-t border-gray-800/80">
       <div class="flex justify-between items-center text-[10px] text-gray-400 mb-1 font-bold">
         <span>ระดับเสียงเพื่อน</span>
-        <span id="volume-val-${socketId}" class="text-[#5865f2] font-mono">100%</span>
+        <span id="volume-val-${socketId}" class="text-cyan-300 font-mono">100%</span>
       </div>
       <div class="flex items-center gap-2">
         <i class="fa-solid fa-volume-high text-[10px] text-gray-500"></i>
