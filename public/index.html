@@ -36,8 +36,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- Custom Persona Styles (v=Persona_11.0) -->
-  <link rel="stylesheet" href="style.css?v=Persona_11.0">
+  <!-- Custom VOLC Styles (v=VOLC_12.0) -->
+  <link rel="stylesheet" href="style.css?v=VOLC_12.0">
 </head>
 <body class="bg-pixel-bg text-[#f0f0ff] flex flex-col h-screen overflow-hidden select-none relative transition-colors duration-300">
 
@@ -462,50 +462,50 @@
     </div>
   </div>
 
-  <!-- ==================== PERSONA SERIES THEME CUSTOMIZER MODAL ==================== -->
+  <!-- ==================== VOLC SERIES THEME CUSTOMIZER MODAL ==================== -->
   <div id="rgb-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 hidden">
     <div class="pixel-box p-6 max-w-xl w-full relative">
       <div class="flex items-center justify-between border-b-2 border-theme-primary pb-3 mb-4">
         <div class="flex items-center gap-2 text-sm font-bold text-theme-primary">
           <i class="fa-solid fa-mask text-theme-secondary"></i>
-          <span class="font-persona-title">[PERSONA 1-5 THEME SELECTION]</span>
+          <span class="font-persona-title">[VOLC COLOR PALETTES]</span>
         </div>
         <button id="close-rgb-modal-btn" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <p class="text-xs text-[#8a8ab0] font-mono mb-4">> SELECT YOUR FAVORITE PERSONA SERIES COLOR PALETTE (PERSONA 1 - 5):</p>
+      <p class="text-xs text-[#8a8ab0] font-mono mb-4">> SELECT YOUR FAVORITE VOLC COLOR PALETTE (SERIES 1 - 5):</p>
 
       <!-- Theme Grid Tiles -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 font-persona text-xs">
         <button data-theme="persona5" class="theme-tile p-4 bg-[#1c0007] border-2 border-[#ff0033] text-[#ff0033] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
           <div class="w-full h-3.5 bg-gradient-to-r from-[#ff0033] via-white to-[#ffe600]"></div>
-          <span class="font-persona-title text-sm tracking-wider">🔴 PERSONA 5</span>
+          <span class="font-persona-title text-sm tracking-wider">🔴 VOLC 5</span>
           <span class="text-[10px] text-gray-300 font-mono">Phantom Crimson & Jet Black</span>
         </button>
 
         <button data-theme="persona4" class="theme-tile p-4 bg-[#262200] border-2 border-[#ffcc00] text-[#ffcc00] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
           <div class="w-full h-3.5 bg-gradient-to-r from-[#ffcc00] via-[#ff6600] to-[#00e5ff]"></div>
-          <span class="font-persona-title text-sm tracking-wider">💛 PERSONA 4</span>
+          <span class="font-persona-title text-sm tracking-wider">💛 VOLC 4</span>
           <span class="text-[10px] text-gray-300 font-mono">Golden TV Yellow & Orange</span>
         </button>
 
         <button data-theme="persona3" class="theme-tile p-4 bg-[#081633] border-2 border-[#0088ff] text-[#0088ff] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
           <div class="w-full h-3.5 bg-gradient-to-r from-[#0088ff] via-[#00f0ff] to-[#ff0055]"></div>
-          <span class="font-persona-title text-sm tracking-wider">💙 PERSONA 3</span>
+          <span class="font-persona-title text-sm tracking-wider">💙 VOLC 3</span>
           <span class="text-[10px] text-gray-300 font-mono">Moonlight Cobalt Blue</span>
         </button>
 
         <button data-theme="persona2" class="theme-tile p-4 bg-[#24002e] border-2 border-[#d9004c] text-[#d9004c] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
           <div class="w-full h-3.5 bg-gradient-to-r from-[#d9004c] via-[#b84dff] to-[#ffcc00]"></div>
-          <span class="font-persona-title text-sm tracking-wider">💜 PERSONA 2</span>
+          <span class="font-persona-title text-sm tracking-wider">💜 VOLC 2</span>
           <span class="text-[10px] text-gray-300 font-mono">Velvet Crimson & Violet</span>
         </button>
 
         <button data-theme="persona1" class="theme-tile p-4 bg-[#1c0033] border-2 border-[#9933ff] text-[#9933ff] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
           <div class="w-full h-3.5 bg-gradient-to-r from-[#9933ff] via-[#00f2fe] to-[#ff00a0]"></div>
-          <span class="font-persona-title text-sm tracking-wider">🔮 PERSONA 1</span>
+          <span class="font-persona-title text-sm tracking-wider">🔮 VOLC 1</span>
           <span class="text-[10px] text-gray-300 font-mono">Philemon Purple & Lavender</span>
         </button>
       </div>
@@ -522,6 +522,6 @@
 
   <!-- Socket.io & App JS -->
   <script src="/socket.io/socket.io.js"></script>
-  <script src="app.js?v=Persona_11.0"></script>
+  <script src="app.js?v=VOLC_12.0"></script>
 </body>
 </html>
