@@ -361,11 +361,12 @@ function setupEventListeners() {
     }
   });
 
-  sensitivitySlider.addEventListener('input', (e) => {
-    sensitivityThreshold = parseInt(e.target.value, 10);
-    sensitivityValueDisplay.textContent = `${sensitivityThreshold}%`;
-    micThresholdLine.style.left = `${sensitivityThreshold}%`;
-  });
+  if (sensitivitySlider) {
+    sensitivitySlider.addEventListener('input', (e) => {
+      sensitivityThreshold = parseInt(e.target.value, 10);
+      if (sensitivityValueDisplay) sensitivityValueDisplay.textContent = `${sensitivityThreshold}%`;
+    });
+  }
 
   // Chat toggles & message sending
   toggleChatBtn.addEventListener('click', () => {
@@ -564,29 +565,25 @@ function startMicLevelMonitoring() {
     // Update mic meter fill in UI
     if (micMeterFill) micMeterFill.style.width = `${volumePercentage}%`;
 
-    // Smart Noise Floor Tracking (Auto adapts threshold so user NEVER has to adjust manually)
+    // Smart Noise Floor Tracking (Auto adapts baseline threshold - 0 adjustment required by user)
     if (volumePercentage < ambientNoiseFloor) {
-      ambientNoiseFloor = Math.max(4, ambientNoiseFloor * 0.9 + volumePercentage * 0.1);
+      ambientNoiseFloor = Math.max(3, ambientNoiseFloor * 0.9 + volumePercentage * 0.1);
     } else {
       ambientNoiseFloor = ambientNoiseFloor * 0.998 + volumePercentage * 0.002;
     }
 
-    // Calculated dynamic auto threshold (+10dB above noise floor)
-    const autoAdaptiveThreshold = Math.max(12, Math.min(50, Math.round(ambientNoiseFloor + 10)));
-
-    // Active threshold: use user manual slider if adjusted away from default 25%, otherwise auto-adaptive threshold
-    const activeThreshold = (sensitivityThreshold === 25) ? autoAdaptiveThreshold : sensitivityThreshold;
-    if (micThresholdLine) micThresholdLine.style.left = `${activeThreshold}%`;
+    // Calculated dynamic auto threshold (+5dB above ambient noise floor)
+    const autoAdaptiveThreshold = Math.max(5, Math.min(40, Math.round(ambientNoiseFloor + 5)));
 
     // Handle Voice Activity Detection (VAD) / Push to Talk
     if (!isMuted && !isDeafened) {
       if (voiceMode === 'vad') {
-        if (volumePercentage >= activeThreshold) {
+        if (volumePercentage >= autoAdaptiveThreshold) {
           setSpeakingState(true);
           if (vadReleaseTimeout) clearTimeout(vadReleaseTimeout);
           vadReleaseTimeout = setTimeout(() => {
             setSpeakingState(false);
-          }, 350);
+          }, 300);
         }
       } else if (voiceMode === 'ptt') {
         setSpeakingState(isPttActive);
