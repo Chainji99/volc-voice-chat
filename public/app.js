@@ -163,8 +163,23 @@ window.addEventListener('DOMContentLoaded', () => {
   const savedName = localStorage.getItem('volc_username');
   if (savedName) usernameInput.value = savedName;
 
+  // Restore saved RGB theme
+  const savedTheme = localStorage.getItem('volc_rgb_theme') || 'cyan';
+  applyTheme(savedTheme);
+
   setupEventListeners();
 });
+
+function applyTheme(themeName) {
+  document.body.classList.remove(
+    'theme-cyan', 'theme-rgb-rainbow', 'theme-synthwave',
+    'theme-matrix', 'theme-crimson', 'theme-cyber-yellow'
+  );
+  if (themeName && themeName !== 'cyan') {
+    document.body.classList.add(`theme-${themeName}`);
+  }
+  localStorage.setItem('volc_rgb_theme', themeName);
+}
 
 function generateRandomRoomId() {
   const adjectives = ['Apex', 'Valor', 'Cyber', 'Neon', 'Shadow', 'Dragon', 'Titan', 'Viper'];
@@ -408,6 +423,30 @@ function setupEventListeners() {
       window.handleSendMessage();
     });
   }
+
+  // RGB Theme Customizer Modal Handlers
+  const openRgbThemeBtn = document.getElementById('open-rgb-theme-btn');
+  const closeRgbModalBtn = document.getElementById('close-rgb-modal-btn');
+  const rgbModal = document.getElementById('rgb-modal');
+
+  if (openRgbThemeBtn && rgbModal) {
+    openRgbThemeBtn.addEventListener('click', () => {
+      rgbModal.classList.remove('hidden');
+    });
+  }
+  if (closeRgbModalBtn && rgbModal) {
+    closeRgbModalBtn.addEventListener('click', () => {
+      rgbModal.classList.add('hidden');
+    });
+  }
+
+  document.querySelectorAll('.theme-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const theme = tile.getAttribute('data-theme');
+      applyTheme(theme);
+      if (rgbModal) rgbModal.classList.add('hidden');
+    });
+  });
 
   // Settings Modal
   openSettingsBtn.addEventListener('click', () => {

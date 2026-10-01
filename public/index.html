@@ -125,6 +125,11 @@
         <span id="chat-badge" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#ff007f]"></span>
       </button>
 
+      <!-- RGB Theme Customizer Button -->
+      <button id="open-rgb-theme-btn" data-tooltip="ปรับแต่งโทนสี & โหมด RGB" class="p-1.5 sm:p-2 pixel-btn pixel-btn-magenta">
+        <i class="fa-solid fa-palette text-xs text-yellow-300 animate-pulse"></i>
+      </button>
+
       <!-- Settings Button -->
       <button id="open-settings-btn" data-tooltip="ตั้งค่าอุปกรณ์เสียง" class="p-1.5 sm:p-2 pixel-btn">
         <i class="fa-solid fa-sliders text-xs"></i>
@@ -345,6 +350,56 @@
     </div>
   </div>
 
+  <!-- ==================== RGB THEME CUSTOMIZER MODAL ==================== -->
+  <div id="rgb-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 hidden">
+    <div class="pixel-box p-6 max-w-md w-full relative">
+      <div class="flex items-center justify-between border-b-2 border-[#333355] pb-3 mb-4">
+        <div class="flex items-center gap-2 text-sm font-bold text-[#00f2fe]">
+          <i class="fa-solid fa-palette text-[#00ff9d]"></i>
+          <span>[RGB THEME & COLOR PALETTE]</span>
+        </div>
+        <button id="close-rgb-modal-btn" class="text-gray-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-[#8a8ab0] font-mono mb-4">> SELECT A NEON PALETTE OR ENABLE DYNAMIC RGB CHROMA WAVE:</p>
+
+      <!-- Theme Grid Tiles -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 font-pixel text-xs">
+        <button data-theme="cyan" class="theme-tile p-3 bg-[#121220] border-2 border-[#00f2fe] text-[#00f2fe] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
+          <div class="w-full h-3 bg-gradient-to-r from-[#00f2fe] to-[#00ff9d]"></div>
+          <span>CYBER NEON</span>
+        </button>
+
+        <button data-theme="rgb-rainbow" class="theme-tile p-3 bg-[#121220] border-2 border-yellow-400 text-yellow-300 font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all relative overflow-hidden">
+          <div class="w-full h-3 bg-gradient-to-r from-red-500 via-green-500 to-blue-500 animate-pulse"></div>
+          <span>🌈 RGB CHROMA</span>
+        </button>
+
+        <button data-theme="synthwave" class="theme-tile p-3 bg-[#121220] border-2 border-[#ff007f] text-[#ff007f] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
+          <div class="w-full h-3 bg-gradient-to-r from-[#ff007f] to-[#9d4edd]"></div>
+          <span>SYNTHWAVE</span>
+        </button>
+
+        <button data-theme="matrix" class="theme-tile p-3 bg-[#121220] border-2 border-[#00ff9d] text-[#00ff9d] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
+          <div class="w-full h-3 bg-gradient-to-r from-[#00ff9d] to-[#76ff03]"></div>
+          <span>MATRIX LIME</span>
+        </button>
+
+        <button data-theme="crimson" class="theme-tile p-3 bg-[#121220] border-2 border-[#ff2a5f] text-[#ff2a5f] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
+          <div class="w-full h-3 bg-gradient-to-r from-[#ff2a5f] to-[#ffaa00]"></div>
+          <span>APEX RED</span>
+        </button>
+
+        <button data-theme="cyber-yellow" class="theme-tile p-3 bg-[#121220] border-2 border-[#ffea00] text-[#ffea00] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
+          <div class="w-full h-3 bg-gradient-to-r from-[#ffea00] to-[#00e5ff]"></div>
+          <span>CYBER 2077</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Autoplay Unlock Notification Banner -->
   <div id="autoplay-banner" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#ffea00] text-black border-2 border-black px-6 py-3 font-bold text-xs flex items-center gap-2 cursor-pointer hidden animate-bounce shadow-[4px_4px_0px_#000000]">
     <i class="fa-solid fa-volume-high text-sm"></i> CLICK ANYWHERE TO ENABLE AUDIO PLAYBACK!
@@ -355,6 +410,6 @@
 
   <!-- Socket.io & App JS -->
   <script src="/socket.io/socket.io.js"></script>
-  <script src="app.js?v=2.5"></script>
+  <script src="app.js?v=3.0"></script>
 </body>
 </html>

@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&family=Kanit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --pixel-bg: #0a0a12;
+  --theme-primary: #00f2fe;
+  --theme-secondary: #00ff9d;
+  --theme-accent: #ff007f;
+  
+  --pixel-bg: #070710;
   --pixel-card: #121220;
   --pixel-card-hover: #1b1b30;
   --pixel-panel: #161628;
@@ -15,12 +19,47 @@
   
   --pixel-text: #f0f0ff;
   --pixel-text-dim: #8a8ab0;
-  
-  /* Pixel Border 3D Offsets */
-  --pixel-shadow-cyan: 4px 4px 0px #00f2fe;
-  --pixel-shadow-magenta: 4px 4px 0px #ff007f;
-  --pixel-shadow-green: 4px 4px 0px #00ff9d;
-  --pixel-shadow-dark: 4px 4px 0px #000000;
+}
+
+/* ==================== RGB THEME PRESETS ==================== */
+
+/* Theme: Rainbow RGB Chroma Wave (Dynamic Spectrum Shift) */
+body.theme-rgb-rainbow {
+  animation: rgb-chroma-shift 8s linear infinite;
+}
+
+@keyframes rgb-chroma-shift {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(180deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* Theme: Synthwave Magenta & Purple */
+body.theme-synthwave {
+  --theme-primary: #ff007f;
+  --theme-secondary: #9d4edd;
+  --theme-accent: #00f2fe;
+}
+
+/* Theme: Matrix Hacker Green */
+body.theme-matrix {
+  --theme-primary: #00ff9d;
+  --theme-secondary: #76ff03;
+  --theme-accent: #00f2fe;
+}
+
+/* Theme: Apex Crimson & Gold */
+body.theme-crimson {
+  --theme-primary: #ff2a5f;
+  --theme-secondary: #ffaa00;
+  --theme-accent: #00f2fe;
+}
+
+/* Theme: Cyberpunk 2077 Electric Yellow */
+body.theme-cyber-yellow {
+  --theme-primary: #ffea00;
+  --theme-secondary: #00e5ff;
+  --theme-accent: #ff007f;
 }
 
 * {
@@ -145,14 +184,14 @@ body::before {
 /* Pixel Card Container */
 .pixel-box {
   background: var(--pixel-card);
-  border: 3px solid #00f2fe;
+  border: 3px solid var(--theme-primary);
   box-shadow: 4px 4px 0px #000000, 0 0 15px rgba(0, 242, 254, 0.2);
-  transition: all 0.15s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .pixel-box:hover {
-  border-color: #00ff9d;
-  box-shadow: 6px 6px 0px #000000, 0 0 20px rgba(0, 255, 157, 0.3);
+  border-color: var(--theme-secondary);
+  box-shadow: 6px 6px 0px #000000, 0 0 20px var(--theme-secondary);
   transform: translate(-2px, -2px);
 }
 
@@ -160,8 +199,8 @@ body::before {
 .pixel-btn {
   font-family: 'Silkscreen', 'Kanit', sans-serif;
   background: var(--pixel-card);
-  color: var(--pixel-cyan);
-  border: 2px solid var(--pixel-cyan);
+  color: var(--theme-primary);
+  border: 2px solid var(--theme-primary);
   box-shadow: 3px 3px 0px #000000;
   cursor: pointer;
   transition: all 0.1s ease;
@@ -169,9 +208,9 @@ body::before {
 }
 
 .pixel-btn:hover {
-  background: var(--pixel-cyan);
+  background: var(--theme-primary);
   color: #000000;
-  box-shadow: 4px 4px 0px #00ff9d;
+  box-shadow: 4px 4px 0px var(--theme-secondary);
   transform: translate(-1px, -1px);
 }
 
@@ -181,25 +220,25 @@ body::before {
 }
 
 .pixel-btn-magenta {
-  border-color: var(--pixel-magenta);
-  color: var(--pixel-magenta);
+  border-color: var(--theme-accent);
+  color: var(--theme-accent);
 }
 
 .pixel-btn-magenta:hover {
-  background: var(--pixel-magenta);
+  background: var(--theme-accent);
   color: #ffffff;
-  box-shadow: 4px 4px 0px #ffea00;
+  box-shadow: 4px 4px 0px var(--theme-secondary);
 }
 
 .pixel-btn-green {
-  border-color: var(--pixel-green);
-  color: var(--pixel-green);
+  border-color: var(--theme-secondary);
+  color: var(--theme-secondary);
 }
 
 .pixel-btn-green:hover {
-  background: var(--pixel-green);
+  background: var(--theme-secondary);
   color: #000000;
-  box-shadow: 4px 4px 0px #00f2fe;
+  box-shadow: 4px 4px 0px var(--theme-primary);
 }
 
 /* Pixel User Speaking Wave Rings */
@@ -217,8 +256,8 @@ body::before {
 }
 
 .speaking .avatar-ring {
-  border-color: var(--pixel-green);
-  box-shadow: 0 0 20px var(--pixel-green);
+  border-color: var(--theme-secondary);
+  box-shadow: 0 0 20px var(--theme-secondary);
   animation: pixel-rotate-pulse 1.2s infinite linear;
 }
 
