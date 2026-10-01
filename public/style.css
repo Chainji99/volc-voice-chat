@@ -126,6 +126,121 @@ html, body {
   padding-right: env(safe-area-inset-right);
 }
 
+/* ==================== WORLD-CLASS CYBER INTRO HUD ANIMATIONS ==================== */
+
+/* 3D Horizon Grid Background for World-Class Intro */
+.intro-grid-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  perspective: 500px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.intro-perspective-grid {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  left: -50%;
+  top: -20%;
+  background-image: 
+    linear-gradient(var(--theme-primary) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--theme-primary) 1.5px, transparent 1.5px);
+  background-size: 40px 40px;
+  transform: rotateX(75deg);
+  animation: intro-grid-fly 18s linear infinite;
+  opacity: 0.18;
+  will-change: transform;
+}
+
+@keyframes intro-grid-fly {
+  0% { transform: rotateX(75deg) translateY(0); }
+  100% { transform: rotateX(75deg) translateY(40px); }
+}
+
+/* Laser Scanning Beam */
+.intro-scan-laser {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--theme-primary), var(--theme-secondary), transparent);
+  box-shadow: 0 0 15px var(--theme-primary);
+  opacity: 0.7;
+  animation: intro-scan-move 4s ease-in-out infinite alternate;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes intro-scan-move {
+  0% { top: 5%; }
+  100% { top: 95%; }
+}
+
+/* Glitch Title Animation */
+.intro-glitch-title {
+  position: relative;
+  display: inline-block;
+  color: var(--theme-primary);
+  text-shadow: 0 0 12px var(--theme-primary);
+}
+
+.intro-glitch-title::before,
+.intro-glitch-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 0, 0, 0);
+}
+
+.intro-glitch-title::before {
+  left: -2px;
+  text-shadow: 2px 0 var(--theme-accent);
+  animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+}
+
+.intro-glitch-title::after {
+  left: 2px;
+  text-shadow: -2px 0 var(--theme-secondary);
+  animation: glitch-anim-2 3.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip: rect(10px, 9999px, 30px, 0); }
+  20% { clip: rect(40px, 9999px, 60px, 0); }
+  40% { clip: rect(20px, 9999px, 50px, 0); }
+  60% { clip: rect(70px, 9999px, 85px, 0); }
+  80% { clip: rect(15px, 9999px, 35px, 0); }
+  100% { clip: rect(50px, 9999px, 90px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip: rect(50px, 9999px, 70px, 0); }
+  25% { clip: rect(10px, 9999px, 25px, 0); }
+  50% { clip: rect(65px, 9999px, 80px, 0); }
+  75% { clip: rect(30px, 9999px, 45px, 0); }
+  100% { clip: rect(5px, 9999px, 20px, 0); }
+}
+
+@keyframes spin-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Shimmer beam moving inside intro progress bar */
+.intro-progress-beam {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 15px;
+  background: #ffffff;
+  box-shadow: 0 0 12px #ffffff, 0 0 20px var(--theme-primary);
+  opacity: 0.9;
+}
+
 /* Animated Cyber Pixel Background (Pure GPU-accelerated CSS - Zero RAM footprint) */
 .cyber-animated-bg {
   position: fixed;

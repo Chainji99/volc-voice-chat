@@ -178,32 +178,63 @@ function runCyberIntroAnimation() {
   const progressBar = document.getElementById('intro-progress-bar');
   const percentageText = document.getElementById('intro-percentage-text');
   const statusText = document.getElementById('intro-status-text');
+  const consoleLogs = document.getElementById('intro-console-logs');
+  const coreCard = document.getElementById('intro-core-card');
+  const warpOverlay = document.getElementById('intro-warp-overlay');
 
   if (!introScreen || !progressBar) return;
 
-  const bootSteps = [
-    { progress: 25, text: '> INITIALIZING NEURAL AUDIO...' },
-    { progress: 55, text: '> CONNECTING MATRIX WEBRTC MESH...' },
-    { progress: 85, text: '> ENABLING SMART AUTO NOISE GATE...' },
-    { progress: 100, text: '> SYSTEM READY! WELCOME GAMER' }
+  const bootLogs = [
+    { progress: 15, text: '> [KERNEL] Loading WebAudio DSP Engine...', log: '> [0.04s] DSP core 85Hz highpass initialized' },
+    { progress: 35, text: '> [CODEC] Mounting Opus Low-Latency Pipeline...', log: '> [0.12s] Opus 48kHz stereo codec bound' },
+    { progress: 55, text: '> [NETWORK] Connecting WebRTC Mesh Matrix...', log: '> [0.28s] P2P STUN/TURN ICE candidates ready' },
+    { progress: 75, text: '> [SECURITY] Calibrating Smart Auto Noise Gate...', log: '> [0.41s] Dynamic Noise Floor tracking active' },
+    { progress: 92, text: '> [SYSTEM] Synthesizing Discord Audio SFX...', log: '> [0.55s] WebAudio SFX synthesizer online' },
+    { progress: 100, text: '> [ONLINE] VOLC SYSTEM READY. WELCOME!', log: '> [0.65s] ALL SYSTEMS GO — ENTERING MATRIX' }
   ];
 
   let stepIndex = 0;
-  const bootInterval = setInterval(() => {
-    if (stepIndex < bootSteps.length) {
-      const step = bootSteps[stepIndex];
+
+  const progressInterval = setInterval(() => {
+    if (stepIndex < bootLogs.length) {
+      const step = bootLogs[stepIndex];
+      
       progressBar.style.width = `${step.progress}%`;
       if (percentageText) percentageText.textContent = `${step.progress}%`;
       if (statusText) statusText.textContent = step.text;
+
+      if (consoleLogs) {
+        const logLine = document.createElement('div');
+        logLine.className = 'truncate text-[#00ff9d]';
+        logLine.textContent = step.log;
+        consoleLogs.appendChild(logLine);
+        // keep at most 3 recent log lines
+        while (consoleLogs.children.length > 3) {
+          consoleLogs.removeChild(consoleLogs.firstChild);
+        }
+      }
+
       stepIndex++;
     } else {
-      clearInterval(bootInterval);
+      clearInterval(progressInterval);
+
+      // World-Class Cyber Transition Effect (Warp Flash + Card Scale Out)
       setTimeout(() => {
-        introScreen.style.opacity = '0';
+        if (warpOverlay) warpOverlay.style.opacity = '0.7';
+        if (coreCard) {
+          coreCard.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease';
+          coreCard.style.transform = 'scale(1.15)';
+          coreCard.style.opacity = '0';
+        }
+
         setTimeout(() => {
-          introScreen.style.display = 'none';
-        }, 700);
-      }, 250);
+          introScreen.style.transition = 'opacity 0.6s ease';
+          introScreen.style.opacity = '0';
+          setTimeout(() => {
+            introScreen.style.display = 'none';
+          }, 600);
+        }, 200);
+      }, 300);
     }
   }, 220);
 }

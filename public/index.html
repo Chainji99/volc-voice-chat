@@ -22,34 +22,98 @@
 </head>
 <body class="bg-[#0a0a12] text-[#f0f0ff] flex flex-col h-screen overflow-hidden select-none relative">
 
-  <!-- ==================== FUTURISTIC CYBER INTRO BOOT SCREEN ==================== -->
-  <div id="cyber-intro-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#070710] text-[#00f2fe] font-pixel select-none transition-opacity duration-700">
-    <div class="relative flex flex-col items-center gap-6 max-w-sm w-full px-6 text-center">
+  <!-- ==================== WORLD-CLASS FUTURISTIC CYBER INTRO BOOT SCREEN ==================== -->
+  <div id="cyber-intro-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05050b] text-[#00f2fe] font-pixel select-none overflow-hidden transition-all duration-700">
+    
+    <!-- 3D Perspective Horizon Cyber Grid Floor -->
+    <div class="intro-grid-container">
+      <div class="intro-perspective-grid"></div>
+    </div>
+
+    <!-- Laser Scanning Beam -->
+    <div class="intro-scan-laser"></div>
+
+    <!-- 4 Corner Futuristic Telemetry HUD Brackets -->
+    <div class="absolute top-6 left-6 flex flex-col text-[10px] font-mono text-[#00f2fe]/70 pointer-events-none z-10">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 bg-[#00f2fe] animate-pulse"></span>
+        <span>SYS.LOC // ASIA-BANGKOK-01</span>
+      </div>
+      <div class="text-[9px] text-[#00ff9d]/50 font-mono mt-0.5">> PROTOCOL: WEBRTC_MESH_v3.5</div>
+    </div>
+
+    <div class="absolute top-6 right-6 text-right text-[10px] font-mono text-[#00f2fe]/70 pointer-events-none z-10 hidden sm:block">
+      <div>DSP_ENGINE // 48000 Hz / OPUS</div>
+      <div class="text-[9px] text-[#ff007f]/60 mt-0.5">STATUS: ENCRYPTED P2P</div>
+    </div>
+
+    <div class="absolute bottom-6 left-6 text-[9px] font-mono text-[#8a8ab0]/50 pointer-events-none z-10 hidden sm:block">
+      > VOLC_AUDIO_SYSTEMS_INC © 2026
+    </div>
+
+    <div class="absolute bottom-6 right-6 text-right text-[9px] font-mono text-[#00ff9d]/50 pointer-events-none z-10 hidden sm:block">
+      SECURE CHANNEL [0x99A4F]
+    </div>
+
+    <!-- Main Central Cyber Core HUD Card -->
+    <div id="intro-core-card" class="relative flex flex-col items-center gap-5 max-w-md w-full px-6 text-center z-10">
       
-      <!-- Glowing Cyber Emblem -->
-      <div class="w-20 h-20 bg-[#121220] border-4 border-[#00f2fe] flex items-center justify-center shadow-[0_0_30px_rgba(0,242,254,0.5)] animate-pulse relative">
-        <i class="fa-solid fa-headset text-4xl text-[#00ff9d]"></i>
-        <div class="absolute -inset-1 border-2 border-dashed border-[#ff007f] animate-spin" style="animation-duration: 8s;"></div>
-      </div>
-
-      <!-- Cyber Title & Subtitle -->
-      <div class="space-y-1">
-        <h1 class="text-xl font-pixel-title text-[#00f2fe] tracking-widest animate-pulse">[VOLC VOICE CHAT]</h1>
-        <p class="text-xs text-[#00ff9d] font-mono tracking-widest">> SPATIAL GAMING AUDIO v3.5</p>
-      </div>
-
-      <!-- Boot Loader Progress Bar -->
-      <div class="w-full space-y-2">
-        <div class="h-3.5 bg-[#121220] border-2 border-[#00f2fe] p-0.5 relative overflow-hidden shadow-[3px_3px_0px_#00ff9d]">
-          <div id="intro-progress-bar" class="h-full bg-gradient-to-r from-[#00f2fe] via-[#00ff9d] to-[#ff007f] w-0 transition-all duration-150 ease-out"></div>
+      <!-- Multi-ring HUD Emblem Reactor Core -->
+      <div class="relative w-28 h-28 flex items-center justify-center my-1">
+        <!-- Outer Rotating Tech Ring -->
+        <div class="absolute inset-0 border-2 border-dashed border-[#00f2fe]/50 rounded-full animate-spin" style="animation-duration: 15s;"></div>
+        <!-- Middle Counter-Rotating Ring -->
+        <div class="absolute inset-2 border-2 border-dotted border-[#ff007f]/60 rounded-full animate-spin-reverse" style="animation-duration: 9s;"></div>
+        <!-- Inner Glowing Core Box -->
+        <div class="w-16 h-16 bg-[#0c0c1a] border-2 border-[#00f2fe] shadow-[0_0_35px_rgba(0,242,254,0.6)] flex items-center justify-center relative">
+          <i class="fa-solid fa-headset text-3xl text-[#00ff9d] animate-pulse"></i>
+          <!-- Equalizer Audio Wave visualizer bars -->
+          <div class="absolute bottom-1 flex items-end gap-1 h-3">
+            <span class="w-0.5 h-2 bg-[#00f2fe] animate-bounce"></span>
+            <span class="w-0.5 h-3 bg-[#00ff9d] animate-bounce" style="animation-delay: 0.1s"></span>
+            <span class="w-0.5 h-1.5 bg-[#ff007f] animate-bounce" style="animation-delay: 0.2s"></span>
+            <span class="w-0.5 h-2.5 bg-[#00f2fe] animate-bounce" style="animation-delay: 0.15s"></span>
+          </div>
         </div>
-        <div class="flex justify-between text-[10px] text-[#8a8ab0] font-mono">
-          <span id="intro-status-text">> INITIALIZING CORE...</span>
-          <span id="intro-percentage-text" class="text-[#00ff9d] font-bold">0%</span>
+      </div>
+
+      <!-- Futuristic Glitch Title & Subtitle -->
+      <div class="space-y-1 relative">
+        <h1 class="text-2xl sm:text-3xl font-pixel-title text-[#00f2fe] tracking-widest intro-glitch-title" data-text="[VOLC VOICE]">[VOLC VOICE]</h1>
+        <p class="text-xs text-[#00ff9d] font-mono tracking-widest flex items-center justify-center gap-2 mt-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#00ff9d] animate-ping"></span>
+          <span>HIGH-FIDELITY SPATIAL AUDIO v3.5</span>
+        </p>
+      </div>
+
+      <!-- Dynamic Console Log Stream -->
+      <div class="w-full bg-[#080814]/90 border border-[#00f2fe]/40 p-2.5 font-mono text-[10px] text-left text-[#00ff9d] shadow-[0_0_15px_rgba(0,0,0,0.8)] h-16 overflow-hidden relative flex flex-col justify-end">
+        <div id="intro-console-logs" class="space-y-1">
+          <div class="text-[#8a8ab0]">> INITIALIZING VOLC AUDIO KERNEL...</div>
+        </div>
+        <!-- Scanline highlight overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#00f2fe]/5 to-transparent pointer-events-none"></div>
+      </div>
+
+      <!-- Segmented Cyber Progress Bar -->
+      <div class="w-full space-y-2">
+        <div class="h-4 bg-[#0a0a16] border-2 border-[#00f2fe] p-0.5 relative overflow-hidden shadow-[4px_4px_0px_#00ff9d]">
+          <!-- Progress Fill with shimmer beam -->
+          <div id="intro-progress-bar" class="h-full bg-gradient-to-r from-[#00f2fe] via-[#00ff9d] to-[#ff007f] w-0 transition-all duration-150 ease-out relative">
+            <div class="intro-progress-beam"></div>
+          </div>
+        </div>
+        <div class="flex justify-between text-[11px] text-[#8a8ab0] font-mono font-bold">
+          <span id="intro-status-text" class="text-[#00f2fe] text-left truncate max-w-[240px]">> LOADING CORE MESH...</span>
+          <span id="intro-percentage-text" class="text-[#00ff9d] font-pixel">0%</span>
         </div>
       </div>
 
     </div>
+
+    <!-- High-Tech Warp Light Burst Overlay (Fires on 100% completion) -->
+    <div id="intro-warp-overlay" class="absolute inset-0 bg-[#00f2fe] opacity-0 pointer-events-none transition-opacity duration-300 z-20"></div>
+
   </div>
 
   <!-- ==================== ANIMATED CYBER PIXEL BACKGROUND ==================== -->
