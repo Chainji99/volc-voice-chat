@@ -252,41 +252,41 @@ const themePalettes = {
     primary: '#ff007f',
     secondary: '#9d4edd',
     accent: '#00f2fe',
-    bg: '#100416',
-    card: '#1d0728',
-    panel: '#270b36'
+    bg: '#160024',
+    card: '#2a0044',
+    panel: '#3a005d'
   },
   matrix: {
     primary: '#00ff9d',
     secondary: '#76ff03',
     accent: '#00f2fe',
-    bg: '#031207',
-    card: '#07220e',
-    panel: '#0c3015'
+    bg: '#021508',
+    card: '#072a12',
+    panel: '#0d3d1b'
   },
   crimson: {
     primary: '#ff2a5f',
     secondary: '#ffaa00',
     accent: '#00f2fe',
-    bg: '#140409',
-    card: '#260710',
-    panel: '#360a17'
+    bg: '#1a0309',
+    card: '#300612',
+    panel: '#47081b'
   },
   'cyber-yellow': {
     primary: '#ffea00',
     secondary: '#00e5ff',
     accent: '#ff007f',
-    bg: '#141202',
-    card: '#252204',
-    panel: '#353006'
+    bg: '#1a1600',
+    card: '#2e2800',
+    panel: '#453c00'
   },
   'rgb-rainbow': {
     primary: '#00f2fe',
     secondary: '#00ff9d',
     accent: '#ff007f',
-    bg: '#070710',
-    card: '#121220',
-    panel: '#161628'
+    bg: '#0f0a26',
+    card: '#1b1242',
+    panel: '#271b5c'
   }
 };
 

@@ -13,14 +13,33 @@
   <meta name="apple-mobile-web-app-title" content="VOLC Voice">
   <meta name="theme-color" content="#0a0a12">
   <title>VOLC VOICE - Cyberpunk Gaming Audio</title>
-  <!-- Tailwind CSS CDN -->
+  
+  <!-- Tailwind CSS CDN Configuration for Dynamic Theme Custom Properties -->
+  <script>
+    tailwind = {
+      config: {
+        theme: {
+          extend: {
+            colors: {
+              'pixel-bg': 'var(--pixel-bg)',
+              'pixel-card': 'var(--pixel-card)',
+              'pixel-panel': 'var(--pixel-panel)',
+              'theme-primary': 'var(--theme-primary)',
+              'theme-secondary': 'var(--theme-secondary)',
+              'theme-accent': 'var(--theme-accent)',
+            }
+          }
+        }
+      }
+    };
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <!-- Custom Cyber Pixel Styles -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=6.0">
 </head>
-<body class="bg-[#0a0a12] text-[#f0f0ff] flex flex-col h-screen overflow-hidden select-none relative">
+<body class="bg-pixel-bg text-[#f0f0ff] flex flex-col h-screen overflow-hidden select-none relative transition-colors duration-300">
 
   <!-- ==================== WORLD-CLASS FUTURISTIC CYBER INTRO BOOT SCREEN ==================== -->
   <div id="cyber-intro-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05050b] text-[#00f2fe] font-pixel select-none overflow-hidden transition-all duration-700">

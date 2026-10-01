@@ -23,9 +23,15 @@
 
 /* ==================== RGB THEME PRESETS ==================== */
 
-/* Theme: Rainbow RGB Chroma Wave (Dynamic Spectrum Shift) */
+/* Theme: Rainbow RGB Chroma Wave (Dynamic Spectrum Shift across 100% of the site) */
 body.theme-rgb-rainbow {
-  animation: rgb-chroma-shift 8s linear infinite;
+  --theme-primary: #00f2fe;
+  --theme-secondary: #00ff9d;
+  --theme-accent: #ff007f;
+  --pixel-bg: #0f0a26;
+  --pixel-card: #1b1242;
+  --pixel-panel: #271b5c;
+  animation: rgb-chroma-shift 6s linear infinite;
 }
 
 @keyframes rgb-chroma-shift {
