@@ -379,8 +379,10 @@ function setupEventListeners() {
     chatSidebar.classList.add('hidden');
   });
 
-  function handleSendMessage() {
-    const msg = chatInput.value.trim();
+  window.handleSendMessage = function() {
+    const input = document.getElementById('chat-input');
+    if (!input) return;
+    const msg = input.value.trim();
     if (!msg) return;
 
     const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -393,27 +395,16 @@ function setupEventListeners() {
       socket.emit('send-message', { message: msg });
     }
 
-    chatInput.value = '';
-    chatInput.focus();
-  }
+    input.value = '';
+    setTimeout(() => {
+      input.focus();
+    }, 50);
+  };
 
-  chatForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    handleSendMessage();
-  });
-
-  chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
+  if (chatForm) {
+    chatForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      handleSendMessage();
-    }
-  });
-
-  const sendChatBtn = document.getElementById('send-chat-btn');
-  if (sendChatBtn) {
-    sendChatBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      handleSendMessage();
+      window.handleSendMessage();
     });
   }
 
