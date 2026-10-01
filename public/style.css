@@ -33,10 +33,6 @@
 html, body {
   font-family: 'Silkscreen', 'Kanit', sans-serif;
   background-color: var(--pixel-bg);
-  background-image: 
-    linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
   color: var(--pixel-text);
   height: 100vh;
   height: 100dvh;
@@ -47,6 +43,82 @@ html, body {
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+}
+
+/* Animated Cyber Pixel Background (Pure GPU-accelerated CSS - Zero RAM footprint) */
+.cyber-animated-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-color: #07070e;
+  background-image: 
+    linear-gradient(rgba(0, 242, 254, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 254, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  animation: cyber-grid-scroll 25s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes cyber-grid-scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 32px 32px;
+  }
+}
+
+/* Floating Pixel Stars Dust Layer */
+.cyber-stars {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(2px 2px at 25px 35px, rgba(0, 242, 254, 0.85), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 50px 80px, rgba(0, 255, 157, 0.9), rgba(0,0,0,0)),
+    radial-gradient(2.5px 2.5px at 110px 45px, rgba(255, 0, 127, 0.8), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 180px 140px, rgba(0, 242, 254, 0.95), rgba(0,0,0,0)),
+    radial-gradient(3px 3px at 250px 210px, rgba(0, 255, 157, 0.75), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 330px 280px, rgba(255, 234, 0, 0.85), rgba(0,0,0,0));
+  background-size: 380px 380px;
+  animation: cyber-stars-float 40s linear infinite;
+  opacity: 0.85;
+  will-change: background-position;
+}
+
+@keyframes cyber-stars-float {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -380px -760px;
+  }
+}
+
+/* Ambient Cyber Ambient Breathing Glow */
+.cyber-ambient-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(0, 255, 157, 0.05) 0%, transparent 60%);
+  animation: cyber-glow-pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes cyber-glow-pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
 }
 
 /* CRT Scanline Overlay Effect */
