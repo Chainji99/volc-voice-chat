@@ -10,164 +10,161 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="VOLC Voice">
-  <meta name="theme-color" content="#090c15">
-  <title>VOLC Voice - Next-Gen Gaming Audio</title>
+  <meta name="apple-mobile-web-app-title" content="VOLC Pixel Voice">
+  <meta name="theme-color" content="#0a0a12">
+  <title>VOLC PIXEL VOICE - Cyberpunk Gaming Audio</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- Custom VOLC Voice Styles -->
+  <!-- Custom Cyber Pixel Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#090c15] text-[#f8fafc] flex flex-col h-screen overflow-hidden select-none relative">
+<body class="bg-[#0a0a12] text-[#f0f0ff] flex flex-col h-screen overflow-hidden select-none relative">
 
-  <!-- PWA Install Banner Button for Mobile & iPad -->
-  <button id="pwa-install-btn" class="hidden fixed top-20 right-4 z-50 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-400 via-emerald-400 to-cyan-300 text-black font-bold text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(0,242,254,0.4)] animate-bounce active:scale-95 transition-all">
-    <i class="fa-solid fa-mobile-screen-button"></i> <span>ติดตั้งแอปบนมือถือ/ไอแพด (Install App)</span>
+  <!-- PWA Install Banner Button -->
+  <button id="pwa-install-btn" class="hidden fixed top-16 right-4 z-50 px-4 py-2.5 pixel-btn pixel-btn-green font-bold text-xs flex items-center gap-2 shadow-2xl animate-bounce">
+    <i class="fa-solid fa-gamepad"></i> <span>[INSTALL PIXEL APP]</span>
   </button>
 
   <!-- ==================== JOIN ROOM MODAL ==================== -->
-  <div id="join-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-xl p-4">
-    <div class="volc-card p-8 rounded-3xl w-full max-w-md border border-cyan-500/30 shadow-[0_0_50px_rgba(0,242,254,0.15)] relative">
+  <div id="join-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
+    <div class="pixel-box p-8 max-w-md w-full relative">
       <div class="text-center mb-6">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-emerald-400 mb-4 shadow-[0_0_25px_rgba(0,242,254,0.4)]">
-          <i class="fa-solid fa-waveform text-3xl text-white"></i>
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-[#161628] border-2 border-[#00f2fe] mb-4 shadow-[4px_4px_0px_#00ff9d]">
+          <i class="fa-solid fa-gamepad text-3xl text-[#00f2fe]"></i>
         </div>
-        <h1 class="text-2xl font-orbitron font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-300 to-cyan-200">VOLC VOICE</h1>
-        <p class="text-xs text-gray-400 mt-1">Spatial Audio Voice Chat - ไม่ดรอป FPS ไม่เบาเสียงเกม</p>
+        <h1 class="text-lg font-pixel-title text-[#00f2fe] tracking-widest leading-relaxed">[VOLC PIXEL VOICE]</h1>
+        <p class="text-xs text-[#00ff9d] font-pixel mt-2">> SPATIAL AUDIO FOR GAMERS v2.0</p>
       </div>
 
-      <form id="join-form" class="space-y-4">
+      <form id="join-form" class="space-y-4 font-pixel">
         <div>
-          <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">ชื่อของคุณ (Gamer Tag)</label>
+          <label class="block text-xs font-bold text-[#00f2fe] uppercase tracking-wider mb-2">> GAMER TAG:</label>
           <div class="relative">
             <i class="fa-solid fa-user absolute left-4 top-3.5 text-gray-400 text-sm"></i>
-            <input type="text" id="username-input" required placeholder="ใส่ชื่อในเกม..." 
-              class="w-full bg-[#121724] border border-gray-700/60 rounded-2xl px-4 py-3 pl-11 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all">
+            <input type="text" id="username-input" required placeholder="GamerPro#1337" 
+              class="w-full bg-[#0a0a12] border-2 border-[#00f2fe] px-4 py-3 pl-11 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff9d]">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">รหัสห้อง (Voice Room)</label>
+          <label class="block text-xs font-bold text-[#00f2fe] uppercase tracking-wider mb-2">> VOICE ROOM ID:</label>
           <div class="relative flex gap-2">
             <div class="relative flex-1">
-              <i class="fa-solid fa-gamepad absolute left-4 top-3.5 text-gray-400 text-sm"></i>
-              <input type="text" id="room-input" required placeholder="เช่น volc-squad" 
-                class="w-full bg-[#121724] border border-gray-700/60 rounded-2xl px-4 py-3 pl-11 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all">
+              <i class="fa-solid fa-headset absolute left-4 top-3.5 text-gray-400 text-sm"></i>
+              <input type="text" id="room-input" required placeholder="pixel-squad" 
+                class="w-full bg-[#0a0a12] border-2 border-[#00f2fe] px-4 py-3 pl-11 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff9d]">
             </div>
             <button type="button" id="random-room-btn" data-tooltip="สุ่มรหัสห้อง" 
-              class="px-4 bg-[#1a2234] hover:bg-[#242e46] border border-gray-700/60 rounded-2xl text-cyan-400 transition-all">
-              <i class="fa-solid fa-shuffle"></i>
+              class="px-4 pixel-btn text-cyan-300">
+              <i class="fa-solid fa-dice"></i>
             </button>
           </div>
         </div>
 
         <button type="submit" 
-          class="w-full py-4 px-6 rounded-2xl font-bold text-sm tracking-wider text-black bg-gradient-to-r from-cyan-400 via-emerald-400 to-cyan-300 hover:opacity-90 shadow-[0_0_25px_rgba(0,242,254,0.3)] transform active:scale-95 transition-all mt-6 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-right-to-bracket"></i> เข้าห้องคุยเสียง (Join Room)
+          class="w-full py-4 px-6 pixel-btn pixel-btn-green font-bold text-sm uppercase tracking-widest mt-6 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-play"></i> [START GAME / ENTER ROOM]
         </button>
       </form>
     </div>
   </div>
 
-  <!-- ==================== TOP NAVIGATION BAR ==================== -->
-  <header id="top-nav" class="h-14 sm:h-16 px-3 sm:px-6 flex items-center justify-between z-20 border-b border-white/5 bg-[#0e1320]/90 backdrop-blur-md">
-    <!-- Left Logo & Room Tag -->
-    <div class="flex items-center gap-2 sm:gap-3">
-      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-500 flex items-center justify-center shadow-[0_0_15px_rgba(0,242,254,0.3)] flex-shrink-0">
-        <i class="fa-solid fa-waveform text-white text-xs sm:text-sm"></i>
+  <!-- ==================== TOP CYBER PIXEL NAV BAR ==================== -->
+  <header id="top-nav" class="h-16 px-4 sm:px-6 flex items-center justify-between border-b-4 border-[#00f2fe] bg-[#121220] z-20">
+    <!-- Left Logo & Room Code -->
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-[#161628] border-2 border-[#00f2fe] flex items-center justify-center shadow-[3px_3px_0px_#00ff9d]">
+        <i class="fa-solid fa-waveform text-[#00f2fe] text-base"></i>
       </div>
-      <div class="hidden sm:flex items-center gap-1.5">
-        <span class="font-orbitron font-bold text-sm sm:text-base tracking-wider text-cyan-400">VOLC</span>
-        <span class="text-[9px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-1.5 py-0.2 rounded-full font-mono">VOICE</span>
+      <div class="hidden sm:flex flex-col">
+        <span class="font-pixel-title font-bold text-xs tracking-wider text-[#00f2fe]">VOLC_PIXEL</span>
+        <span class="text-[10px] text-[#00ff9d] font-pixel tracking-widest">> VOICE_CHAT v2.0</span>
       </div>
 
-      <div class="h-4 w-px bg-gray-700/60 mx-1 hidden sm:block"></div>
+      <div class="h-6 w-0.5 bg-[#333355] mx-1 hidden sm:block"></div>
 
-      <!-- Room Code Badge & Copy Link -->
-      <div class="flex items-center gap-1.5 bg-[#141b2b] px-2.5 py-1 rounded-full border border-gray-800">
-        <span class="text-[10px] text-gray-400 hidden md:inline">ห้อง:</span>
-        <span id="current-room-display" class="text-xs font-mono font-bold text-cyan-300 truncate max-w-[90px] sm:max-w-none">-</span>
-        <button id="copy-link-btn" data-tooltip="คัดลอกลิงก์เชิญเพื่อน" class="text-xs text-gray-400 hover:text-cyan-400 transition-colors p-0.5">
+      <!-- Room Code Box -->
+      <div class="flex items-center gap-2 bg-[#0a0a12] border-2 border-[#00f2fe] px-3 py-1 text-xs">
+        <span class="text-[#8a8ab0] hidden md:inline">ROOM:</span>
+        <span id="current-room-display" class="font-mono font-bold text-[#00ff9d] truncate max-w-[100px] sm:max-w-none">-</span>
+        <button id="copy-link-btn" data-tooltip="คัดลอกลิงก์เชิญเพื่อน" class="text-[#00f2fe] hover:text-[#00ff9d] ml-1">
           <i class="fa-regular fa-copy"></i>
         </button>
       </div>
     </div>
 
-    <!-- Right Controls & Status -->
-    <div class="flex items-center gap-1.5 sm:gap-3">
-      <!-- Live Latency Status Badge -->
-      <div class="flex items-center gap-1.5 text-xs bg-[#141b2b] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full border border-gray-800">
-        <span id="latency-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span id="connection-status-text" class="text-gray-300 font-medium hidden lg:inline">เชื่อมต่อแล้ว (Low Latency)</span>
+    <!-- Right Controls -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Latency Status -->
+      <div class="flex items-center gap-2 text-xs bg-[#0a0a12] border-2 border-[#333355] px-3 py-1 font-mono">
+        <span id="latency-dot" class="w-2.5 h-2.5 bg-[#00ff9d] animate-ping"></span>
+        <span id="connection-status-text" class="text-[#00ff9d] hidden lg:inline">ONLINE [12ms]</span>
       </div>
 
       <!-- Screen Share Button -->
-      <button id="share-screen-btn" class="w-8 h-8 sm:w-auto sm:h-auto sm:px-3.5 sm:py-2 rounded-full bg-[#141b2b] hover:bg-[#1f283d] text-xs font-bold text-gray-200 flex items-center justify-center gap-2 border border-gray-800 transition-all">
-        <i class="fa-solid fa-desktop text-cyan-400 text-xs"></i>
-        <span class="hidden md:inline">แชร์หน้าจอเกม</span>
+      <button id="share-screen-btn" class="px-3 py-1.5 pixel-btn text-xs font-bold flex items-center gap-2">
+        <i class="fa-solid fa-desktop text-[#00f2fe]"></i>
+        <span class="hidden md:inline">[STREAM GAME]</span>
       </button>
 
-      <!-- Mini Overlay Mode Toggle -->
-      <button id="toggle-mini-btn" data-tooltip="ย่อหน้าจอโหมด Overlay" 
-        class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#141b2b] hover:bg-[#1f283d] border border-gray-800 flex items-center justify-center text-gray-300 hover:text-cyan-400 transition-all">
-        <i class="fa-solid fa-down-left-and-up-right-to-center text-[10px] sm:text-xs"></i>
+      <!-- Mini Overlay Toggle -->
+      <button id="toggle-mini-btn" data-tooltip="ย่อหน้าจอโหมด Overlay" class="p-2 pixel-btn">
+        <i class="fa-solid fa-compress text-xs"></i>
       </button>
 
-      <!-- Toggle Text Chat -->
-      <button id="toggle-chat-btn" data-tooltip="เปิด/ปิด แชทข้อความ" 
-        class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#141b2b] hover:bg-[#1f283d] border border-gray-800 flex items-center justify-center text-gray-300 hover:text-cyan-400 transition-all relative">
-        <i class="fa-solid fa-comments text-[10px] sm:text-xs"></i>
-        <span id="chat-badge" class="hidden absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-cyan-400 rounded-full"></span>
+      <!-- Text Chat Toggle -->
+      <button id="toggle-chat-btn" data-tooltip="เปิด/ปิด แชทข้อความ" class="p-2 pixel-btn relative">
+        <i class="fa-solid fa-comment-code text-xs"></i>
+        <span id="chat-badge" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#ff007f]"></span>
       </button>
 
       <!-- Settings Button -->
-      <button id="open-settings-btn" data-tooltip="ตั้งค่าอุปกรณ์เสียง" 
-        class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#141b2b] hover:bg-[#1f283d] border border-gray-800 flex items-center justify-center text-gray-300 hover:text-cyan-400 transition-all">
-        <i class="fa-solid fa-gear text-[10px] sm:text-xs"></i>
+      <button id="open-settings-btn" data-tooltip="ตั้งค่าอุปกรณ์เสียง" class="p-2 pixel-btn">
+        <i class="fa-solid fa-sliders text-xs"></i>
       </button>
     </div>
   </header>
 
-  <!-- ==================== MAIN WORKSPACE ==================== -->
+  <!-- ==================== MAIN PIXEL WORKSPACE ==================== -->
   <div class="flex-1 flex overflow-hidden relative pb-28">
     
-    <!-- PARTICIPANTS GRID & STAGE SECTION -->
+    <!-- PARTICIPANTS GRID SECTION -->
     <main id="main-content" class="flex-1 p-6 overflow-y-auto">
       <div class="max-w-6xl mx-auto space-y-6">
         
-        <!-- Screen Share View Stage (Hidden when not streaming) -->
-        <div id="screen-share-container" class="hidden w-full max-h-[55vh] bg-black rounded-3xl overflow-hidden border border-cyan-500/30 relative shadow-2xl">
+        <!-- Screen Share CRT View Stage (Hidden when not streaming) -->
+        <div id="screen-share-container" class="hidden w-full max-h-[55vh] bg-black border-4 border-[#ff007f] shadow-[6px_6px_0px_#000000] relative overflow-hidden">
           <video id="screen-share-video" autoplay playsinline class="w-full h-full object-contain"></video>
-          <div class="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-4 py-1.5 rounded-full text-xs text-cyan-300 font-mono font-bold flex items-center gap-2 border border-cyan-500/30">
-            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-            <span id="screen-share-user-name">กำลังแชร์หน้าจอเกม...</span>
+          <div class="absolute top-4 left-4 bg-[#0a0a12] border-2 border-[#ff007f] px-3 py-1 text-xs text-[#ff007f] font-mono font-bold flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-[#ff007f] animate-ping"></span>
+            <span id="screen-share-user-name">> GAME_STREAM_ACTIVE</span>
           </div>
         </div>
 
-        <!-- Participants Voice Section Header -->
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-            <h2 class="text-xs font-semibold tracking-widest text-gray-400 uppercase">สมาชิกในห้องคุยเสียง (<span id="user-count-display">0</span>)</h2>
+        <!-- Participants Section Header -->
+        <div class="flex items-center justify-between border-b-2 border-[#333355] pb-2">
+          <div class="flex items-center gap-2 text-xs font-pixel text-[#00f2fe]">
+            <i class="fa-solid fa-users text-[#00ff9d]"></i>
+            <span>> ACTIVE PLAYERS IN ROOM (<span id="user-count-display">0</span>)</span>
           </div>
-          <span class="text-xs text-gray-500 hidden sm:inline">สามารถปรับระดับเสียงเพื่อนแต่ละคนแยกกันได้ทันที</span>
+          <span class="text-xs text-[#8a8ab0] font-mono hidden sm:inline">> ADJUST INDIVIDUAL PLAYER VOLUMES BELOW</span>
         </div>
 
-        <!-- Dynamic Grid of VOLC User Cards -->
-        <div id="participants-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 grid-participants">
+        <!-- Dynamic Grid of Cyber Pixel User Cards -->
+        <div id="participants-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 grid-participants">
           <!-- Dynamic User Cards inserted by JavaScript -->
         </div>
       </div>
     </main>
 
-    <!-- RIGHT TEXT CHAT SIDEBAR -->
-    <aside id="chat-sidebar" class="w-80 glass-panel border-l border-white/5 flex flex-col transition-all duration-300 z-30 hidden">
-      <div class="p-4 border-b border-gray-800/80 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-message text-cyan-400 text-xs"></i>
-          <h3 class="text-xs font-bold text-gray-200 tracking-wider uppercase">VOLC Text Chat</h3>
+    <!-- RIGHT PIXEL TEXT CHAT SIDEBAR -->
+    <aside id="chat-sidebar" class="w-80 bg-[#121220] border-l-4 border-[#00f2fe] flex flex-col transition-all duration-300 z-30 hidden">
+      <div class="p-4 border-b-2 border-[#333355] flex items-center justify-between">
+        <div class="flex items-center gap-2 text-xs font-bold text-[#00f2fe]">
+          <i class="fa-solid fa-[#terminal]"></i>
+          <span>> PIXEL CHAT LOG</span>
         </div>
         <button id="close-chat-btn" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark"></i>
@@ -175,51 +172,51 @@
       </div>
 
       <!-- Messages container -->
-      <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
-        <div class="text-center text-gray-500 italic my-2">ยินดีต้อนรับสู่ VOLC Chat! พิมพ์ข้อความถึงเพื่อนๆ ได้ที่นี่</div>
+      <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 font-mono text-xs">
+        <div class="text-center text-[#8a8ab0] italic my-2">> WELCOME TO PIXEL MATRIX CHAT</div>
       </div>
 
       <!-- Chat Input Form -->
-      <form id="chat-form" class="p-3 border-t border-gray-800 flex gap-2">
-        <input type="text" id="chat-input" placeholder="พิมพ์ข้อความ..." autocomplete="off"
-          class="flex-1 bg-[#121724] border border-gray-700/60 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
-        <button type="submit" class="px-3.5 py-2 bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold rounded-xl text-xs transition-all hover:opacity-90">
+      <form id="chat-form" class="p-3 border-t-2 border-[#333355] flex gap-2">
+        <input type="text" id="chat-input" placeholder="> พิมพ์ข้อความ..." autocomplete="off"
+          class="flex-1 bg-[#0a0a12] border-2 border-[#00f2fe] px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00ff9d]">
+        <button type="submit" class="px-4 py-2 pixel-btn pixel-btn-green font-bold text-xs">
           <i class="fa-solid fa-paper-plane"></i>
         </button>
       </form>
     </aside>
   </div>
 
-  <!-- ==================== FLOATING PARALLEL CONTROL DOCK ==================== -->
-  <div class="floating-dock fixed bottom-4 left-1/2 -translate-x-1/2 rounded-full px-6 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6 z-40 max-w-2xl w-[calc(100%-32px)]">
+  <!-- ==================== FLOATING CYBER PIXEL CONTROL DOCK ==================== -->
+  <div class="floating-dock fixed bottom-4 left-1/2 -translate-x-1/2 bg-[#121220] border-4 border-[#00f2fe] shadow-[6px_6px_0px_#000000] px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6 z-40 max-w-2xl w-[calc(100%-32px)]">
     
-    <!-- Top/Left Section: User Info + Live Gate Bar -->
+    <!-- Left Section: User Info + Mic Gate Bar -->
     <div class="dock-section-top flex items-center justify-between w-full sm:w-auto gap-4">
-      <!-- User Avatar & Tag -->
+      <!-- User Info Avatar -->
       <div class="flex items-center gap-3" id="dock-extended-info">
         <div class="relative avatar-container">
           <div id="self-avatar-ring" class="avatar-ring"></div>
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 via-blue-600 to-emerald-400 flex items-center justify-center font-bold text-white shadow-lg text-sm" id="self-avatar-text">
+          <div class="w-10 h-10 bg-[#161628] border-2 border-[#00f2fe] flex items-center justify-center font-bold text-[#00f2fe] shadow-[2px_2px_0px_#00ff9d] text-sm" id="self-avatar-text">
             G
           </div>
         </div>
         <div>
           <div class="text-xs font-bold text-white leading-tight flex items-center gap-1.5">
             <span id="self-username-display">Gamer</span>
-            <span id="self-status-badge" class="text-[9px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-1.5 py-0.2 rounded-full">VAD</span>
+            <span id="self-status-badge" class="text-[9px] bg-[#00f2fe]/20 text-[#00f2fe] border border-[#00f2fe] px-1.5 py-0.2 font-mono">VAD</span>
           </div>
-          <div class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5">
+          <div class="text-[10px] text-[#00ff9d] flex items-center gap-1 mt-0.5 font-mono">
             <i class="fa-solid fa-microphone text-[9px]" id="self-mic-icon-indicator"></i>
-            <span id="self-mic-status-text">พร้อมใช้งาน</span>
+            <span id="self-mic-status-text">ONLINE</span>
           </div>
         </div>
       </div>
 
-      <!-- Live Mic Level Visualizer (Gate %) -->
+      <!-- Live Mic Gate Level Visualizer -->
       <div class="w-32 sm:w-28 flex flex-col gap-1" id="mic-visualizer-container">
-        <div class="flex justify-between items-center text-[10px] text-gray-400">
-          <span class="font-bold text-cyan-400">Gate</span>
-          <span id="sensitivity-value-display" class="font-mono text-cyan-300 font-bold">25%</span>
+        <div class="flex justify-between items-center text-[10px] text-[#8a8ab0] font-mono">
+          <span class="font-bold text-[#00f2fe]">GATE</span>
+          <span id="sensitivity-value-display" class="font-bold text-[#00ff9d]">25%</span>
         </div>
         <div class="mic-meter-bar">
           <div id="mic-meter-fill" class="mic-meter-fill"></div>
@@ -229,129 +226,124 @@
       </div>
     </div>
 
-    <!-- Bottom/Right Section: Controls & Mode Select -->
+    <!-- Right Section: Action Controls & Voice Mode -->
     <div class="dock-section-bottom flex items-center justify-between sm:justify-end w-full sm:w-auto gap-3">
-      <!-- Central Audio Action Controls -->
-      <div class="flex items-center gap-3">
-        <!-- Mute Mic Toggle Button -->
-        <button id="toggle-mic-btn" data-tooltip="เปิด/ปิด ไมโครโฟน" 
-          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-base sm:text-lg transition-all shadow-[0_0_20px_rgba(0,242,254,0.2)]">
+      <div class="flex items-center gap-2.5">
+        <!-- Mute Mic Button -->
+        <button id="toggle-mic-btn" data-tooltip="เปิด/ปิด ไมโครโฟน" class="p-3 pixel-btn text-base">
           <i class="fa-solid fa-microphone"></i>
         </button>
 
-        <!-- Deafen Headphones Toggle Button -->
-        <button id="toggle-deafen-btn" data-tooltip="ปิดเสียงหูฟังทั้งหมด" 
-          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#161d2a] hover:bg-[#20293a] border border-gray-700 text-gray-300 flex items-center justify-center text-base sm:text-lg transition-all">
+        <!-- Deafen Headphones Button -->
+        <button id="toggle-deafen-btn" data-tooltip="ปิดเสียงหูฟังทั้งหมด" class="p-3 pixel-btn text-base">
           <i class="fa-solid fa-headphones"></i>
         </button>
 
-        <!-- PTT Trigger Button -->
-        <button id="ptt-trigger-btn" class="hidden px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all active:scale-95 shadow-[0_0_20px_rgba(0,242,254,0.3)]">
-          <i class="fa-solid fa-hand-pointer mr-1"></i> กดเพื่อพูด (<span id="ptt-key-display">SPACE</span>)
+        <!-- PTT Button -->
+        <button id="ptt-trigger-btn" class="hidden px-4 py-2 pixel-btn pixel-btn-green text-xs font-bold uppercase">
+          <i class="fa-solid fa-hand-pointer mr-1"></i> PTT (<span id="ptt-key-display">SPACE</span>)
         </button>
       </div>
 
-      <!-- Voice Mode Selector -->
-      <select id="voice-mode-select" class="bg-[#141b27] border border-gray-700/80 rounded-full px-3 py-1.5 text-xs text-cyan-300 focus:outline-none">
-        <option value="vad">VAD Mode</option>
-        <option value="ptt">PTT Mode</option>
+      <!-- Voice Mode Select -->
+      <select id="voice-mode-select" class="bg-[#0a0a12] border-2 border-[#00f2fe] px-3 py-1.5 text-xs text-[#00ff9d] font-mono focus:outline-none">
+        <option value="vad">VAD MODE</option>
+        <option value="ptt">PTT MODE</option>
       </select>
     </div>
   </div>
 
   <!-- ==================== AUDIO SETTINGS MODAL ==================== -->
-  <div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-xl p-4 hidden">
-    <div class="volc-card p-6 rounded-3xl w-full max-w-lg border border-gray-700 shadow-2xl relative max-h-[90dvh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-4 border-b border-gray-800 mb-5">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-sliders text-cyan-400"></i>
-          <h3 class="font-orbitron font-bold text-base text-white tracking-wider">AUDIO SETTINGS</h3>
+  <div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 hidden">
+    <div class="pixel-box p-6 rounded-none w-full max-w-lg relative max-h-[90dvh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b-2 border-[#333355] mb-5">
+        <div class="flex items-center gap-2 text-[#00f2fe]">
+          <i class="fa-solid fa-sliders"></i>
+          <h3 class="font-pixel-title text-sm tracking-wider">[AUDIO SETTINGS]</h3>
         </div>
         <button id="close-settings-btn" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
-      <div class="space-y-5">
+      <div class="space-y-5 font-pixel text-xs">
         <!-- Microphone Selector -->
         <div>
-          <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
-            <i class="fa-solid fa-microphone text-cyan-400 mr-1.5"></i> ไมโครโฟน (Microphone Input)
+          <label class="block font-bold text-[#00f2fe] uppercase tracking-wider mb-2">
+            > MICROPHONE INPUT:
           </label>
-          <select id="mic-device-select" class="w-full bg-[#121724] border border-gray-700/80 rounded-2xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-400">
+          <select id="mic-device-select" class="w-full bg-[#0a0a12] border-2 border-[#00f2fe] px-4 py-3 text-xs text-white focus:outline-none">
             <option value="">กำลังโหลดอุปกรณ์...</option>
           </select>
         </div>
 
         <!-- Speaker Selector -->
         <div>
-          <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
-            <i class="fa-solid fa-headphones text-cyan-400 mr-1.5"></i> หูฟัง (Headphone Output / setSinkId)
+          <label class="block font-bold text-[#00f2fe] uppercase tracking-wider mb-2">
+            > HEADPHONE OUTPUT (setSinkId):
           </label>
-          <select id="speaker-device-select" class="w-full bg-[#121724] border border-gray-700/80 rounded-2xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-400">
+          <select id="speaker-device-select" class="w-full bg-[#0a0a12] border-2 border-[#00f2fe] px-4 py-3 text-xs text-white focus:outline-none">
             <option value="">อุปกรณ์เริ่มต้น (Default Device)</option>
           </select>
-          <p class="text-[11px] text-gray-500 mt-1">* สามารถเลือกแยกเสียงพูดออกหูฟังเฉพาะ ไม่ให้ปนกับเสียงเกมในลำโพงหลักได้</p>
+          <p class="text-[11px] text-[#8a8ab0] mt-1">* สามารถเลือกแยกเสียงพูดออกหูฟังเฉพาะได้</p>
         </div>
 
         <!-- Audio Processing Filters -->
-        <div class="pt-2 border-t border-gray-800">
-          <h4 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3">ระบบประมวลผลเสียง</h4>
+        <div class="pt-2 border-t-2 border-[#333355]">
+          <h4 class="font-bold text-[#00f2fe] uppercase tracking-wider mb-3">> AUDIO ENHANCEMENTS:</h4>
           
-          <div class="bg-cyan-500/10 border border-cyan-500/30 p-3.5 rounded-2xl mb-3 flex items-start gap-3">
-            <i class="fa-solid fa-shield-halved text-cyan-400 text-lg mt-0.5"></i>
-            <div class="text-xs">
-              <div class="font-bold text-cyan-300">ป้องกันเสียงเกมเบาลง (No Game Audio Ducking)</div>
+          <div class="bg-[#0a0a12] border-2 border-[#00ff9d] p-3.5 mb-3 flex items-start gap-3">
+            <i class="fa-solid fa-shield-halved text-[#00ff9d] text-lg mt-0.5"></i>
+            <div>
+              <div class="font-bold text-[#00ff9d]">NO GAME AUDIO DUCKING</div>
               <div class="text-[11px] text-gray-300 mt-0.5">
-                สตรีมผ่าน HTML Media Stream มาตรฐาน **จะไม่เบาเสียงเกมในคอมของคุณอัตโนมัติ** เหมือนแอปอื่น!
+                สตรีมผ่าน HTML Media Stream **จะไม่เบาเสียงเกมในคอมของคุณอัตโนมัติ**
               </div>
             </div>
           </div>
 
           <div class="space-y-3">
-            <div class="flex items-center justify-between bg-[#121724] p-3.5 rounded-2xl border border-gray-800">
+            <div class="flex items-center justify-between bg-[#0a0a12] p-3 border-2 border-[#333355]">
               <div>
-                <div class="text-xs font-semibold text-gray-200">ตัดเสียงสะท้อน (Echo Cancellation)</div>
-                <div class="text-[11px] text-gray-500">ป้องกันเสียงเกมจากลำโพงสะท้อนเข้าไมค์</div>
+                <div class="font-bold text-white">ตัดเสียงสะท้อน (Echo Cancellation)</div>
               </div>
-              <input type="checkbox" id="echo-cancel-check" checked class="w-4 h-4 accent-cyan-400 cursor-pointer">
+              <input type="checkbox" id="echo-cancel-check" checked class="w-4 h-4 accent-[#00f2fe] cursor-pointer">
             </div>
 
-            <div class="flex items-center justify-between bg-[#121724] p-3.5 rounded-2xl border border-gray-800">
+            <div class="flex items-center justify-between bg-[#0a0a12] p-3 border-2 border-[#333355]">
               <div>
-                <div class="text-xs font-semibold text-gray-200">ตัดเสียงรบกวน (Noise Suppression)</div>
-                <div class="text-[11px] text-gray-500">ลดเสียงพัดลมคอม/เสียงคีย์บอร์ดกดขณะเล่นเกม</div>
+                <div class="font-bold text-white">ตัดเสียงรบกวน (Noise Suppression)</div>
               </div>
-              <input type="checkbox" id="noise-suppress-check" checked class="w-4 h-4 accent-cyan-400 cursor-pointer">
+              <input type="checkbox" id="noise-suppress-check" checked class="w-4 h-4 accent-[#00f2fe] cursor-pointer">
             </div>
           </div>
         </div>
 
         <!-- PTT Hotkey -->
-        <div class="pt-2 border-t border-gray-800">
-          <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
-            คีย์ลัดกดเพื่อพูด (Push to Talk Key)
+        <div class="pt-2 border-t-2 border-[#333355]">
+          <label class="block font-bold text-[#00f2fe] uppercase tracking-wider mb-2">
+            > PUSH TO TALK KEY:
           </label>
-          <button id="rebind-ptt-btn" class="w-full py-3 px-4 bg-[#121724] hover:bg-[#1a2234] border border-cyan-500/40 rounded-2xl text-xs text-cyan-300 font-mono font-bold text-center">
+          <button id="rebind-ptt-btn" class="w-full py-3 px-4 pixel-btn text-xs font-mono font-bold text-center">
             กดปุ่มนี้เพื่อเปลี่ยนคีย์ (<span id="keybind-label">Space</span>)
           </button>
         </div>
       </div>
 
-      <div class="mt-6 pt-4 border-t border-gray-800 flex justify-end">
-        <button id="save-settings-btn" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold text-xs hover:opacity-90">
-          บันทึกและใช้อุปกรณ์นี้
+      <div class="mt-6 pt-4 border-t-2 border-[#333355] flex justify-end">
+        <button id="save-settings-btn" class="px-6 py-2.5 pixel-btn pixel-btn-green font-bold text-xs">
+          [SAVE SETTINGS]
         </button>
       </div>
     </div>
   </div>
 
   <!-- Autoplay Unlock Notification Banner -->
-  <div id="autoplay-banner" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-gradient-to-r from-amber-400 to-orange-500 text-black px-6 py-3 rounded-full shadow-2xl font-bold text-xs flex items-center gap-2 cursor-pointer hidden animate-bounce">
-    <i class="fa-solid fa-volume-high text-sm"></i> กดปุ่มนี้หรือกดตรงไหนก็ได้บนจอเพื่อเปิดเสียง! (Click to Enable Audio)
+  <div id="autoplay-banner" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#ffea00] text-black border-2 border-black px-6 py-3 font-bold text-xs flex items-center gap-2 cursor-pointer hidden animate-bounce shadow-[4px_4px_0px_#000000]">
+    <i class="fa-solid fa-volume-high text-sm"></i> CLICK ANYWHERE TO ENABLE AUDIO PLAYBACK!
   </div>
 
-  <!-- Hidden Remote Audio Streams -->
+  <!-- Hidden Remote Audio Streams Container -->
   <div id="remote-audio-container" style="position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; overflow: hidden;"></div>
 
   <!-- Socket.io & App JS -->

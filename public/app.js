@@ -258,7 +258,7 @@ function setupEventListeners() {
   copyLinkBtn.addEventListener('click', () => {
     const inviteUrl = `${window.location.origin}?room=${encodeURIComponent(currentRoom)}`;
     navigator.clipboard.writeText(inviteUrl).then(() => {
-      alert(`คัดลอกลิงก์เชิญเพื่อนเข้าร่วม Discord เรียบร้อย:\n${inviteUrl}`);
+      alert(`คัดลอกลิงก์เชิญเพื่อนเข้าร่วม VOLC PIXEL VOICE เรียบร้อย:\n${inviteUrl}`);
     });
   });
 
@@ -601,22 +601,22 @@ function toggleDeafen() {
 
 function updateMicStateDisplay() {
   if (isMuted) {
-    toggleMicBtn.className = 'w-12 h-12 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 flex items-center justify-center text-lg transition-all shadow-[0_0_15px_rgba(255,75,92,0.2)]';
+    toggleMicBtn.className = 'p-3 pixel-btn pixel-btn-magenta text-base';
     toggleMicBtn.innerHTML = '<i class="fa-solid fa-microphone-slash"></i>';
-    selfMicIconIndicator.className = 'fa-solid fa-microphone-slash text-red-400';
-    selfMicStatusText.textContent = 'ปิดไมค์ (Muted)';
+    selfMicIconIndicator.className = 'fa-solid fa-microphone-slash text-[#ff007f]';
+    selfMicStatusText.textContent = 'MUTED';
   } else {
-    toggleMicBtn.className = 'w-12 h-12 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-lg transition-all shadow-[0_0_15px_rgba(0,242,254,0.15)]';
+    toggleMicBtn.className = 'p-3 pixel-btn text-base';
     toggleMicBtn.innerHTML = '<i class="fa-solid fa-microphone"></i>';
-    selfMicIconIndicator.className = 'fa-solid fa-microphone text-cyan-400';
-    selfMicStatusText.textContent = 'พร้อมใช้งาน';
+    selfMicIconIndicator.className = 'fa-solid fa-microphone text-[#00ff9d]';
+    selfMicStatusText.textContent = 'ONLINE';
   }
 
   if (isDeafened) {
-    toggleDeafenBtn.className = 'w-12 h-12 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 flex items-center justify-center text-lg transition-all shadow-[0_0_15px_rgba(255,75,92,0.2)]';
+    toggleDeafenBtn.className = 'p-3 pixel-btn pixel-btn-magenta text-base';
     toggleDeafenBtn.innerHTML = '<i class="fa-solid fa-headphones-simple"></i>';
   } else {
-    toggleDeafenBtn.className = 'w-12 h-12 rounded-xl bg-[#161b24] hover:bg-[#202735] border border-gray-700 text-gray-300 flex items-center justify-center text-lg transition-all';
+    toggleDeafenBtn.className = 'p-3 pixel-btn text-base';
     toggleDeafenBtn.innerHTML = '<i class="fa-solid fa-headphones"></i>';
   }
 }
@@ -872,40 +872,40 @@ function addUserCardToGrid(socketId, username) {
   const initial = username.charAt(0).toUpperCase();
   const card = document.createElement('div');
   card.id = `user-card-${socketId}`;
-  card.className = 'volc-card p-5 rounded-3xl flex flex-col items-center text-center justify-between relative overflow-hidden group min-h-[200px] border border-gray-800/80 shadow-xl';
+  card.className = 'pixel-box p-4 flex flex-col items-center text-center justify-between relative overflow-hidden group min-h-[190px] font-pixel';
 
   card.innerHTML = `
     <!-- Top Mute Badge -->
-    <div class="absolute top-3 right-3 flex items-center gap-1.5" id="user-badges-${socketId}">
-      <span id="badge-mute-${socketId}" class="hidden text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">
+    <div class="absolute top-2 right-2 flex items-center gap-1.5 z-10" id="user-badges-${socketId}">
+      <span id="badge-mute-${socketId}" class="hidden text-[9px] font-bold text-[#ff007f] bg-[#ff007f]/10 px-2 py-0.5 border border-[#ff007f]">
         <i class="fa-solid fa-microphone-slash mr-1"></i> MUTED
       </span>
     </div>
 
     <!-- Center Avatar Tile with Outer Waves -->
-    <div class="my-3 flex flex-col items-center">
+    <div class="my-2 flex flex-col items-center">
       <div class="relative avatar-container my-2">
         <div id="avatar-ring-outer-${socketId}" class="avatar-ring-outer"></div>
         <div id="avatar-ring-${socketId}" class="avatar-ring"></div>
-        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 via-blue-600 to-emerald-400 flex items-center justify-center font-bold text-white text-xl shadow-[0_0_20px_rgba(0,242,254,0.3)]">
+        <div class="w-14 h-14 bg-[#161628] border-2 border-[#00f2fe] flex items-center justify-center font-bold text-[#00f2fe] text-xl shadow-[3px_3px_0px_#00ff9d]">
           ${initial}
         </div>
       </div>
-      <div class="text-sm font-bold text-white tracking-wide mt-2">${username}</div>
-      <div class="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5 font-mono">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <div class="text-xs font-bold text-white tracking-wide mt-2 truncate max-w-[140px]">${username}</div>
+      <div class="text-[9px] text-[#00ff9d] flex items-center gap-1 mt-0.5 font-mono">
+        <span class="w-1.5 h-1.5 bg-[#00ff9d] animate-pulse"></span>
         <span>CONNECTED</span>
       </div>
     </div>
 
     <!-- Volume Control Slider -->
-    <div class="w-full mt-2 pt-3 border-t border-gray-800/80">
-      <div class="flex justify-between items-center text-[10px] text-gray-400 mb-1 font-bold">
-        <span>ระดับเสียงเพื่อน</span>
-        <span id="volume-val-${socketId}" class="text-cyan-300 font-mono">100%</span>
+    <div class="w-full mt-2 pt-2 border-t border-[#333355]">
+      <div class="flex justify-between items-center text-[9px] text-[#8a8ab0] mb-1 font-bold">
+        <span>> VOLUME</span>
+        <span id="volume-val-${socketId}" class="text-[#00f2fe] font-mono">100%</span>
       </div>
       <div class="flex items-center gap-2">
-        <i class="fa-solid fa-volume-high text-[10px] text-gray-500"></i>
+        <i class="fa-solid fa-volume-high text-[9px] text-[#8a8ab0]"></i>
         <input type="range" id="volume-slider-${socketId}" min="0" max="200" value="100" class="w-full">
       </div>
     </div>
@@ -916,32 +916,18 @@ function addUserCardToGrid(socketId, username) {
   const slider = document.getElementById(`volume-slider-${socketId}`);
   const valDisplay = document.getElementById(`volume-val-${socketId}`);
 
-  slider.addEventListener('input', (e) => {
-    const vol = parseInt(e.target.value, 10);
-    valDisplay.textContent = `${vol}%`;
-    if (userStates[socketId]) userStates[socketId].volume = vol;
+  if (slider) {
+    slider.addEventListener('input', (e) => {
+      const vol = parseInt(e.target.value, 10);
+      if (valDisplay) valDisplay.textContent = `${vol}%`;
+      if (userStates[socketId]) userStates[socketId].volume = vol;
 
-    const audioEl = peerAudioElements[socketId];
-    if (audioEl) {
-      audioEl.volume = vol / 100;
-    }
-  });
-}
-
-  // Volume slider event listener
-  const slider = document.getElementById(`volume-slider-${socketId}`);
-  const valDisplay = document.getElementById(`volume-val-${socketId}`);
-
-  slider.addEventListener('input', (e) => {
-    const vol = parseInt(e.target.value, 10);
-    valDisplay.textContent = `${vol}%`;
-    userStates[socketId].volume = vol;
-
-    const audioEl = peerAudioElements[socketId];
-    if (audioEl) {
-      audioEl.volume = vol / 100;
-    }
-  });
+      const audioEl = peerAudioElements[socketId];
+      if (audioEl) {
+        audioEl.volume = vol / 100;
+      }
+    });
+  }
 }
 
 function updateUserCardStatus(socketId) {
