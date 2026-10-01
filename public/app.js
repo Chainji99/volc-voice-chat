@@ -367,23 +367,51 @@ function setupEventListeners() {
     micThresholdLine.style.left = `${sensitivityThreshold}%`;
   });
 
-  // Chat toggles
+  // Chat toggles & message sending
   toggleChatBtn.addEventListener('click', () => {
     chatSidebar.classList.toggle('hidden');
     chatBadge.classList.add('hidden');
+    if (!chatSidebar.classList.contains('hidden')) {
+      chatInput.focus();
+    }
   });
   closeChatBtn.addEventListener('click', () => {
     chatSidebar.classList.add('hidden');
   });
 
+  function handleSendMessage() {
+    const msg = chatInput.value.trim();
+    if (!msg) return;
+
+    if (socket && socket.connected) {
+      socket.emit('send-message', { message: msg });
+    } else {
+      const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      appendChatMessage(currentUsername || 'Gamer', msg, timestamp, true);
+    }
+    chatInput.value = '';
+    chatInput.focus();
+  }
+
   chatForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const msg = chatInput.value.trim();
-    if (msg && socket) {
-      socket.emit('send-message', { message: msg });
-      chatInput.value = '';
+    handleSendMessage();
+  });
+
+  chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSendMessage();
     }
   });
+
+  const sendChatBtn = document.getElementById('send-chat-btn');
+  if (sendChatBtn) {
+    sendChatBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleSendMessage();
+    });
+  }
 
   // Settings Modal
   openSettingsBtn.addEventListener('click', () => {
