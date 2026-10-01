@@ -12,7 +12,13 @@ const io = new Server(server, {
   }
 });
 
-// Serve static assets from public folder
+// Disable static caching so client browsers immediately receive updated Persona code
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Store room states
