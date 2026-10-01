@@ -417,26 +417,25 @@ body::before {
   letter-spacing: 0.04em;
 }
 
-/* Persona Skewed Top Nav Dynamic Color Override */
+/* Persona Top Nav Dynamic Color Override */
 #top-nav {
   border-bottom-color: var(--theme-primary) !important;
   box-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
 
-/* Persona Skewed Floating Dock Dynamic Color Override */
+/* Persona Floating Dock Dynamic Color Override */
 .floating-dock {
   border-color: var(--theme-primary) !important;
   box-shadow: 6px 6px 0px #000000, 0 0 20px var(--theme-primary) !important;
-  transform: translateX(-50%) skewX(-2deg);
+  transform: translateX(-50%);
 }
 
-/* Persona Skewed UI Card Container */
+/* Persona UI Card Container (Zero Layout Overlap) */
 .pixel-box,
 .persona-card {
   background: var(--pixel-card);
   border: 3px solid var(--theme-primary);
   box-shadow: 6px 6px 0px #000000;
-  transform: skewX(-2deg);
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -444,10 +443,10 @@ body::before {
 .persona-card:hover {
   border-color: var(--theme-secondary);
   box-shadow: 8px 8px 0px #000000, 0 0 20px var(--theme-primary);
-  transform: skewX(-2deg) translate(-2px, -2px);
+  transform: translate(-2px, -2px);
 }
 
-/* Persona Button Base */
+/* Persona Button Base (Zero Layout Overlap) */
 .pixel-btn,
 .persona-btn {
   font-family: 'Montserrat', 'Kanit', sans-serif;
@@ -458,7 +457,6 @@ body::before {
   color: #000000;
   border: 2px solid #000000;
   box-shadow: 4px 4px 0px #000000;
-  transform: skewX(-3deg);
   cursor: pointer;
   transition: all 0.1s ease;
   user-select: none;
@@ -469,7 +467,7 @@ body::before {
   background: var(--theme-secondary);
   color: #000000;
   box-shadow: 6px 6px 0px #000000;
-  transform: skewX(-3deg) translate(-2px, -2px);
+  transform: translate(-2px, -2px);
 }
 
 .pixel-btn:hover {
