@@ -78,20 +78,31 @@
     <div id="intro-core-card" class="relative flex flex-col items-center gap-5 max-w-md w-full px-6 text-center z-10">
       
       <!-- Multi-ring HUD Emblem Reactor Core -->
-      <div class="relative w-28 h-28 flex items-center justify-center my-1">
+      <div class="relative w-32 h-32 flex items-center justify-center my-1">
         <!-- Outer Rotating Tech Ring -->
-        <div class="absolute inset-0 border-2 border-dashed border-[#ff0033]/60 rounded-full animate-spin" style="animation-duration: 15s;"></div>
-        <!-- Middle Counter-Rotating Ring -->
-        <div class="absolute inset-2 border-2 border-dotted border-[#ffe600]/70 rounded-full animate-spin-reverse" style="animation-duration: 9s;"></div>
-        <!-- Inner Glowing Core Box -->
-        <div class="w-16 h-16 bg-[#0c0c1a] border-2 border-[var(--theme-primary)] shadow-[0_0_35px_var(--theme-primary)] flex items-center justify-center relative transform skew-x-[-4deg]">
-          <i class="fa-solid fa-headset text-3xl text-[var(--theme-primary)] animate-pulse"></i>
+        <div class="absolute inset-0 border-2 border-dashed border-[var(--theme-primary)] rounded-full animate-spin" style="animation-duration: 12s;"></div>
+        <!-- Middle Counter-Rotating Dotted Ring -->
+        <div class="absolute inset-2 border-2 border-dotted border-[var(--theme-accent)] rounded-full animate-spin-reverse" style="animation-duration: 7s;"></div>
+        <!-- Target HUD Reticle Ticks -->
+        <div class="absolute -top-1 w-2 h-2 bg-[var(--theme-secondary)]"></div>
+        <div class="absolute -bottom-1 w-2 h-2 bg-[var(--theme-secondary)]"></div>
+        <div class="absolute -left-1 w-2 h-2 bg-[var(--theme-secondary)]"></div>
+        <div class="absolute -right-1 w-2 h-2 bg-[var(--theme-secondary)]"></div>
+
+        <!-- Inner Glowing Core Box with Multi-Layer High-Tech Audio Crest -->
+        <div class="w-20 h-20 bg-[#0c0c1a] border-3 border-[var(--theme-primary)] shadow-[0_0_35px_var(--theme-primary)] flex items-center justify-center relative">
+          <!-- Multi-Layer High-Tech Audio Crest -->
+          <div class="relative flex items-center justify-center">
+            <i class="fa-solid fa-headset text-4xl text-[var(--theme-primary)] filter drop-shadow-[0_0_15px_var(--theme-primary)] animate-pulse"></i>
+            <i class="fa-solid fa-bolt text-xs text-[var(--theme-accent)] absolute -top-2 -right-2 animate-bounce"></i>
+            <i class="fa-solid fa-waveform text-[10px] text-[var(--theme-secondary)] absolute -bottom-2 animate-ping"></i>
+          </div>
           <!-- Equalizer Audio Wave visualizer bars -->
-          <div class="absolute bottom-1 flex items-end gap-1 h-3">
-            <span class="w-0.5 h-2 bg-[var(--theme-primary)] animate-bounce"></span>
-            <span class="w-0.5 h-3 bg-[var(--theme-secondary)] animate-bounce" style="animation-delay: 0.1s"></span>
-            <span class="w-0.5 h-1.5 bg-[var(--theme-accent)] animate-bounce" style="animation-delay: 0.2s"></span>
-            <span class="w-0.5 h-2.5 bg-[var(--theme-primary)] animate-bounce" style="animation-delay: 0.15s"></span>
+          <div class="absolute bottom-1 flex items-end gap-1 h-3.5">
+            <span class="w-1 h-2 bg-[var(--theme-primary)] animate-bounce"></span>
+            <span class="w-1 h-3.5 bg-[var(--theme-secondary)] animate-bounce" style="animation-delay: 0.1s"></span>
+            <span class="w-1 h-1.5 bg-[var(--theme-accent)] animate-bounce" style="animation-delay: 0.2s"></span>
+            <span class="w-1 h-3 bg-[var(--theme-primary)] animate-bounce" style="animation-delay: 0.15s"></span>
           </div>
         </div>
       </div>
