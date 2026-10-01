@@ -302,11 +302,21 @@ function applyTheme(themeName) {
   );
   document.body.classList.add(`theme-${activeTheme}`);
 
+  // Color Warp Flash Overlay Effect when clicking/switching themes
+  const warpOverlay = document.getElementById('intro-warp-overlay');
+  if (warpOverlay) {
+    warpOverlay.style.background = palette.primary;
+    warpOverlay.style.opacity = '0.35';
+    setTimeout(() => {
+      warpOverlay.style.opacity = '0';
+    }, 350);
+  }
+
   // Highlight active theme tile in modal
   document.querySelectorAll('.theme-tile').forEach(tile => {
     if (tile.getAttribute('data-theme') === activeTheme) {
       tile.style.borderColor = '#ffffff';
-      tile.style.boxShadow = '0 0 20px var(--theme-primary)';
+      tile.style.boxShadow = `0 0 25px ${palette.primary}, inset 0 0 10px ${palette.accent}`;
       tile.classList.add('scale-105');
     } else {
       tile.style.borderColor = '';

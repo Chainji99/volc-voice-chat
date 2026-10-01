@@ -12,14 +12,20 @@ const io = new Server(server, {
   }
 });
 
-// Disable static caching so client browsers immediately receive updated Persona code
+// Disable static caching so client browsers immediately receive updated code
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
   next();
 });
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  etag: false,
+  maxAge: 0,
+  setHeaders: (res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  }
+}));
 
 // Store room states
 // rooms: { [roomId]: { [socketId]: { username, muted, deafened, isSpeaking } } }

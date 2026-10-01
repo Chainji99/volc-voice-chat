@@ -667,19 +667,20 @@ body.mini-mode .grid-participants {
   gap: 8px !important;
 }
 
-/* Persona 5 Phantom Thief Intro Screen Styles */
+/* Dynamic Color Boot Animation & Laser Overlay */
 .persona-boot-bg {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-image: 
-    radial-gradient(#ff0033 15%, transparent 16%),
-    radial-gradient(#ffe600 15%, transparent 16%),
-    linear-gradient(135deg, rgba(255, 0, 51, 0.15) 25%, transparent 25%),
-    linear-gradient(225deg, rgba(255, 0, 51, 0.15) 25%, transparent 25%);
+    radial-gradient(var(--theme-primary) 15%, transparent 16%),
+    radial-gradient(var(--theme-accent) 15%, transparent 16%),
+    linear-gradient(135deg, var(--theme-primary) 15%, transparent 25%),
+    linear-gradient(225deg, var(--theme-primary) 15%, transparent 25%);
   background-size: 30px 30px, 30px 30px, 60px 60px, 60px 60px;
   background-position: 0 0, 15px 15px, 0 0, 0 0;
   opacity: 0.35;
+  transition: background-image 0.4s ease, opacity 0.4s ease;
   animation: persona-bg-shift 20s linear infinite;
 }
 
@@ -693,10 +694,11 @@ body.mini-mode .grid-participants {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, transparent, #ff0033, #ffe600, #ff0033, transparent);
-  box-shadow: 0 0 15px #ff0033, 0 0 30px #ffe600;
+  background: linear-gradient(90deg, transparent, var(--theme-primary), var(--theme-accent), var(--theme-primary), transparent);
+  box-shadow: 0 0 15px var(--theme-primary), 0 0 30px var(--theme-accent);
   z-index: 5;
   pointer-events: none;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
   animation: persona-laser-scan 3s ease-in-out infinite alternate;
 }
 
