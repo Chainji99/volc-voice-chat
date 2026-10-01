@@ -1,24 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&family=Kanit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&family=Space+Grotesk:wght@700&family=Kanit:ital,wght@0,400;0,600;0,700;0,900;1,900&display=swap');
 
 :root {
-  --theme-primary: #00f2fe;
-  --theme-secondary: #00ff9d;
-  --theme-accent: #ff007f;
+  --theme-primary: #ff0033;
+  --theme-secondary: #ffffff;
+  --theme-accent: #ffe600;
   
-  --pixel-bg: #070710;
-  --pixel-card: #121220;
-  --pixel-card-hover: #1b1b30;
-  --pixel-panel: #161628;
+  --pixel-bg: #0d0003;
+  --pixel-card: #1c0007;
+  --pixel-card-hover: #29000a;
+  --pixel-panel: #29000a;
   
-  --pixel-cyan: #00f2fe;
-  --pixel-green: #00ff9d;
-  --pixel-magenta: #ff007f;
-  --pixel-purple: #9d4edd;
-  --pixel-yellow: #ffea00;
-  --pixel-red: #ff3366;
-  
-  --pixel-text: #f0f0ff;
-  --pixel-text-dim: #8a8ab0;
+  --pixel-text: #ffffff;
+  --pixel-text-dim: #a0a0b8;
 }
 
 /* ==================== PERSONA SERIES 1 - 5 THEME PRESETS ==================== */
@@ -408,52 +401,75 @@ body::before {
   opacity: 0.6;
 }
 
-.font-pixel-title {
-  font-family: 'Press Start 2P', monospace;
+.font-pixel-title,
+.font-persona-title {
+  font-family: 'Montserrat', 'Kanit', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-.font-pixel {
-  font-family: 'Silkscreen', 'VT323', sans-serif;
+.font-pixel,
+.font-persona {
+  font-family: 'Space Grotesk', 'Kanit', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 /* Persona Skewed Top Nav Dynamic Color Override */
 #top-nav {
   border-bottom-color: var(--theme-primary) !important;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
 
 /* Persona Skewed Floating Dock Dynamic Color Override */
 .floating-dock {
   border-color: var(--theme-primary) !important;
   box-shadow: 6px 6px 0px #000000, 0 0 20px var(--theme-primary) !important;
-  transform: translateX(-50%) skewX(-1.5deg);
+  transform: translateX(-50%) skewX(-2deg);
 }
 
 /* Persona Skewed UI Card Container */
-.pixel-box {
+.pixel-box,
+.persona-card {
   background: var(--pixel-card);
   border: 3px solid var(--theme-primary);
-  box-shadow: 5px 5px 0px #000000, 0 0 15px var(--theme-primary);
-  transform: skewX(-1.5deg);
-  transition: all 0.2s ease-in-out;
+  box-shadow: 6px 6px 0px #000000;
+  transform: skewX(-2deg);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.pixel-box:hover {
+.pixel-box:hover,
+.persona-card:hover {
   border-color: var(--theme-secondary);
-  box-shadow: 7px 7px 0px #000000, 0 0 25px var(--theme-secondary);
-  transform: skewX(-1.5deg) translate(-2px, -2px);
+  box-shadow: 8px 8px 0px #000000, 0 0 20px var(--theme-primary);
+  transform: skewX(-2deg) translate(-2px, -2px);
 }
 
-/* Pixel Button Base */
-.pixel-btn {
-  font-family: 'Silkscreen', 'Kanit', sans-serif;
-  background: var(--pixel-card);
-  color: var(--theme-primary);
-  border: 2px solid var(--theme-primary);
-  box-shadow: 3px 3px 0px #000000;
+/* Persona Button Base */
+.pixel-btn,
+.persona-btn {
+  font-family: 'Montserrat', 'Kanit', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  background: var(--theme-primary);
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+  transform: skewX(-3deg);
   cursor: pointer;
   transition: all 0.1s ease;
   user-select: none;
+}
+
+.pixel-btn:hover,
+.persona-btn:hover {
+  background: var(--theme-secondary);
+  color: #000000;
+  box-shadow: 6px 6px 0px #000000;
+  transform: skewX(-3deg) translate(-2px, -2px);
 }
 
 .pixel-btn:hover {

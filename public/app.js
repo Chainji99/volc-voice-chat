@@ -240,59 +240,51 @@ function runCyberIntroAnimation() {
 }
 
 const themePalettes = {
-  cyan: {
-    primary: '#00f2fe',
-    secondary: '#00ff9d',
-    accent: '#ff007f',
-    bg: '#070710',
-    card: '#121220',
-    panel: '#161628'
+  persona5: {
+    primary: '#ff0033',
+    secondary: '#ffffff',
+    accent: '#ffe600',
+    bg: '#0d0003',
+    card: '#1c0007',
+    panel: '#29000a'
   },
-  synthwave: {
-    primary: '#ff007f',
-    secondary: '#9d4edd',
-    accent: '#00f2fe',
-    bg: '#160024',
-    card: '#2a0044',
-    panel: '#3a005d'
-  },
-  matrix: {
-    primary: '#00ff9d',
-    secondary: '#76ff03',
-    accent: '#00f2fe',
-    bg: '#021508',
-    card: '#072a12',
-    panel: '#0d3d1b'
-  },
-  crimson: {
-    primary: '#ff2a5f',
-    secondary: '#ffaa00',
-    accent: '#00f2fe',
-    bg: '#1a0309',
-    card: '#300612',
-    panel: '#47081b'
-  },
-  'cyber-yellow': {
-    primary: '#ffea00',
+  persona4: {
+    primary: '#ffcc00',
     secondary: '#00e5ff',
-    accent: '#ff007f',
-    bg: '#1a1600',
-    card: '#2e2800',
-    panel: '#453c00'
+    accent: '#ff6600',
+    bg: '#141000',
+    card: '#262200',
+    panel: '#383200'
   },
-  'rgb-rainbow': {
-    primary: '#00f2fe',
-    secondary: '#00ff9d',
-    accent: '#ff007f',
-    bg: '#0f0a26',
-    card: '#1b1242',
-    panel: '#271b5c'
+  persona3: {
+    primary: '#0088ff',
+    secondary: '#00f0ff',
+    accent: '#ff0055',
+    bg: '#030a1a',
+    card: '#081633',
+    panel: '#0d214d'
+  },
+  persona2: {
+    primary: '#d9004c',
+    secondary: '#b84dff',
+    accent: '#ffcc00',
+    bg: '#120017',
+    card: '#24002e',
+    panel: '#360045'
+  },
+  persona1: {
+    primary: '#9933ff',
+    secondary: '#00f2fe',
+    accent: '#ff00a0',
+    bg: '#0e001a',
+    card: '#1c0033',
+    panel: '#2b004d'
   }
 };
 
 function applyTheme(themeName) {
-  const activeTheme = themeName || 'cyan';
-  const palette = themePalettes[activeTheme] || themePalettes.cyan;
+  const activeTheme = themeName || 'persona5';
+  const palette = themePalettes[activeTheme] || themePalettes.persona5;
   const root = document.documentElement;
 
   root.style.setProperty('--theme-primary', palette.primary);
@@ -304,18 +296,22 @@ function applyTheme(themeName) {
 
   document.body.classList.remove(
     'theme-cyan', 'theme-rgb-rainbow', 'theme-synthwave',
-    'theme-matrix', 'theme-crimson', 'theme-cyber-yellow'
+    'theme-matrix', 'theme-crimson', 'theme-cyber-yellow',
+    'theme-persona5', 'theme-persona4', 'theme-persona3',
+    'theme-persona2', 'theme-persona1'
   );
-  if (activeTheme !== 'cyan') {
-    document.body.classList.add(`theme-${activeTheme}`);
-  }
+  document.body.classList.add(`theme-${activeTheme}`);
 
-  // Update active highlight on RGB modal buttons
+  // Highlight active theme tile in modal
   document.querySelectorAll('.theme-tile').forEach(tile => {
     if (tile.getAttribute('data-theme') === activeTheme) {
-      tile.classList.add('ring-4', 'ring-white');
+      tile.style.borderColor = '#ffffff';
+      tile.style.boxShadow = '0 0 20px var(--theme-primary)';
+      tile.classList.add('scale-105');
     } else {
-      tile.classList.remove('ring-4', 'ring-white');
+      tile.style.borderColor = '';
+      tile.style.boxShadow = '';
+      tile.classList.remove('scale-105');
     }
   });
 

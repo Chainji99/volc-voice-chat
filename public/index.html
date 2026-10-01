@@ -80,28 +80,28 @@
       <!-- Multi-ring HUD Emblem Reactor Core -->
       <div class="relative w-28 h-28 flex items-center justify-center my-1">
         <!-- Outer Rotating Tech Ring -->
-        <div class="absolute inset-0 border-2 border-dashed border-[#00f2fe]/50 rounded-full animate-spin" style="animation-duration: 15s;"></div>
+        <div class="absolute inset-0 border-2 border-dashed border-[#ff0033]/60 rounded-full animate-spin" style="animation-duration: 15s;"></div>
         <!-- Middle Counter-Rotating Ring -->
-        <div class="absolute inset-2 border-2 border-dotted border-[#ff007f]/60 rounded-full animate-spin-reverse" style="animation-duration: 9s;"></div>
+        <div class="absolute inset-2 border-2 border-dotted border-[#ffe600]/70 rounded-full animate-spin-reverse" style="animation-duration: 9s;"></div>
         <!-- Inner Glowing Core Box -->
-        <div class="w-16 h-16 bg-[#0c0c1a] border-2 border-[#00f2fe] shadow-[0_0_35px_rgba(0,242,254,0.6)] flex items-center justify-center relative">
-          <i class="fa-solid fa-headset text-3xl text-[#00ff9d] animate-pulse"></i>
+        <div class="w-16 h-16 bg-[#0c0c1a] border-2 border-[var(--theme-primary)] shadow-[0_0_35px_var(--theme-primary)] flex items-center justify-center relative transform skew-x-[-4deg]">
+          <i class="fa-solid fa-mask text-3xl text-[var(--theme-primary)] animate-pulse"></i>
           <!-- Equalizer Audio Wave visualizer bars -->
           <div class="absolute bottom-1 flex items-end gap-1 h-3">
-            <span class="w-0.5 h-2 bg-[#00f2fe] animate-bounce"></span>
-            <span class="w-0.5 h-3 bg-[#00ff9d] animate-bounce" style="animation-delay: 0.1s"></span>
-            <span class="w-0.5 h-1.5 bg-[#ff007f] animate-bounce" style="animation-delay: 0.2s"></span>
-            <span class="w-0.5 h-2.5 bg-[#00f2fe] animate-bounce" style="animation-delay: 0.15s"></span>
+            <span class="w-0.5 h-2 bg-[var(--theme-primary)] animate-bounce"></span>
+            <span class="w-0.5 h-3 bg-[var(--theme-secondary)] animate-bounce" style="animation-delay: 0.1s"></span>
+            <span class="w-0.5 h-1.5 bg-[var(--theme-accent)] animate-bounce" style="animation-delay: 0.2s"></span>
+            <span class="w-0.5 h-2.5 bg-[var(--theme-primary)] animate-bounce" style="animation-delay: 0.15s"></span>
           </div>
         </div>
       </div>
 
-      <!-- Futuristic Glitch Title & Subtitle -->
+      <!-- Futuristic Glitch Persona Title & Subtitle -->
       <div class="space-y-1 relative">
-        <h1 class="text-2xl sm:text-3xl font-pixel-title text-[#00f2fe] tracking-widest intro-glitch-title" data-text="[VOLC VOICE]">[VOLC VOICE]</h1>
-        <p class="text-xs text-[#00ff9d] font-mono tracking-widest flex items-center justify-center gap-2 mt-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#00ff9d] animate-ping"></span>
-          <span>HIGH-FIDELITY SPATIAL AUDIO v3.5</span>
+        <h1 class="text-2xl sm:text-3xl font-persona-title text-[var(--theme-primary)] tracking-widest intro-glitch-title" data-text="[PERSONA VOICE]">[PERSONA VOICE]</h1>
+        <p class="text-xs text-[var(--theme-secondary)] font-mono tracking-widest flex items-center justify-center gap-2 mt-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--theme-primary)] animate-ping"></span>
+          <span>TAKE YOUR VOICE — PHANTOM ENGINE v5.0</span>
         </p>
       </div>
 
@@ -463,61 +463,51 @@
     </div>
   </div>
 
-  <!-- ==================== PERSONA SERIES & RGB THEME CUSTOMIZER MODAL ==================== -->
+  <!-- ==================== PERSONA SERIES THEME CUSTOMIZER MODAL ==================== -->
   <div id="rgb-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 hidden">
-    <div class="pixel-box p-6 max-w-lg w-full relative">
+    <div class="pixel-box p-6 max-w-xl w-full relative">
       <div class="flex items-center justify-between border-b-2 border-theme-primary pb-3 mb-4">
         <div class="flex items-center gap-2 text-sm font-bold text-theme-primary">
-          <i class="fa-solid fa-[#mask] text-theme-secondary"></i>
-          <span>[PERSONA 1-5 & RGB THEMES]</span>
+          <i class="fa-solid fa-mask text-theme-secondary"></i>
+          <span class="font-persona-title">[PERSONA 1-5 THEME SELECTION]</span>
         </div>
         <button id="close-rgb-modal-btn" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <p class="text-xs text-[#8a8ab0] font-mono mb-4">> SELECT AN ICONIC PERSONA COLOR PALETTE (P1 - P5) OR RGB CHROMA:</p>
+      <p class="text-xs text-[#8a8ab0] font-mono mb-4">> SELECT YOUR FAVORITE PERSONA SERIES COLOR PALETTE (PERSONA 1 - 5):</p>
 
       <!-- Theme Grid Tiles -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-pixel text-xs">
-        <button data-theme="persona5" class="theme-tile p-3 bg-[#1c0007] border-2 border-[#ff0033] text-[#ff0033] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
-          <div class="w-full h-3 bg-gradient-to-r from-[#ff0033] via-white to-[#ffe600]"></div>
-          <span>🔴 PERSONA 5</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 font-persona text-xs">
+        <button data-theme="persona5" class="theme-tile p-4 bg-[#1c0007] border-2 border-[#ff0033] text-[#ff0033] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
+          <div class="w-full h-3.5 bg-gradient-to-r from-[#ff0033] via-white to-[#ffe600]"></div>
+          <span class="font-persona-title text-sm tracking-wider">🔴 PERSONA 5</span>
+          <span class="text-[10px] text-gray-300 font-mono">Phantom Crimson & Jet Black</span>
         </button>
 
-        <button data-theme="persona4" class="theme-tile p-3 bg-[#262200] border-2 border-[#ffcc00] text-[#ffcc00] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
-          <div class="w-full h-3 bg-gradient-to-r from-[#ffcc00] via-[#ff6600] to-[#00e5ff]"></div>
-          <span>💛 PERSONA 4</span>
+        <button data-theme="persona4" class="theme-tile p-4 bg-[#262200] border-2 border-[#ffcc00] text-[#ffcc00] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
+          <div class="w-full h-3.5 bg-gradient-to-r from-[#ffcc00] via-[#ff6600] to-[#00e5ff]"></div>
+          <span class="font-persona-title text-sm tracking-wider">💛 PERSONA 4</span>
+          <span class="text-[10px] text-gray-300 font-mono">Golden TV Yellow & Orange</span>
         </button>
 
-        <button data-theme="persona3" class="theme-tile p-3 bg-[#081633] border-2 border-[#0088ff] text-[#0088ff] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
-          <div class="w-full h-3 bg-gradient-to-r from-[#0088ff] via-[#00f0ff] to-[#ff0055]"></div>
-          <span>💙 PERSONA 3</span>
+        <button data-theme="persona3" class="theme-tile p-4 bg-[#081633] border-2 border-[#0088ff] text-[#0088ff] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
+          <div class="w-full h-3.5 bg-gradient-to-r from-[#0088ff] via-[#00f0ff] to-[#ff0055]"></div>
+          <span class="font-persona-title text-sm tracking-wider">💙 PERSONA 3</span>
+          <span class="text-[10px] text-gray-300 font-mono">Moonlight Cobalt Blue</span>
         </button>
 
-        <button data-theme="persona2" class="theme-tile p-3 bg-[#24002e] border-2 border-[#d9004c] text-[#d9004c] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
-          <div class="w-full h-3 bg-gradient-to-r from-[#d9004c] via-[#b84dff] to-[#ffcc00]"></div>
-          <span>💜 PERSONA 2</span>
+        <button data-theme="persona2" class="theme-tile p-4 bg-[#24002e] border-2 border-[#d9004c] text-[#d9004c] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
+          <div class="w-full h-3.5 bg-gradient-to-r from-[#d9004c] via-[#b84dff] to-[#ffcc00]"></div>
+          <span class="font-persona-title text-sm tracking-wider">💜 PERSONA 2</span>
+          <span class="text-[10px] text-gray-300 font-mono">Velvet Crimson & Violet</span>
         </button>
 
-        <button data-theme="persona1" class="theme-tile p-3 bg-[#1c0033] border-2 border-[#9933ff] text-[#9933ff] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
-          <div class="w-full h-3 bg-gradient-to-r from-[#9933ff] via-[#00f2fe] to-[#ff00a0]"></div>
-          <span>🔮 PERSONA 1</span>
-        </button>
-
-        <button data-theme="velvet" class="theme-tile p-3 bg-[#061233] border-2 border-[#ffd700] text-[#ffd700] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
-          <div class="w-full h-3 bg-gradient-to-r from-[#0055ff] via-[#ffd700] to-[#00e5ff]"></div>
-          <span>🎭 VELVET ROOM</span>
-        </button>
-
-        <button data-theme="cyan" class="theme-tile p-3 bg-[#121220] border-2 border-[#00f2fe] text-[#00f2fe] font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all">
-          <div class="w-full h-3 bg-gradient-to-r from-[#00f2fe] to-[#00ff9d]"></div>
-          <span>CYBER NEON</span>
-        </button>
-
-        <button data-theme="rgb-rainbow" class="theme-tile p-3 bg-[#121220] border-2 border-yellow-400 text-yellow-300 font-bold text-center flex flex-col items-center gap-1.5 hover:scale-105 transition-all relative overflow-hidden">
-          <div class="w-full h-3 bg-gradient-to-r from-red-500 via-green-500 to-blue-500 animate-pulse"></div>
-          <span>🌈 RGB CHROMA</span>
+        <button data-theme="persona1" class="theme-tile p-4 bg-[#1c0033] border-2 border-[#9933ff] text-[#9933ff] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
+          <div class="w-full h-3.5 bg-gradient-to-r from-[#9933ff] via-[#00f2fe] to-[#ff00a0]"></div>
+          <span class="font-persona-title text-sm tracking-wider">🔮 PERSONA 1</span>
+          <span class="text-[10px] text-gray-300 font-mono">Philemon Purple & Lavender</span>
         </button>
       </div>
     </div>
