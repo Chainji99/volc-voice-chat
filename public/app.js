@@ -167,8 +167,46 @@ window.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('volc_rgb_theme') || 'cyan';
   applyTheme(savedTheme);
 
+  // Run Futuristic Cyber Intro Boot Animation
+  runCyberIntroAnimation();
+
   setupEventListeners();
 });
+
+function runCyberIntroAnimation() {
+  const introScreen = document.getElementById('cyber-intro-screen');
+  const progressBar = document.getElementById('intro-progress-bar');
+  const percentageText = document.getElementById('intro-percentage-text');
+  const statusText = document.getElementById('intro-status-text');
+
+  if (!introScreen || !progressBar) return;
+
+  const bootSteps = [
+    { progress: 25, text: '> INITIALIZING NEURAL AUDIO...' },
+    { progress: 55, text: '> CONNECTING MATRIX WEBRTC MESH...' },
+    { progress: 85, text: '> ENABLING SMART AUTO NOISE GATE...' },
+    { progress: 100, text: '> SYSTEM READY! WELCOME GAMER' }
+  ];
+
+  let stepIndex = 0;
+  const bootInterval = setInterval(() => {
+    if (stepIndex < bootSteps.length) {
+      const step = bootSteps[stepIndex];
+      progressBar.style.width = `${step.progress}%`;
+      if (percentageText) percentageText.textContent = `${step.progress}%`;
+      if (statusText) statusText.textContent = step.text;
+      stepIndex++;
+    } else {
+      clearInterval(bootInterval);
+      setTimeout(() => {
+        introScreen.style.opacity = '0';
+        setTimeout(() => {
+          introScreen.style.display = 'none';
+        }, 700);
+      }, 250);
+    }
+  }, 220);
+}
 
 function applyTheme(themeName) {
   document.body.classList.remove(

@@ -10,9 +10,9 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="VOLC Pixel Voice">
+  <meta name="apple-mobile-web-app-title" content="VOLC Voice">
   <meta name="theme-color" content="#0a0a12">
-  <title>VOLC PIXEL VOICE - Cyberpunk Gaming Audio</title>
+  <title>VOLC VOICE - Cyberpunk Gaming Audio</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -22,6 +22,36 @@
 </head>
 <body class="bg-[#0a0a12] text-[#f0f0ff] flex flex-col h-screen overflow-hidden select-none relative">
 
+  <!-- ==================== FUTURISTIC CYBER INTRO BOOT SCREEN ==================== -->
+  <div id="cyber-intro-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#070710] text-[#00f2fe] font-pixel select-none transition-opacity duration-700">
+    <div class="relative flex flex-col items-center gap-6 max-w-sm w-full px-6 text-center">
+      
+      <!-- Glowing Cyber Emblem -->
+      <div class="w-20 h-20 bg-[#121220] border-4 border-[#00f2fe] flex items-center justify-center shadow-[0_0_30px_rgba(0,242,254,0.5)] animate-pulse relative">
+        <i class="fa-solid fa-headset text-4xl text-[#00ff9d]"></i>
+        <div class="absolute -inset-1 border-2 border-dashed border-[#ff007f] animate-spin" style="animation-duration: 8s;"></div>
+      </div>
+
+      <!-- Cyber Title & Subtitle -->
+      <div class="space-y-1">
+        <h1 class="text-xl font-pixel-title text-[#00f2fe] tracking-widest animate-pulse">[VOLC VOICE CHAT]</h1>
+        <p class="text-xs text-[#00ff9d] font-mono tracking-widest">> SPATIAL GAMING AUDIO v3.5</p>
+      </div>
+
+      <!-- Boot Loader Progress Bar -->
+      <div class="w-full space-y-2">
+        <div class="h-3.5 bg-[#121220] border-2 border-[#00f2fe] p-0.5 relative overflow-hidden shadow-[3px_3px_0px_#00ff9d]">
+          <div id="intro-progress-bar" class="h-full bg-gradient-to-r from-[#00f2fe] via-[#00ff9d] to-[#ff007f] w-0 transition-all duration-150 ease-out"></div>
+        </div>
+        <div class="flex justify-between text-[10px] text-[#8a8ab0] font-mono">
+          <span id="intro-status-text">> INITIALIZING CORE...</span>
+          <span id="intro-percentage-text" class="text-[#00ff9d] font-bold">0%</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- ==================== ANIMATED CYBER PIXEL BACKGROUND ==================== -->
   <div class="cyber-animated-bg"></div>
   <div class="cyber-stars"></div>
@@ -29,7 +59,7 @@
 
   <!-- PWA Install Banner Button -->
   <button id="pwa-install-btn" class="hidden fixed top-16 right-4 z-50 px-4 py-2.5 pixel-btn pixel-btn-green font-bold text-xs flex items-center gap-2 shadow-2xl animate-bounce">
-    <i class="fa-solid fa-gamepad"></i> <span>[INSTALL PIXEL APP]</span>
+    <i class="fa-solid fa-gamepad"></i> <span>[INSTALL VOLC APP]</span>
   </button>
 
   <!-- ==================== JOIN ROOM MODAL ==================== -->
@@ -39,8 +69,8 @@
         <div class="inline-flex items-center justify-center w-16 h-16 bg-[#161628] border-2 border-[#00f2fe] mb-4 shadow-[4px_4px_0px_#00ff9d]">
           <i class="fa-solid fa-gamepad text-3xl text-[#00f2fe]"></i>
         </div>
-        <h1 class="text-lg font-pixel-title text-[#00f2fe] tracking-widest leading-relaxed">[VOLC PIXEL VOICE]</h1>
-        <p class="text-xs text-[#00ff9d] font-pixel mt-2">> SPATIAL AUDIO FOR GAMERS v2.0</p>
+        <h1 class="text-lg font-pixel-title text-[#00f2fe] tracking-widest leading-relaxed">[VOLC VOICE CHAT]</h1>
+        <p class="text-xs text-[#00ff9d] font-pixel mt-2">> SPATIAL AUDIO FOR GAMERS v3.5</p>
       </div>
 
       <form id="join-form" class="space-y-4 font-pixel">
@@ -58,7 +88,7 @@
           <div class="relative flex gap-2">
             <div class="relative flex-1">
               <i class="fa-solid fa-headset absolute left-4 top-3.5 text-gray-400 text-sm"></i>
-              <input type="text" id="room-input" required placeholder="pixel-squad" 
+              <input type="text" id="room-input" required placeholder="cyber-squad" 
                 class="w-full bg-[#0a0a12] border-2 border-[#00f2fe] px-4 py-3 pl-11 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#00ff9d]">
             </div>
             <button type="button" id="random-room-btn" data-tooltip="สุ่มรหัสห้อง" 
@@ -76,7 +106,7 @@
     </div>
   </div>
 
-  <!-- ==================== TOP CYBER PIXEL NAV BAR ==================== -->
+  <!-- ==================== TOP CYBER NAV BAR ==================== -->
   <header id="top-nav" class="h-14 sm:h-16 px-3 sm:px-6 flex items-center justify-between border-b-4 border-[#00f2fe] bg-[#121220] z-20 transition-all">
     <!-- Left Logo & Room Code -->
     <div class="flex items-center gap-2 sm:gap-3 min-w-0">
@@ -84,8 +114,8 @@
         <i class="fa-solid fa-waveform text-[#00f2fe] text-xs sm:text-base"></i>
       </div>
       <div class="hidden sm:flex flex-col logo-title-sub flex-shrink-0">
-        <span class="font-pixel-title font-bold text-xs tracking-wider text-[#00f2fe]">VOLC_PIXEL</span>
-        <span class="text-[10px] text-[#00ff9d] font-pixel tracking-widest">> VOICE_CHAT v2.0</span>
+        <span class="font-pixel-title font-bold text-xs tracking-wider text-[#00f2fe]">VOLC_VOICE</span>
+        <span class="text-[10px] text-[#00ff9d] font-pixel tracking-widest">> VOICE_CHAT v3.5</span>
       </div>
 
       <div class="h-5 w-0.5 bg-[#333355] mx-1 hidden sm:block"></div>
@@ -174,7 +204,7 @@
       <div class="p-4 border-b-2 border-[#333355] flex items-center justify-between">
         <div class="flex items-center gap-2 text-xs font-bold text-[#00f2fe]">
           <i class="fa-solid fa-[#terminal]"></i>
-          <span>> PIXEL CHAT LOG</span>
+          <span>> CYBER CHAT LOG</span>
         </div>
         <button id="close-chat-btn" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark"></i>
@@ -183,7 +213,7 @@
 
       <!-- Messages container -->
       <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 font-mono text-xs">
-        <div class="text-center text-[#8a8ab0] italic my-2">> WELCOME TO PIXEL MATRIX CHAT</div>
+        <div class="text-center text-[#8a8ab0] italic my-2">> WELCOME TO CYBER MATRIX CHAT</div>
       </div>
 
       <!-- Chat Input Form -->
@@ -410,6 +440,6 @@
 
   <!-- Socket.io & App JS -->
   <script src="/socket.io/socket.io.js"></script>
-  <script src="app.js?v=3.0"></script>
+  <script src="app.js?v=4.0"></script>
 </body>
 </html>
