@@ -36,8 +36,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- Custom VOLC Styles (v=VOLC_13.0) -->
-  <link rel="stylesheet" href="style.css?v=VOLC_13.0">
+  <!-- Custom VOLC Styles (v=VOLC_20.0) -->
+  <link rel="stylesheet" href="style.css?v=VOLC_20.0">
 </head>
 <body class="bg-pixel-bg text-[#f0f0ff] flex flex-col h-screen overflow-hidden select-none relative transition-colors duration-300">
 
@@ -189,24 +189,24 @@
   </div>
 
   <!-- ==================== TOP CYBER NAV BAR ==================== -->
-  <header id="top-nav" class="h-14 sm:h-16 px-3 sm:px-6 flex items-center justify-between border-b-4 border-[#00f2fe] bg-[#121220] z-20 transition-all">
+  <header id="top-nav" class="h-14 sm:h-16 px-3 sm:px-6 flex items-center justify-between border-b-4 border-[var(--theme-primary)] bg-[#121220]/90 backdrop-blur-md z-20 transition-all shadow-lg">
     <!-- Left Logo & Room Code -->
     <div class="flex items-center gap-2 sm:gap-3 min-w-0">
-      <div class="w-8 h-8 sm:w-10 sm:h-10 bg-[#161628] border-2 border-[#00f2fe] flex-shrink-0 flex items-center justify-center shadow-[2px_2px_0px_#00ff9d] sm:shadow-[3px_3px_0px_#00ff9d]">
-        <i class="fa-solid fa-waveform text-[#00f2fe] text-xs sm:text-base"></i>
+      <div class="w-8 h-8 sm:w-10 sm:h-10 bg-[#161628] border-2 border-[var(--theme-primary)] flex-shrink-0 flex items-center justify-center shadow-[3px_3px_0px_var(--theme-accent)]">
+        <i class="fa-solid fa-waveform text-[var(--theme-primary)] text-xs sm:text-base animate-pulse"></i>
       </div>
       <div class="hidden sm:flex flex-col logo-title-sub flex-shrink-0">
-        <span class="font-pixel-title font-bold text-xs tracking-wider text-[#00f2fe]">VOLC_VOICE</span>
-        <span class="text-[10px] text-[#00ff9d] font-pixel tracking-widest">> VOICE_CHAT v3.5</span>
+        <span class="font-pixel-title font-bold text-xs tracking-wider text-[var(--theme-primary)]">VOLC_VOICE HD</span>
+        <span class="text-[10px] text-[var(--theme-accent)] font-pixel tracking-widest">> 48kHz OPUS P2P</span>
       </div>
 
       <div class="h-5 w-0.5 bg-[#333355] mx-1 hidden sm:block"></div>
 
       <!-- Room Code Box -->
-      <div class="flex items-center gap-1.5 bg-[#0a0a12] border-2 border-[#00f2fe] px-2 sm:px-3 py-1 text-xs max-w-[150px] sm:max-w-none truncate">
+      <div class="flex items-center gap-1.5 bg-[#0a0a12] border-2 border-[var(--theme-primary)] px-2 sm:px-3 py-1 text-xs max-w-[150px] sm:max-w-none truncate">
         <span class="text-[#8a8ab0] hidden md:inline">ROOM:</span>
-        <span id="current-room-display" class="font-mono font-bold text-[#00ff9d] truncate max-w-[90px] sm:max-w-none">-</span>
-        <button id="copy-link-btn" data-tooltip="คัดลอกลิงก์เชิญเพื่อน" class="text-[#00f2fe] hover:text-[#00ff9d] ml-1 flex-shrink-0">
+        <span id="current-room-display" class="font-mono font-bold text-[var(--theme-accent)] truncate max-w-[90px] sm:max-w-none">-</span>
+        <button id="copy-link-btn" data-tooltip="คัดลอกลิงก์เชิญเพื่อน" class="text-[var(--theme-primary)] hover:text-white ml-1 flex-shrink-0">
           <i class="fa-regular fa-copy"></i>
         </button>
       </div>
@@ -216,13 +216,13 @@
     <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
       <!-- Latency Status -->
       <div class="flex items-center gap-2 text-xs bg-[#0a0a12] border-2 border-[#333355] px-2 sm:px-3 py-1 font-mono">
-        <span id="latency-dot" class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#00ff9d] animate-ping"></span>
-        <span id="connection-status-text" class="text-[#00ff9d] hidden lg:inline">ONLINE [12ms]</span>
+        <span id="latency-dot" class="w-2.5 h-2.5 rounded-full bg-[#00ff9d] animate-ping"></span>
+        <span id="connection-status-text" class="text-[#00ff9d] hidden lg:inline font-bold">ONLINE [14ms]</span>
       </div>
 
       <!-- Screen Share Button -->
       <button id="share-screen-btn" class="px-2.5 py-1.5 pixel-btn text-xs font-bold flex items-center gap-1.5">
-        <i class="fa-solid fa-desktop text-[#00f2fe]"></i>
+        <i class="fa-solid fa-desktop text-white"></i>
         <span class="hidden md:inline">[STREAM GAME]</span>
       </button>
 
@@ -234,7 +234,7 @@
       <!-- Text Chat Toggle -->
       <button id="toggle-chat-btn" data-tooltip="เปิด/ปิด แชทข้อความ" class="p-1.5 sm:p-2 pixel-btn relative">
         <i class="fa-solid fa-comment-code text-xs"></i>
-        <span id="chat-badge" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#ff007f]"></span>
+        <span id="chat-badge" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#ff007f] rounded-full animate-ping"></span>
       </button>
 
       <!-- RGB Theme Customizer Button -->
@@ -256,37 +256,49 @@
     <main id="main-content" class="flex-1 p-6 overflow-y-auto">
       <div class="max-w-6xl mx-auto space-y-6">
         
-        <!-- Screen Share CRT View Stage (Hidden when not streaming) -->
-        <div id="screen-share-container" class="hidden w-full max-h-[55vh] bg-black border-4 border-[#ff007f] shadow-[6px_6px_0px_#000000] relative overflow-hidden">
+        <!-- Screen Share Stage Viewport (Hidden when not streaming) -->
+        <div id="screen-share-container" class="hidden w-full max-h-[55vh] bg-black border-4 border-[var(--theme-primary)] shadow-[8px_8px_0px_#000000] relative overflow-hidden group">
           <video id="screen-share-video" autoplay playsinline class="w-full h-full object-contain"></video>
-          <div class="absolute top-4 left-4 bg-[#0a0a12] border-2 border-[#ff007f] px-3 py-1 text-xs text-[#ff007f] font-mono font-bold flex items-center gap-2">
-            <span class="w-2.5 h-2.5 bg-[#ff007f] animate-ping"></span>
-            <span id="screen-share-user-name">> GAME_STREAM_ACTIVE</span>
+          
+          <!-- Top HUD Overlay -->
+          <div class="absolute top-4 left-4 bg-black/80 border-2 border-[var(--theme-primary)] px-3 py-1.5 text-xs text-[var(--theme-accent)] font-mono font-bold flex items-center gap-2 backdrop-blur-md">
+            <span class="w-2.5 h-2.5 bg-[var(--theme-primary)] animate-ping"></span>
+            <span id="screen-share-user-name">> LIVE GAME STREAM [1080p60]</span>
+          </div>
+
+          <!-- Bottom Control Bar -->
+          <div class="absolute bottom-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 p-2 border border-white/20 backdrop-blur-md">
+            <button id="pip-stream-btn" class="px-2 py-1 text-xs bg-[#161628] border border-white/30 hover:border-white text-white font-mono">
+              <i class="fa-solid fa-[#clone]"></i> PiP
+            </button>
+            <button id="fullscreen-stream-btn" class="px-2 py-1 text-xs bg-[var(--theme-primary)] text-black font-bold font-mono">
+              <i class="fa-solid fa-expand"></i> FULLSCREEN
+            </button>
           </div>
         </div>
 
         <!-- Participants Section Header -->
         <div class="flex items-center justify-between border-b-2 border-[#333355] pb-2">
-          <div class="flex items-center gap-2 text-xs font-pixel text-[#00f2fe]">
-            <i class="fa-solid fa-users text-[#00ff9d]"></i>
+          <div class="flex items-center gap-2 text-xs font-pixel text-[var(--theme-primary)] font-bold">
+            <i class="fa-solid fa-users text-[var(--theme-accent)]"></i>
             <span>> ACTIVE PLAYERS IN ROOM (<span id="user-count-display">0</span>)</span>
           </div>
-          <span class="text-xs text-[#8a8ab0] font-mono hidden sm:inline">> ADJUST INDIVIDUAL PLAYER VOLUMES BELOW</span>
+          <span class="text-xs text-[#8a8ab0] font-mono hidden sm:inline">> INDIVIDUAL VOLUME & AUDIO EQUALIZER CARDS</span>
         </div>
 
-        <!-- Dynamic Grid of Cyber Pixel User Cards -->
+        <!-- Dynamic Grid of User Cards -->
         <div id="participants-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 grid-participants">
           <!-- Dynamic User Cards inserted by JavaScript -->
         </div>
       </div>
     </main>
 
-    <!-- RIGHT PIXEL TEXT CHAT SIDEBAR -->
-    <aside id="chat-sidebar" class="w-80 bg-[#121220] border-l-4 border-[#00f2fe] flex flex-col transition-all duration-300 z-30 hidden">
+    <!-- RIGHT TEXT CHAT SIDEBAR -->
+    <aside id="chat-sidebar" class="w-80 bg-[#121220]/95 backdrop-blur-lg border-l-4 border-[var(--theme-primary)] flex flex-col transition-all duration-300 z-30 hidden shadow-2xl">
       <div class="p-4 border-b-2 border-[#333355] flex items-center justify-between">
-        <div class="flex items-center gap-2 text-xs font-bold text-[#00f2fe]">
-          <i class="fa-solid fa-[#terminal]"></i>
-          <span>> CYBER CHAT LOG</span>
+        <div class="flex items-center gap-2 text-xs font-bold text-[var(--theme-primary)]">
+          <i class="fa-solid fa-comments"></i>
+          <span>> VOLC CYBER CHAT LOG</span>
         </div>
         <button id="close-chat-btn" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark"></i>
@@ -295,13 +307,24 @@
 
       <!-- Messages container -->
       <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 font-mono text-xs">
-        <div class="text-center text-[#8a8ab0] italic my-2">> WELCOME TO CYBER MATRIX CHAT</div>
+        <div class="text-center text-[#8a8ab0] italic my-2">> WELCOME TO VOLC AUDIO CHAT</div>
+      </div>
+
+      <!-- Quick Emoji Reactions Bar -->
+      <div class="px-3 py-1.5 bg-[#0a0a12] border-t border-[#333355] flex items-center justify-between text-base select-none">
+        <button type="button" onclick="sendReaction('🔥')" class="hover:scale-125 transition-transform p-1" data-tooltip="🔥">🔥</button>
+        <button type="button" onclick="sendReaction('❤️')" class="hover:scale-125 transition-transform p-1" data-tooltip="❤️">❤️</button>
+        <button type="button" onclick="sendReaction('👏')" class="hover:scale-125 transition-transform p-1" data-tooltip="👏">👏</button>
+        <button type="button" onclick="sendReaction('🎮')" class="hover:scale-125 transition-transform p-1" data-tooltip="🎮">🎮</button>
+        <button type="button" onclick="sendReaction('🚀')" class="hover:scale-125 transition-transform p-1" data-tooltip="🚀">🚀</button>
+        <button type="button" onclick="sendReaction('👍')" class="hover:scale-125 transition-transform p-1" data-tooltip="👍">👍</button>
+        <button type="button" onclick="sendReaction('😂')" class="hover:scale-125 transition-transform p-1" data-tooltip="😂">😂</button>
       </div>
 
       <!-- Chat Input Form -->
       <form id="chat-form" onsubmit="event.preventDefault(); handleSendMessage();" class="p-3 border-t-2 border-[#333355] flex gap-2">
         <input type="text" id="chat-input" placeholder="> พิมพ์ข้อความ..." autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault(); handleSendMessage();}"
-          class="flex-1 bg-[#0a0a12] border-2 border-[#00f2fe] px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00ff9d]">
+          class="flex-1 bg-[#0a0a12] border-2 border-[var(--theme-primary)] px-3 py-2 text-xs text-white focus:outline-none focus:border-[var(--theme-accent)]">
         <button type="button" id="send-chat-btn" onclick="handleSendMessage();" class="px-4 py-2 pixel-btn pixel-btn-green font-bold text-xs">
           <i class="fa-solid fa-paper-plane"></i>
         </button>
@@ -309,8 +332,8 @@
     </aside>
   </div>
 
-  <!-- ==================== FLOATING CYBER PIXEL CONTROL DOCK ==================== -->
-  <div class="floating-dock fixed bottom-4 left-1/2 -translate-x-1/2 bg-[#121220] border-4 border-[#00f2fe] shadow-[6px_6px_0px_#000000] px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6 z-40 max-w-2xl w-[calc(100%-32px)]">
+  <!-- ==================== FLOATING CONTROL DOCK ==================== -->
+  <div class="floating-dock fixed bottom-4 left-1/2 -translate-x-1/2 bg-[#121220]/90 backdrop-blur-xl border-4 border-[var(--theme-primary)] shadow-[6px_6px_0px_#000000] px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6 z-40 max-w-2xl w-[calc(100%-32px)]">
     
     <!-- Left Section: User Info + Mic Gate Bar -->
     <div class="dock-section-top flex items-center justify-between w-full sm:w-auto gap-4">
@@ -318,16 +341,16 @@
       <div class="flex items-center gap-3" id="dock-extended-info">
         <div class="relative avatar-container">
           <div id="self-avatar-ring" class="avatar-ring"></div>
-          <div class="w-10 h-10 bg-[#161628] border-2 border-[#00f2fe] flex items-center justify-center font-bold text-[#00f2fe] shadow-[2px_2px_0px_#00ff9d] text-sm" id="self-avatar-text">
+          <div class="w-10 h-10 bg-[#161628] border-2 border-[var(--theme-primary)] flex items-center justify-center font-bold text-[var(--theme-primary)] shadow-[2px_2px_0px_var(--theme-accent)] text-sm" id="self-avatar-text">
             G
           </div>
         </div>
         <div>
           <div class="text-xs font-bold text-white leading-tight flex items-center gap-1.5">
             <span id="self-username-display">Gamer</span>
-            <span id="self-status-badge" class="text-[9px] bg-[#00f2fe]/20 text-[#00f2fe] border border-[#00f2fe] px-1.5 py-0.2 font-mono">VAD</span>
+            <span id="self-status-badge" class="text-[9px] bg-[var(--theme-primary)]/20 text-[var(--theme-primary)] border border-[var(--theme-primary)] px-1.5 py-0.2 font-mono">VAD</span>
           </div>
-          <div class="text-[10px] text-[#00ff9d] flex items-center gap-1 mt-0.5 font-mono">
+          <div class="text-[10px] text-[var(--theme-accent)] flex items-center gap-1 mt-0.5 font-mono">
             <i class="fa-solid fa-microphone text-[9px]" id="self-mic-icon-indicator"></i>
             <span id="self-mic-status-text">ONLINE</span>
           </div>
@@ -337,15 +360,15 @@
       <!-- Live Smart Auto Mic Visualizer -->
       <div class="w-32 sm:w-28 flex flex-col gap-1" id="mic-visualizer-container">
         <div class="flex justify-between items-center text-[9px] text-[#8a8ab0] font-mono">
-          <span class="font-bold text-[#00f2fe]">VOICE SENS</span>
-          <span id="sensitivity-value-display" class="font-bold text-[#00ff9d]">SMART AUTO</span>
+          <span class="font-bold text-[var(--theme-primary)]">SENSITIVITY</span>
+          <span id="sensitivity-value-display" class="font-bold text-[var(--theme-accent)]">AUTO</span>
         </div>
         <div class="mic-meter-bar">
           <div id="mic-meter-fill" class="mic-meter-fill"></div>
         </div>
-        <div class="text-[8px] text-[#00ff9d] font-mono tracking-wider text-center truncate flex items-center justify-center gap-1">
-          <i class="fa-solid fa-shield-halved text-[8px] text-[#00f2fe] animate-pulse"></i>
-          <span>NOISE CANCELED</span>
+        <div class="text-[8px] text-[var(--theme-accent)] font-mono tracking-wider text-center truncate flex items-center justify-center gap-1">
+          <i class="fa-solid fa-shield-halved text-[8px] text-[var(--theme-primary)] animate-pulse"></i>
+          <span>DSP NOISE FILTER</span>
         </div>
       </div>
     </div>
@@ -370,7 +393,7 @@
       </div>
 
       <!-- Voice Mode Select -->
-      <select id="voice-mode-select" class="bg-[#0a0a12] border-2 border-[#00f2fe] px-3 py-1.5 text-xs text-[#00ff9d] font-mono focus:outline-none">
+      <select id="voice-mode-select" class="bg-[#0a0a12] border-2 border-[var(--theme-primary)] px-3 py-1.5 text-xs text-[var(--theme-accent)] font-mono focus:outline-none">
         <option value="vad">VAD MODE</option>
         <option value="ptt">PTT MODE</option>
       </select>
@@ -381,9 +404,9 @@
   <div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 hidden">
     <div class="pixel-box p-6 rounded-none w-full max-w-lg relative max-h-[90dvh] overflow-y-auto">
       <div class="flex items-center justify-between pb-4 border-b-2 border-[#333355] mb-5">
-        <div class="flex items-center gap-2 text-[#00f2fe]">
+        <div class="flex items-center gap-2 text-[var(--theme-primary)]">
           <i class="fa-solid fa-sliders"></i>
-          <h3 class="font-pixel-title text-sm tracking-wider">[AUDIO SETTINGS]</h3>
+          <h3 class="font-pixel-title text-sm tracking-wider">[AUDIO & DSP SETTINGS]</h3>
         </div>
         <button id="close-settings-btn" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark text-lg"></i>
@@ -393,59 +416,48 @@
       <div class="space-y-5 font-pixel text-xs">
         <!-- Microphone Selector -->
         <div>
-          <label class="block font-bold text-[#00f2fe] uppercase tracking-wider mb-2">
+          <label class="block font-bold text-[var(--theme-primary)] uppercase tracking-wider mb-2">
             > MICROPHONE INPUT:
           </label>
-          <select id="mic-device-select" class="w-full bg-[#0a0a12] border-2 border-[#00f2fe] px-4 py-3 text-xs text-white focus:outline-none">
+          <select id="mic-device-select" class="w-full bg-[#0a0a12] border-2 border-[var(--theme-primary)] px-4 py-3 text-xs text-white focus:outline-none">
             <option value="">กำลังโหลดอุปกรณ์...</option>
           </select>
         </div>
 
         <!-- Speaker Selector -->
         <div>
-          <label class="block font-bold text-[#00f2fe] uppercase tracking-wider mb-2">
+          <label class="block font-bold text-[var(--theme-primary)] uppercase tracking-wider mb-2">
             > HEADPHONE OUTPUT (setSinkId):
           </label>
-          <select id="speaker-device-select" class="w-full bg-[#0a0a12] border-2 border-[#00f2fe] px-4 py-3 text-xs text-white focus:outline-none">
+          <select id="speaker-device-select" class="w-full bg-[#0a0a12] border-2 border-[var(--theme-primary)] px-4 py-3 text-xs text-white focus:outline-none">
             <option value="">อุปกรณ์เริ่มต้น (Default Device)</option>
           </select>
-          <p class="text-[11px] text-[#8a8ab0] mt-1">* สามารถเลือกแยกเสียงพูดออกหูฟังเฉพาะได้</p>
         </div>
 
-        <!-- Audio Processing Filters -->
+        <!-- Audio Enhancements -->
         <div class="pt-2 border-t-2 border-[#333355]">
-          <h4 class="font-bold text-[#00f2fe] uppercase tracking-wider mb-3">> AUDIO ENHANCEMENTS:</h4>
+          <h4 class="font-bold text-[var(--theme-primary)] uppercase tracking-wider mb-3">> AUDIO ENHANCEMENTS & NOISE GATE:</h4>
           
-          <div class="bg-[#0a0a12] border-2 border-[#00ff9d] p-3.5 mb-3 flex items-start gap-3">
-            <i class="fa-solid fa-shield-halved text-[#00ff9d] text-lg mt-0.5"></i>
-            <div>
-              <div class="font-bold text-[#00ff9d]">NO GAME AUDIO DUCKING</div>
-              <div class="text-[11px] text-gray-300 mt-0.5">
-                สตรีมผ่าน HTML Media Stream **จะไม่เบาเสียงเกมในคอมของคุณอัตโนมัติ**
-              </div>
-            </div>
-          </div>
-
           <div class="space-y-3">
             <div class="flex items-center justify-between bg-[#0a0a12] p-3 border-2 border-[#333355]">
               <div>
                 <div class="font-bold text-white">ตัดเสียงสะท้อน (Echo Cancellation)</div>
               </div>
-              <input type="checkbox" id="echo-cancel-check" checked class="w-4 h-4 accent-[#00f2fe] cursor-pointer">
+              <input type="checkbox" id="echo-cancel-check" checked class="w-4 h-4 accent-[var(--theme-primary)] cursor-pointer">
             </div>
 
             <div class="flex items-center justify-between bg-[#0a0a12] p-3 border-2 border-[#333355]">
               <div>
-                <div class="font-bold text-white">ตัดเสียงรบกวน (Noise Suppression)</div>
+                <div class="font-bold text-white">ตัดเสียงรบกวน (Noise Suppression Filter)</div>
               </div>
-              <input type="checkbox" id="noise-suppress-check" checked class="w-4 h-4 accent-[#00f2fe] cursor-pointer">
+              <input type="checkbox" id="noise-suppress-check" checked class="w-4 h-4 accent-[var(--theme-primary)] cursor-pointer">
             </div>
           </div>
         </div>
 
         <!-- PTT Hotkey -->
         <div class="pt-2 border-t-2 border-[#333355]">
-          <label class="block font-bold text-[#00f2fe] uppercase tracking-wider mb-2">
+          <label class="block font-bold text-[var(--theme-primary)] uppercase tracking-wider mb-2">
             > PUSH TO TALK KEY:
           </label>
           <button id="rebind-ptt-btn" class="w-full py-3 px-4 pixel-btn text-xs font-mono font-bold text-center">
@@ -454,7 +466,10 @@
         </div>
       </div>
 
-      <div class="mt-6 pt-4 border-t-2 border-[#333355] flex justify-end">
+      <div class="mt-6 pt-4 border-t-2 border-[#333355] flex justify-between items-center">
+        <button type="button" onclick="playDiscordSFX('join');" class="px-4 py-2 border border-white/30 text-xs text-white hover:bg-white/10 font-mono">
+          <i class="fa-solid fa-volume-high mr-1"></i> TEST SFX
+        </button>
         <button id="save-settings-btn" class="px-6 py-2.5 pixel-btn pixel-btn-green font-bold text-xs">
           [SAVE SETTINGS]
         </button>
@@ -467,15 +482,15 @@
     <div class="pixel-box p-6 max-w-xl w-full relative">
       <div class="flex items-center justify-between border-b-2 border-theme-primary pb-3 mb-4">
         <div class="flex items-center gap-2 text-sm font-bold text-theme-primary">
-          <i class="fa-solid fa-mask text-theme-secondary"></i>
-          <span class="font-persona-title">[VOLC COLOR PALETTES]</span>
+          <i class="fa-solid fa-palette text-theme-secondary"></i>
+          <span class="font-persona-title">[VOLC COLOR PALETTES & RGB CHROMA]</span>
         </div>
         <button id="close-rgb-modal-btn" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <p class="text-xs text-[#8a8ab0] font-mono mb-4">> SELECT YOUR FAVORITE VOLC COLOR PALETTE (SERIES 1 - 5):</p>
+      <p class="text-xs text-[#8a8ab0] font-mono mb-4">> SELECT YOUR FAVORITE COLOR PALETTE:</p>
 
       <!-- Theme Grid Tiles -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 font-persona text-xs">
@@ -508,6 +523,12 @@
           <span class="font-persona-title text-sm tracking-wider">🔮 VOLC 1</span>
           <span class="text-[10px] text-gray-300 font-mono">Philemon Purple & Lavender</span>
         </button>
+
+        <button data-theme="rgb-rainbow" class="theme-tile p-4 bg-[#0f0a26] border-2 border-[#00f2fe] text-[#00f2fe] font-bold text-center flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-[4px_4px_0px_#000000]">
+          <div class="w-full h-3.5 bg-gradient-to-r from-[#ff007f] via-[#00f2fe] to-[#00ff9d] animate-pulse"></div>
+          <span class="font-persona-title text-sm tracking-wider">🌈 RGB CHROMA</span>
+          <span class="text-[10px] text-gray-300 font-mono">Dynamic Spectrum Shift</span>
+        </button>
       </div>
     </div>
   </div>
@@ -522,6 +543,6 @@
 
   <!-- Socket.io & App JS -->
   <script src="/socket.io/socket.io.js"></script>
-  <script src="app.js?v=VOLC_13.0"></script>
+  <script src="app.js?v=VOLC_20.0"></script>
 </body>
 </html>

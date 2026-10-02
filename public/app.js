@@ -378,11 +378,29 @@ function playDiscordSFX(type) {
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
       osc.start(now);
       osc.stop(now + 0.18);
+    } else if (type === 'reaction') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, now);
+      osc.frequency.setValueAtTime(1174.66, now + 0.05);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+      osc.start(now);
+      osc.stop(now + 0.16);
     }
   } catch (err) {
     console.warn('SFX Error:', err);
   }
 }
+
+window.sendReaction = function(emoji) {
+  if (!emoji) return;
+  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  appendChatMessage(currentUsername || 'Gamer', `${emoji} ${emoji} ${emoji}`, time, true);
+  playDiscordSFX('reaction');
+  if (socket && socket.connected) {
+    socket.emit('send-message', { message: `${emoji} ${emoji} ${emoji}` });
+  }
+};
 
 // Discord Screen Sharing State
 let screenStream = null;
@@ -1163,14 +1181,20 @@ function addUserCardToGrid(socketId, username) {
   const initial = username.charAt(0).toUpperCase();
   const card = document.createElement('div');
   card.id = `user-card-${socketId}`;
-  card.className = 'pixel-box p-4 flex flex-col items-center text-center justify-between relative overflow-hidden group min-h-[190px] font-pixel';
+  card.className = 'pixel-box persona-card p-4 flex flex-col items-center text-center justify-between relative overflow-hidden group min-h-[200px] font-pixel transition-all duration-300 hover:scale-[1.02] hover:shadow-[8px_8px_0px_#000000]';
 
   card.innerHTML = `
-    <!-- Top Mute Badge -->
-    <div class="absolute top-2 right-2 flex items-center gap-1.5 z-10" id="user-badges-${socketId}">
+    <!-- Top Mute Badge & Equalizer Spectrum -->
+    <div class="absolute top-2.5 right-2.5 flex items-center gap-2 z-10" id="user-badges-${socketId}">
       <span id="badge-mute-${socketId}" class="hidden text-[9px] font-bold text-[#ff007f] bg-[#ff007f]/10 px-2 py-0.5 border border-[#ff007f]">
         <i class="fa-solid fa-microphone-slash mr-1"></i> MUTED
       </span>
+      <div id="user-eq-bars-${socketId}" class="hidden flex items-end gap-1 h-3.5">
+        <span class="w-1 bg-[var(--theme-accent)] animate-bounce h-2"></span>
+        <span class="w-1 bg-[var(--theme-primary)] animate-bounce h-3.5" style="animation-delay: 0.15s;"></span>
+        <span class="w-1 bg-[var(--theme-accent)] animate-bounce h-1.5" style="animation-delay: 0.3s;"></span>
+        <span class="w-1 bg-[var(--theme-primary)] animate-bounce h-2.5" style="animation-delay: 0.45s;"></span>
+      </div>
     </div>
 
     <!-- Center Avatar Tile with Outer Waves -->
@@ -1178,26 +1202,26 @@ function addUserCardToGrid(socketId, username) {
       <div class="relative avatar-container my-2">
         <div id="avatar-ring-outer-${socketId}" class="avatar-ring-outer"></div>
         <div id="avatar-ring-${socketId}" class="avatar-ring"></div>
-        <div class="w-14 h-14 bg-[#161628] border-2 border-[#00f2fe] flex items-center justify-center font-bold text-[#00f2fe] text-xl shadow-[3px_3px_0px_#00ff9d]">
+        <div class="w-14 h-14 bg-[#161628] border-2 border-[var(--theme-primary)] flex items-center justify-center font-bold text-[var(--theme-primary)] text-xl shadow-[3px_3px_0px_var(--theme-accent)] transform hover:scale-110 transition-transform">
           ${initial}
         </div>
       </div>
-      <div class="text-xs font-bold text-white tracking-wide mt-2 truncate max-w-[140px]">${username}</div>
-      <div class="text-[9px] text-[#00ff9d] flex items-center gap-1 mt-0.5 font-mono">
-        <span class="w-1.5 h-1.5 bg-[#00ff9d] animate-pulse"></span>
-        <span>CONNECTED</span>
+      <div class="text-xs font-bold text-white tracking-wide mt-2 truncate max-w-[140px] font-persona-title">${username}</div>
+      <div class="text-[9px] text-[var(--theme-accent)] flex items-center gap-1 mt-0.5 font-mono">
+        <span class="w-1.5 h-1.5 bg-[var(--theme-accent)] animate-pulse rounded-full"></span>
+        <span>48kHz OPUS HD</span>
       </div>
     </div>
 
     <!-- Volume Control Slider -->
     <div class="w-full mt-2 pt-2 border-t border-[#333355]">
       <div class="flex justify-between items-center text-[9px] text-[#8a8ab0] mb-1 font-bold">
-        <span>> VOLUME</span>
-        <span id="volume-val-${socketId}" class="text-[#00f2fe] font-mono">100%</span>
+        <span>> PLAYER VOLUME</span>
+        <span id="volume-val-${socketId}" class="text-[var(--theme-primary)] font-mono font-bold">100%</span>
       </div>
       <div class="flex items-center gap-2">
         <i class="fa-solid fa-volume-high text-[9px] text-[#8a8ab0]"></i>
-        <input type="range" id="volume-slider-${socketId}" min="0" max="200" value="100" class="w-full">
+        <input type="range" id="volume-slider-${socketId}" min="0" max="200" value="100" class="w-full cursor-pointer">
       </div>
     </div>
   `;
@@ -1227,12 +1251,21 @@ function updateUserCardStatus(socketId) {
 
   const ring = document.getElementById(`avatar-ring-${socketId}`);
   const muteBadge = document.getElementById(`badge-mute-${socketId}`);
+  const eqBars = document.getElementById(`user-eq-bars-${socketId}`);
 
   if (ring) {
     if (state.isSpeaking && !state.muted) {
       ring.parentElement.classList.add('speaking');
     } else {
       ring.parentElement.classList.remove('speaking');
+    }
+  }
+
+  if (eqBars) {
+    if (state.isSpeaking && !state.muted) {
+      eqBars.classList.remove('hidden');
+    } else {
+      eqBars.classList.add('hidden');
     }
   }
 
